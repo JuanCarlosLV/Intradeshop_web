@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import "react-alice-carousel/lib/alice-carousel.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
