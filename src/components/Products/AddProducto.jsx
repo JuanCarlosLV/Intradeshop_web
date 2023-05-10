@@ -1,49 +1,58 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SketchPicker } from "react-color";
-import { agregarProducto } from "../../services/Producto";
+import { agregarProducto, subirImagen } from "../../services/Producto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { v4 as uuidv4 } from "uuid";
-import { supabase } from "../../supabase/connection";
 
 function AddProducto() {
-  const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState();
-  const [cantidad, setCantidad] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [color, setColor] = useState("");
-  const [talla, setTalla] = useState("");
-  const [image, setImage] = useState([]);
 
   const navigateMisProducts = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [formValues, setFormValues] = useState({
+    nombre: "",
+    precio: "",
+    cantidad: "",
+    categoria: "",
+    descripcion: "",
+    color: "",
+    talla: "",
+    imagen: [],
+  });
+
+  const handleInputChange = (evt) => {
+    setFormValues({
+      ...formValues,
+      [evt.target.name]: evt.target.value,
+    });
+  };
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
     agregarProducto(
-      nombre,
-      precio,
-      cantidad,
-      categoria,
-      descripcion,
-      color,
-      talla
+      formValues.nombre,
+      formValues.precio,
+      formValues.cantidad,
+      formValues.categoria,
+      formValues.descripcion,
+      formValues.color,
+      formValues.talla
     );
-    const imgName = `${uuidv4}-${image.name}`;
-    const { data, error } = supabase.storage
-      .from("Products")
-      .upload(imgName, image, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    if (error) throw error;
-    const imgUrl = data.path;
-    console.log(imgUrl);
-    navigateMisProducts("/misproductos");
+    subirImagen(formValues.imagen);
+    navigateMisProducts("/mis-productos");
   };
-  const handleFileSelect = (e) => {
-    setImage(e.target.files[0]);
+
+  const handleImagenChange = (evt) => {
+    setFormValues({
+      ...formValues,
+      imagen: evt.target.files[0],
+    });
   };
+  const handleColorChange = (color) =>{
+    setFormValues({
+      ...formValues,
+      color: color.hex
+    })
+  }
+  
   return (
     <>
       <div className="">
@@ -64,33 +73,41 @@ function AddProducto() {
             <div className="w-3/6 ml-20 mt-10 mb-52">
               <input
                 id="nombre"
+                name="nombre"
                 placeholder="Nombre del producto"
-                onChange={(e) => setNombre(e.target.value)}
+                value={formValues.nombre}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
               <input
                 id="precio"
+                name="precio"
                 placeholder="Precio del producto"
-                onChange={(e) => setPrecio(e.target.value)}
+                value={formValues.precio}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
               <input
                 type="file"
                 id="imagen"
-                placeholder="Nombre del producto"
-                onChange={handleFileSelect}
+                name="imagen"
+                onChange={handleImagenChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
               <input
                 id="cantidad"
+                name="cantidad"
                 placeholder="Cantidad del producto"
-                onChange={(e) => setCantidad(e.target.value)}
+                value={formValues.cantidad}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
 
               <select
                 id="categoria"
-                onChange={(e) => setCategoria(e.target.value)}
+                name="categoria"
+                value={formValues.categoria}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               >
                 <option value="Camisas">Camisas</option>
@@ -103,21 +120,27 @@ function AddProducto() {
 
               <input
                 id="descripcion"
+                name="descripcion"
                 placeholder="Breve descripcion del producto"
-                onChange={(e) => setDescripcion(e.target.value)}
+                value={formValues.descripcion}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
 
               <input
                 id="talla"
+                name="talla"
                 placeholder="Talla del producto"
-                onChange={(e) => setTalla(e.target.value)}
+                value={formValues.talla}
+                onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
 
               <SketchPicker
-                color={color}
-                onChangeComplete={(e) => setColor(e.hex)}
+                id="color"
+                name="color"
+                color={formValues.color}
+                onChangeComplete={handleColorChange}
               />
 
               <div className="px-96 ml-48 py-2">

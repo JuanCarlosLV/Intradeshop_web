@@ -3,17 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { eliminarProducto } from "../../services/Producto";
 import DetailProducto from "../Products/DetailProducto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import ConfirmacionAction from "../Modales/ConfirmacionAction";
+import { useState } from "react";
 
 function DeleteProducto() {
   const { id } = useParams();
 
   const navigateMisProductos = useNavigate();
+  const [mostrarModal, setMostrarModal] = useState(false);
 
   const handleDelete = () => {
     eliminarProducto(id);
-    navigateMisProductos("/misproductos");
+    navigateMisProductos("/mis-productos");
   };
-
+  const handleCloseModal = () => {
+    setMostrarModal(false);
+  };
+  const handleShowModal = () => {
+    setMostrarModal(true);
+  };
   return (
     <>
       <div>
@@ -32,12 +40,18 @@ function DeleteProducto() {
         <div>
           <button
             className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8 flex justify-center"
-            onClick={() => handleDelete()}
+            onClick={handleShowModal}
           >
             Eliminar
           </button>
         </div>
       </div>
+      <ConfirmacionAction
+        mostrarModal={mostrarModal}
+        titulo="Eliminar producto"
+        cancelar={handleCloseModal}
+        confirmar={handleDelete}
+      />
     </>
   );
 }

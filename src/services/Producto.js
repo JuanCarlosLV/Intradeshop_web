@@ -1,4 +1,5 @@
 import { supabase } from "../supabase/connection";
+import { v4 as uuidv4 } from "uuid";
 
 const addProduct = "add_product";
 const getProducts = "get_products";
@@ -9,7 +10,7 @@ const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
 
 const añadirCarrito = "insertar_carrito"
-
+let idProducImg;
 
 
 
@@ -41,10 +42,6 @@ export const insertarACarrito = async(id,nombre,cantidad,subtotal)=>{
   }
 }
 
-
-
-//let idProducto;
-
 export const getListProducto = async (nombre) => {
   try {
     const { error, data } = await supabase.rpc(getProducts, {
@@ -60,7 +57,6 @@ export const getListProducto = async (nombre) => {
 export const agregarProducto = async (
   nombre,
   precio,
-  imagen,
   cantidad,
   categoria,
   descripcion,
@@ -78,7 +74,7 @@ export const agregarProducto = async (
       talla_product: talla,
     });
     if (error) throw error;
-    idProducto = data;
+    idProducImg = data;
   } catch (error) {
     console.error(error);
   }
@@ -144,33 +140,31 @@ export const filtrarProducto = async (precio, color, talla) => {
   }
 };
 
-//no sube la imagen
-/*
-export const subirImgProducto = async (img) => {
-  try {
-    const nomImagen = `${uuidv4}-${img.name}`;
+export const subirImagen = async (imagen) => {
+  const imagenName = `${uuidv4()}-${imagen.name}`;
+  const { error } = await supabase.storage
+    .from("Products")
+    .upload(imagenName, imagen);
 
-    const { data,error } = await supabase.storage
-      .from("Productos").upload(nomImagen,img);
-    if (error) throw error;
-    const imagenUrl = data.path;
-    console.log(imagenUrl);
-  } catch (error) {
-    console.error(error);
+  if (error) {
+    console.log("Error al subir la imagen", error.message);
+  } else {
+    const { data } = await supabase.storage
+      .from("Products")
+      .getPublicUrl(imagenName);
+    const imgUrlUpdate = data.publicUrl;
+    guardarUrlProducto(imgUrlUpdate, idProducImg);
   }
 };
-*/
-//Esto si guarda la url de la imagen en la tabla 
-/*
-const guardarImgProducto = async (imgUrl, idProd) => {
+
+const guardarUrlProducto = async (imgUrl, idProd) => {
   try {
     const { error } = await supabase
       .from("Producto")
       .update({ imagen: imgUrl })
-      .match({ idProducto, idProd });
+      .eq("idProducto", idProd);
     if (error) throw error;
   } catch (error) {
     console.error(error);
   }
 };
-*/
