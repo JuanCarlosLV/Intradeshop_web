@@ -2,41 +2,62 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getProducto, editarProducto } from "../../services/Producto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import ConfirmacionAction from "../Modales/ConfirmacionAction";
 
 function EditProducto() {
-  const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState();
-  const [imagen, setImagen] = useState("");
-  const [cantidad, setCantidad] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [producto, setProducto] = useState("");
   const navigateMisProducts = useNavigate();
-
   const { id } = useParams();
+  const [formValues, setFormValues] = useState({
+    nombre: "",
+    precio: "",
+    imagen: "",
+    cantidad: "",
+    categoria: "",
+    descripcion: "",
+  });
+  const [mostrarModal, setMostrarModal] = useState(false);
 
   useEffect(() => {
     async function getData() {
       const data = await getProducto(id);
-      setProducto(data);
+      setFormValues({
+        nombre: data.nomProducto,
+        precio: data.precio,
+        imagen: data.imagen,
+        cantidad: data.cantidad,
+        categoria: data.categoria,
+        descripcion: data.descripcion,
+      });
     }
     getData();
   }, []);
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
+  const handleInputChange = (evt) => {
+    setFormValues({
+      ...formValues,
+      [evt.target.name]: evt.target.value,
+    });
+  };
+
+  const handleEdit = async (evt) => {
+    evt.preventDefault();
     editarProducto(
       id,
-      nombre,
-      precio,
-      imagen,
-      cantidad,
-      categoria,
-      descripcion
+      formValues.nombre,
+      formValues.precio,
+      formValues.imagen,
+      formValues.cantidad,
+      formValues.categoria,
+      formValues.descripcion
     );
     navigateMisProducts("/mis-productos");
   };
-
+  const handleCloseModal = () => {
+    setMostrarModal(false);
+  };
+  const handleShowModal = () => {
+    setMostrarModal(true);
+  };
   return (
     <>
       <div>
@@ -58,8 +79,9 @@ function EditProducto() {
             </label>
             <input
               id="nombre"
-              defaultValue={producto.nomProducto}
-              onChange={(e) => setNombre(e.target.value)}
+              name="nombre"
+              value={formValues.nombre}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
             />
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -67,15 +89,18 @@ function EditProducto() {
             </label>
             <input
               id="precio"
-              defaultValue={producto.precio}
-              onChange={(e) => setPrecio(e.target.value)}
+              name="precio"
+              value={formValues.precio}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
             />
 
             <input
               type="file"
               id="imagen"
-              onChange={(e) => setImagen(e.target.value)}
+              name="imagen"
+              value={formValues.imagen}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
             />
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -83,8 +108,9 @@ function EditProducto() {
             </label>
             <input
               id="cantidad"
-              defaultValue={producto.cantidad}
-              onChange={(e) => setCantidad(e.target.value)}
+              name="cantidad"
+              value={formValues.cantidad}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
             />
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -92,15 +118,20 @@ function EditProducto() {
             </label>
             <select
               id="categoria"
-              onChange={(e) => setCategoria(e.target.value)}
+              name="categoria"
+              value={formValues.categoria}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
             >
-              <option value="Camisas">Camisas</option>
-              <option value="Playera">Playera</option>
-              <option value="Pantalon">Pantalon</option>
+              <option value="Playeras">Playeras</option>
+              <option value="Pantalones">Pantalones</option>
+              <option value="Abrigos">Abrigos</option>
               <option value="Zapatos">Zapatos</option>
-              <option value="Accesorios">Accesorios</option>
-              <option value="Bolsos">Bolsos</option>
+              <option value="Vestidos">Vestidos</option>
+              <option value="Blusas">Blusas</option>
+              <option value="Accesorios">Abrigos</option>
+              <option value="RopaInterior">Ropa interior</option>
+              <option value="Shorts">Shorts</option>
             </select>
 
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -108,18 +139,29 @@ function EditProducto() {
             </label>
             <input
               id="descripcion"
-              defaultValue={producto.descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
+              name="descripcion"
+              defaultValue={formValues.descripcion}
+              onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
             />
             <div className="px-96 ml-48 py-2">
-              <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
+              <button
+                className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
+                onClick={handleShowModal}
+              >
                 Modificar
               </button>
             </div>
           </form>
         </div>
       </div>
+      <ConfirmacionAction
+        mostrarModal={mostrarModal}
+        titulo="Editar producto"
+        cuerpo="¿Estás seguro de modificar la información?"
+        cancelar={handleCloseModal}
+        confirmar={handleEdit}
+      />
     </>
   );
 }
