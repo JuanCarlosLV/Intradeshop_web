@@ -2,36 +2,50 @@ import { useEffect, useState } from "react";
 import { getInfoNegocio, editarInfoNegocio } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-function EditNegocio() {
-  const [nombre, setNombre] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [negocio, setNegocio] = useState("");
-  const navigatePrincipalDealer = useNavigate();
 
+function EditNegocio() {
+  const navigatePrincipalDealer = useNavigate();
   const logo = "logo";
   const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
 
+  const [formValues, setFormValues] = useState({
+    nombre:"",
+    correo:"",
+    direccion:"",
+    descripcion:"",
+    telefono:""
+  })
   useEffect(() => {
     async function getInfo() {
       const data = await getInfoNegocio(idDealer);
-      setNegocio(data);
+      setFormValues({
+        nombre: data.nomNegocio,
+        correo: data.correoElectronico,
+        direccion: data.direccion,
+        descripcion: data.descripcion,
+        telefono: data.telContacto,
+      });
     }
     getInfo();
   }, []);
 
-  const handleEditar = (e) => {
-    e.preventDefault();
+  const handleInputChange = (evt) =>{
+    setFormValues({
+      ...formValues,
+      [evt.target.name]: evt.value
+    })
+  }
+
+  const handleEditar = (evt) => {
+    evt.preventDefault();
     editarInfoNegocio(
       idDealer,
-      nombre,
-      correo,
-      direccion,
-      descripcion,
-      telefono,
-      logo
+      formValues.nombre,
+      formValues.correo,
+      formValues.direccion,
+      formValues.descripcion,
+      formValues.telefono,
+      logo,
     );
     navigatePrincipalDealer("/home-negociante");
   };
@@ -56,8 +70,9 @@ function EditNegocio() {
           </label>
           <input
             id="nombre"
-            defaultValue={negocio.nomNegocio}
-            onChange={(e) => setNombre(e.target.value)}
+            name="nombre"
+            value={formValues.nombre}
+            onChange={handleInputChange}
             className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -65,8 +80,9 @@ function EditNegocio() {
           </label>
           <input
             id="correo"
-            defaultValue={negocio.correoElectronico}
-            onChange={(e) => setCorreo(e.target.value)}
+            name="correo"
+            value={formValues.correo}
+            onChange={handleInputChange}
             className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -74,8 +90,9 @@ function EditNegocio() {
           </label>
           <input
             id="direccion"
-            defaultValue={negocio.direccion}
-            onChange={(e) => setDireccion(e.target.value)}
+            name="direccion"
+            value={formValues.direccion}
+            onChange={handleInputChange}
             className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -83,8 +100,9 @@ function EditNegocio() {
           </label>
           <input
             id="descripcion"
-            defaultValue={negocio.descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
+            name="descripcion"
+            value={formValues.descripcion}
+            onChange={handleInputChange}
             className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -92,8 +110,9 @@ function EditNegocio() {
           </label>
           <input
             id="telefono"
-            defaultValue={negocio.telContacto}
-            onChange={(e) => setTelefono(e.target.value)}
+            name="telefono"
+            value={formValues.telefono}
+            onChange={handleInputChange}
             className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
           />
           <div className="px-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3">

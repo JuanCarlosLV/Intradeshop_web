@@ -17,7 +17,7 @@ function Home() {
       setUsername(session.user.email);
     });
 
-    
+   
   }, []);
 
   return (

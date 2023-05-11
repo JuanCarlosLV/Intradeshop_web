@@ -5,7 +5,6 @@ import { getProducto } from "../../services/Producto";
 function DetailProducto() {
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
-
   useEffect(() => {
     async function showData() {
       const data = await getProducto(id);
