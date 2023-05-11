@@ -23,11 +23,11 @@ function ConfirmacionAction({
               &#8203;
             </span>
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-[#D1AC00] px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="bg-[#D1AC00] px-4 pt-5 pb-4 sm:p-20 sm:pb-10">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-5 sm:h-10 sm:w-10">
                     <svg
-                      className="h-6 w-6 text-red-600"
+                      className="h-6 w-6 text-black-600"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -38,15 +38,15 @@ function ConfirmacionAction({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
+                        d="M12 6l-6 12h12L12 6z"
                       />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg leading-6 font-bold font-ralewayFont text-gray-900">
+                    <h3 className="text-3xl leading-6 font-bold font-ralewayFont text-gray-900">
                       {titulo}
                     </h3>
-                    <div className="mt-2 font-medium font-ralewayFont">{cuerpo}</div>
+                    <div className="mt-5 text-xl font-medium font-ralewayFont">{cuerpo}</div>
                   </div>
                 </div>
               </div>
@@ -54,13 +54,13 @@ function ConfirmacionAction({
                 <button
                   onClick={confirmar}
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#004643] text-base font-bold font-ralewayFont text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#004643] sm:ml-3 sm:w-auto sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#004643] text-base font-bold font-ralewayFont text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#004643] sm:ml-4 sm:w-auto sm:text-md"
                 >
                   Aceptar
                 </button>
                 <button
                   onClick={cancelar}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-bold font-ralewayFont text-[#004643] hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white font-bold font-ralewayFont text-[#004643] hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-4 sm:w-auto sm:text-md h-10"
                 >
                   Cancelar
                 </button>

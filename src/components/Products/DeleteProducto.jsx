@@ -49,7 +49,7 @@ function DeleteProducto() {
       <ConfirmacionAction
         mostrarModal={mostrarModal}
         titulo="Eliminar producto"
-        cuerpo="¿Estás seguro de eliminar el producto"
+        cuerpo="¿Estás seguro de eliminar el producto?"
         cancelar={handleCloseModal}
         confirmar={handleDelete}
       />
