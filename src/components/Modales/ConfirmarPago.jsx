@@ -5,7 +5,7 @@ function ConfirmarPago({
   titulo,
   cuerpo,
   cancelar,
-  confirmar,
+  procederCompra,
 }) {
   return (
     <>
@@ -43,11 +43,11 @@ function ConfirmarPago({
               </div>
               <div className="bg-[#D1AC00] px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
-                  onClick={confirmar}
+                  onClick={procederCompra}
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#004643] text-base font-bold font-ralewayFont text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#004643] sm:ml-4 sm:w-auto sm:text-md"
                 >
-                  Aceptar
+                  Proceder Compra
                 </button>
                 <button
                   onClick={cancelar}
