@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 function Home() {
   const [session, setSession] = useState(null);
   const [username, setUsername] = useState("");
-  const [productsSearch, setProductsSearch] = useState([])
+  const [productsSearch, setProductsSearch] = useState([]);
   useEffect(() => {
     setSession(supabase.auth.getSession());
 
@@ -16,8 +16,6 @@ function Home() {
       setSession(session);
       setUsername(session.user.email);
     });
-
-    
   }, []);
 
   return (

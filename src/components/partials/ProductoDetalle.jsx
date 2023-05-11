@@ -8,11 +8,13 @@ import {
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { getProducto, insertarACarrito } from "../../services/Producto";
+import PagoExito from "../Modales/ConfirmacionPago";
 
 function ProductoDetalle() {
   const [isGeneratorOpen, setisGeneratorOpen] = useState(false);
   const [cantidad, setCantidad] = useState(0);
   const [producto, setProducto] = useState("");
+  const [mostrarModal, setmostrarModal] = useState(false);
 
   const { idProducto } = useParams();
 
@@ -36,16 +38,27 @@ function ProductoDetalle() {
     setCantidad(cantidad - 1);
   };
 
+
+  // metodo temporal para fines de prueba del modal
+
+  const cerraModal=()=>{
+
+  }
+
   const agregarCarrito = async () => {
     const data = await insertarACarrito(
-        producto.idProduct,
-        producto.nomProduct,
-        cantidad,
-        (cantidad*producto.precio),
+      producto.idProduct,
+      producto.nomProduct,
+      cantidad,
+      cantidad * producto.precio
     );
     if (data) {
       console.log(data);
     }
+  };
+
+  const handleShowModal = () => {
+    setmostrarModal(true);
   };
 
   return (
@@ -170,12 +183,21 @@ function ProductoDetalle() {
                 </div>
               </div>
 
-              <button className="bg-[#004643] text-[30px] font-ralewayFont text-white rounded-[5px] mt-10 w-[300px]" onClick={agregarCarrito}>
+              <button
+                className="bg-[#004643] text-[30px] font-ralewayFont text-white rounded-[5px] mt-10 w-[300px]"
+                onClick={handleShowModal}
+              >
                 Agregar al carrito
               </button>
             </div>
           </div>
         </div>
+        <PagoExito
+          mostrarModal={mostrarModal}
+          titulo="Tu compra se ha registrado"
+          cuerpo="Recoge tus artículos en la fecha y hora indicada"
+          cerrar = {cerrarModal}
+        />
 
         <div className="flex flex-row">
           <h1>Crrusel</h1>
