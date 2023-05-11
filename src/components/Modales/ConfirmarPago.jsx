@@ -1,6 +1,6 @@
 import { IoIosWarning } from "react-icons/io";
 
-function ConfirmarEliminacion({
+function ConfirmarPago({
   mostrarModal,
   titulo,
   cuerpo,
@@ -63,4 +63,4 @@ function ConfirmarEliminacion({
     </>
   );
 }
-export default ConfirmarEliminacion;
+export default ConfirmarPago;
