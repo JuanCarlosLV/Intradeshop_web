@@ -26,7 +26,7 @@ function DeleteProducto() {
     <>
       <div>
         <div className="flex justify-between my-4">
-          <a href="/misproductos">
+          <a href="/mis-productos">
             <BsFillArrowLeftCircleFill
               className="text-4xl mt-2 ml-10"
               color={"D1AC00"}
@@ -49,6 +49,7 @@ function DeleteProducto() {
       <ConfirmacionAction
         mostrarModal={mostrarModal}
         titulo="Eliminar producto"
+        cuerpo="¿Estás seguro de eliminar el producto"
         cancelar={handleCloseModal}
         confirmar={handleDelete}
       />
