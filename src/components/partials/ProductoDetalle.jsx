@@ -38,12 +38,11 @@ function ProductoDetalle() {
     setCantidad(cantidad - 1);
   };
 
-
   // metodo temporal para fines de prueba del modal
 
-  const cerraModal=()=>{
-
-  }
+  const cerrarModal = () => {
+    setmostrarModal(false);
+  };
 
   const agregarCarrito = async () => {
     const data = await insertarACarrito(
@@ -196,7 +195,7 @@ function ProductoDetalle() {
           mostrarModal={mostrarModal}
           titulo="Tu compra se ha registrado"
           cuerpo="Recoge tus artículos en la fecha y hora indicada"
-          cerrar = {cerrarModal}
+          cerrar={cerrarModal}
         />
 
         <div className="flex flex-row">
