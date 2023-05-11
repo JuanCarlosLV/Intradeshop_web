@@ -9,23 +9,70 @@ import { getProductsCategory } from "../../services/Producto";
 
 const opcionesFiltro = ["talla", "color", "precio", ""];
 
+const categories = [
+  {
+    id: 1,
+    name: "Playeras",
+    img: "/src/images/categoriasImagenes/categoriaCamisa.png",
+  },
+  {
+    id: 2,
+    name: "Pantalones",
+    img: "/src/images/categoriasImagenes/categoriaPantalones.png",
+  },
+  {
+    id: 3,
+    name: "Abrigos",
+    img: "/src/images/categoriasImagenes/categoriaAbrigos.png",
+  },
+  {
+    id: 4,
+    name: "Zapatos",
+    img: "/src/images/categoriasImagenes/categoriaZapatos.png",
+  },
+  {
+    id: 5,
+    name: "Vestidos",
+    img: "/src/images/categoriasImagenes/categoriaVestidos.png",
+  },
+  {
+    id: 6,
+    name: "Blusas",
+    img: "/src/images/categoriasImagenes/categoriaBlusas.png",
+  },
+  {
+    id: 7,
+    name: "Accesorios",
+    img: "/src/images/categoriasImagenes/categoriaAccesorios.png",
+  },
+  {
+    id: 8,
+    name: "Ropa interior",
+    img: "/src/images/categoriasImagenes/categoriaRopaInterior.png",
+  },
+  {
+    id: 9,
+    name: "Shorts",
+    img: "/src/images/categoriasImagenes/categoriaShorts.png",
+  },
+];
+
 function CategoriaProducts() {
   const [isOpen, setIsOpen] = useState(false);
   const [opcionSeleccionado, setOpcionSeleccionado] = useState("");
+  const [imagenCategoria, setImagenCategoria] = useState("");
   const [productos, setProductos] = useState([]);
 
- const {nombreCategoria} = useParams()
- const datoCategoria = useParams()
- 
+  const { nombreCategoria } = useParams();
 
   useEffect(() => {
     async function showProducts() {
-      const data = await getProductsCategory(nombreCategoria);            
+      const data = await getProductsCategory(nombreCategoria);
       setProductos(data);
-      console.log(data)
+      console.log(data);
     }
-    showProducts()
-   
+    showProducts();
+    getImageCategory(nombreCategoria)
   }, [nombreCategoria]);
 
   const handleOpcionElejida = (opcion) => {
@@ -34,7 +81,16 @@ function CategoriaProducts() {
 
   const handleOpenButton = () => {
     setIsOpen((prev) => !prev);
-    
+  };
+  const getImageCategory = (nombreCategoria) => {
+    categories.map((categoriaName)=>{
+      if(nombreCategoria == categoriaName.name){
+        console.log(nombreCategoria)
+        console.log(categoriaName.name)
+        setImagenCategoria(categoriaName.img);
+      }
+      
+    })
   };
 
   return (
@@ -51,8 +107,10 @@ function CategoriaProducts() {
           <h1 className="font-ralewayFont font-bold ml-12 text-[45px]">
             {nombreCategoria}
           </h1>
+          
           <img
-            src="/src/images/categoriasImagenes/categoriaAbrigos.png"
+            src={imagenCategoria}
+            alt={"img"}
             className="w-[180px] h-[160px] mr-10"
           ></img>
         </div>
@@ -120,17 +178,19 @@ function CategoriaProducts() {
       {/* Despliegue de los productos */}
 
       <div>
-        <h1 className="font-ralewayFont font-semibold text-[35px] ml-[100px]">Productos</h1>
+        <h1 className="font-ralewayFont font-semibold text-[35px] ml-[100px]">
+          Productos
+        </h1>
       </div>
-      
 
       <div className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {productos.map((product) => (
           <>
             <CardProducto
               key={product.idProducto}
-              idProducto = {product.idProducto}
+              idProducto={product.idProducto}
               nombreProducto={product.nomProducto}
+              precio={product.precio}
               imagenProducto={product.imagen}
             />
           </>
