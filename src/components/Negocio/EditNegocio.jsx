@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { getInfoNegocio, editarInfoNegocio } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import ConfirmacionAction from "../Modales/ConfirmacionAction";
 
 function EditNegocio() {
   const navigatePrincipalDealer = useNavigate();
   const logo = "logo";
   const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
-
+  const [stateModal, setStateModal] = useState(false);
   const [formValues, setFormValues] = useState({
-    nombre:"",
-    correo:"",
-    direccion:"",
-    descripcion:"",
-    telefono:""
-  })
+    nombre: "",
+    correo: "",
+    direccion: "",
+    descripcion: "",
+    telefono: "",
+  });
   useEffect(() => {
     async function getInfo() {
       const data = await getInfoNegocio(idDealer);
@@ -28,14 +29,19 @@ function EditNegocio() {
     }
     getInfo();
   }, []);
-
-  const handleInputChange = (evt) =>{
+  const handleShowModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(true);
+  };
+  const handleCloseModal = () => {
+    setStateModal(false);
+  };
+  const handleInputChange = (evt) => {
     setFormValues({
       ...formValues,
-      [evt.target.name]: evt.value
-    })
-  }
-
+      [evt.target.name]: evt.value,
+    });
+  };
   const handleEditar = (evt) => {
     evt.preventDefault();
     editarInfoNegocio(
@@ -45,7 +51,7 @@ function EditNegocio() {
       formValues.direccion,
       formValues.descripcion,
       formValues.telefono,
-      logo,
+      logo
     );
     navigatePrincipalDealer("/home-negociante");
   };
@@ -64,7 +70,7 @@ function EditNegocio() {
         </h1>
       </div>
       <div className="top-1 left-60 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto p-4 ml-60">
-        <form onSubmit={handleEditar} className="max-w-lg">
+        <form onSubmit={handleShowModal} className="max-w-lg">
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
             Nombre
           </label>
@@ -121,6 +127,13 @@ function EditNegocio() {
             </button>
           </div>
         </form>
+        <ConfirmacionAction
+          mostrarModal={stateModal}
+          titulo="Editar negocio"
+          cuerpo="¿Estás seguro de modificar los datos del negocio?"
+          cancelar={handleCloseModal}
+          confirmar={handleEditar}
+        />
       </div>
     </>
   );

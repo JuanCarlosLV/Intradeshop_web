@@ -12,8 +12,6 @@ const getProductsCategoria = "getproducts_category";
 const añadirCarrito = "insertar_carrito"
 let idProducImg;
 
-
-
 export const getProductsCategory = async (categoria) => {
   try {
     const { error, data } = await supabase.rpc(getProductsCategoria, {

@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { SketchPicker } from "react-color";
 import { agregarProducto, subirImagen } from "../../services/Producto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { supabase } from "../../supabase/connection";
 
 function AddProducto() {
 
   const navigateMisProducts = useNavigate();
-
+   
   const [formValues, setFormValues] = useState({
     nombre: "",
     precio: "",

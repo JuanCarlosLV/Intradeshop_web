@@ -26,7 +26,7 @@ function DeleteProducto() {
     <>
       <div>
         <div className="flex justify-between my-4">
-          <NavLink to="/mis--productos">
+          <NavLink to="/mis-productos">
             <BsFillArrowLeftCircleFill
               className="text-4xl mt-2 ml-10"
               color={"D1AC00"}

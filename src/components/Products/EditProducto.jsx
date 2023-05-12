@@ -7,6 +7,7 @@ import ConfirmacionAction from "../Modales/ConfirmacionAction";
 function EditProducto() {
   const navigateMisProducts = useNavigate();
   const { id } = useParams();
+  
   const [formValues, setFormValues] = useState({
     nombre: "",
     precio: "",
@@ -15,8 +16,7 @@ function EditProducto() {
     categoria: "",
     descripcion: "",
   });
-  const [mostrarModal, setMostrarModal] = useState(false);
-
+  const [showModal, setStateModal] = useState(false)
   useEffect(() => {
     async function getData() {
       const data = await getProducto(id);
@@ -38,7 +38,13 @@ function EditProducto() {
       [evt.target.name]: evt.target.value,
     });
   };
-
+  const handleShowModal = (evt) =>{
+    evt.preventDefault();
+    setStateModal(true);
+  }
+  const handleCloseModal = () =>{
+    setStateModal(false)
+  }
   const handleEdit = async (evt) => {
     evt.preventDefault();
     editarProducto(
@@ -52,12 +58,7 @@ function EditProducto() {
     );
     navigateMisProducts("/mis-productos");
   };
-  const handleCloseModal = () => {
-    setMostrarModal(false);
-  };
-  const handleShowModal = () => {
-    setMostrarModal(true);
-  };
+
   return (
     <>
       <div>
@@ -73,7 +74,7 @@ function EditProducto() {
           </h1>
         </div>
         <div className="flex justify-center items-center">
-          <form onSubmit={handleEdit} className="max-w-lg">
+          <form onSubmit={handleShowModal} className="max-w-lg">
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Nombre del producto
             </label>
@@ -147,21 +148,20 @@ function EditProducto() {
             <div className="px-96 ml-48 py-2">
               <button
                 className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
-                onClick={handleShowModal}
               >
                 Modificar
               </button>
             </div>
           </form>
+          <ConfirmacionAction
+          mostrarModal={showModal}
+          titulo="Editar producto"
+          cuerpo="¿Estás seguro de modificar la información?"
+          cancelar={handleCloseModal}
+          confirmar={handleEdit}
+          />
         </div>
       </div>
-      <ConfirmacionAction
-        mostrarModal={mostrarModal}
-        titulo="Editar producto"
-        cuerpo="¿Estás seguro de modificar la información?"
-        cancelar={handleCloseModal}
-        confirmar={handleEdit}
-      />
     </>
   );
 }
