@@ -7,6 +7,7 @@ import CardProducto from '../components/partials/CardProduct'
 import {getUltimosProductos} from '../services/Producto'
 
 function Home() {
+  {/* funcion */}
   const [session, setSession] = useState(null);
   const [username, setUsername] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
