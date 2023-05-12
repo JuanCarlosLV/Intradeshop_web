@@ -182,6 +182,7 @@ function CategoriaProducts() {
             <CardProducto
               key={product.idProducto}
               idProducto={product.idProducto}
+             
               nombreProducto={product.nomProducto}
               precio={product.precio}
               imagenProducto={product.imagen}

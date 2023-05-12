@@ -7,11 +7,8 @@ const deleteProduct = "delete_product";
 const editProduct = "edit_product";
 const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
-
-const añadirCarrito = "insertar_carrito"
-
-
-
+const getlastproducts = "getlastproducts";
+const añadirCarrito = "insertar_carrito";
 
 export const getProductsCategory = async (categoria) => {
   try {
@@ -26,22 +23,30 @@ export const getProductsCategory = async (categoria) => {
   }
 };
 
-export const insertarACarrito = async(id,nombre,cantidad,subtotal)=>{
+export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
   try {
-    const {error,data} = await supabase.rpc(insertarACarrito,{
+    const { error, data } = await supabase.rpc(insertarACarrito, {
       idProducto: id,
       nombreProducto: nombre,
       cantidad: cantidad,
       subtotal: subtotal,
-    })
-    if(error) throw error
-    return data
+    });
+    if (error) throw error;
+    return data;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
-
+export const getUltimosProductos = async () => {
+  try {
+    const { data, error } = await supabase.rpc(getlastproducts);
+    if(error) console.log(error)
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //let idProducto;
 
@@ -160,7 +165,7 @@ export const subirImgProducto = async (img) => {
   }
 };
 */
-//Esto si guarda la url de la imagen en la tabla 
+//Esto si guarda la url de la imagen en la tabla
 /*
 const guardarImgProducto = async (imgUrl, idProd) => {
   try {

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Imgix from "react-imgix";
 
 function CardProduct(props) {
   return (
@@ -21,7 +20,7 @@ function CardProduct(props) {
         </div>
         <div className="p-4 items-center  space-y-2 flex flex-col ">
           <NavLink className="font-ralewayFont font-semibold text-white text-[20px] ml-5 rounded-[6px] w-[160px] h-[40px]  bg-[#004643] "
-          to={`${props.idProducto}`}
+          to={`${props.rutaActual +"/"+ props.idProducto}`}
           >
             Ver Producto
           </NavLink>

@@ -64,6 +64,11 @@ function Rutas() {
         ></Route>
 
         <Route
+          path="/producto/:idProducto"
+          element={<DetalleProducto />}
+        ></Route>
+
+        <Route
           path="tiendas-asociadas/:nombreTienda"
           element={<VerTienda />}
         ></Route>
