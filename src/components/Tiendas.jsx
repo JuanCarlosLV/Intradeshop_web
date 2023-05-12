@@ -68,7 +68,7 @@ function Tiendas() {
 
         <div className="ml-2 mr-10 ">
           <form>
-            <Busqueda />
+            <Busqueda placeholder="Buscar por nombre"/>
           </form>
         </div>
       </div>

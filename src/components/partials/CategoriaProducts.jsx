@@ -72,7 +72,7 @@ function CategoriaProducts() {
       console.log(data);
     }
     showProducts();
-    getImageCategory(nombreCategoria)
+    getImageCategory(nombreCategoria);
   }, [nombreCategoria]);
 
   const handleOpcionElejida = (opcion) => {
@@ -83,14 +83,13 @@ function CategoriaProducts() {
     setIsOpen((prev) => !prev);
   };
   const getImageCategory = (nombreCategoria) => {
-    categories.map((categoriaName)=>{
-      if(nombreCategoria == categoriaName.name){
-        console.log(nombreCategoria)
-        console.log(categoriaName.name)
+    categories.map((categoriaName) => {
+      if (nombreCategoria == categoriaName.name) {
+        console.log(nombreCategoria);
+        console.log(categoriaName.name);
         setImagenCategoria(categoriaName.img);
       }
-      
-    })
+    });
   };
 
   return (
@@ -107,7 +106,7 @@ function CategoriaProducts() {
           <h1 className="font-ralewayFont font-bold ml-12 text-[45px]">
             {nombreCategoria}
           </h1>
-          
+
           <img
             src={imagenCategoria}
             alt={"img"}
@@ -119,7 +118,7 @@ function CategoriaProducts() {
       <div className="flex flex-row ml-5 justify-between mr-10">
         <div className="-ml-10 mr-10 ">
           <form>
-            <Busqueda />
+            <Busqueda placeholder="Buscar por nombre" />
           </form>
         </div>
 
@@ -133,6 +132,28 @@ function CategoriaProducts() {
         >
           {isOpen ? (
             <>
+              <section className="flex flex-col fixed -mt-[15px] -ml-[36px] mb-[10px]  ">
+                <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
+                  <IoMdOptions
+                    className="text-4xl mt-2 mb-3 ml-[10px]"
+                    color="white"
+                  />
+                  <p className="ml-2 text-white font-ralewayFont font-semibold text-xl ">
+                    Filtros
+                  </p>
+                </div>
+
+                <div className="bg-[#004643] font-ralewayFont font-light text-[20px] text-white  w-[130px] -ml-[18px] rounded-[5px] rounded-t-none ">
+                  <lu className="list-none">
+                    <li className="hover:bg-white hover:text-[#004643]">Talla</li>
+                    <li className="hover:bg-white hover:text-[#004643]">Precio</li>
+                    <li className="hover:bg-white hover:text-[#004643]">Valoracion</li>
+                  </lu>
+                </div>
+              </section>
+            </>
+          ) : (
+            <>
               <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
                 <IoMdOptions
                   className="text-4xl mt-2 mb-3 ml-[10px]"
@@ -142,34 +163,6 @@ function CategoriaProducts() {
                   Filtros
                 </p>
               </div>
-
-              <div className="bg-[#004643] relative flex flex-col ">
-                <ul>
-                  <li>Talla</li>
-                  <li>Precio</li>
-                  <li>Valoracion</li>
-                </ul>
-              </div>
-              {/* <div className="bg-[#004643] mt-10 flex flex-col">
-                {opcionesFiltro.map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => handleOpcionElejida(option)}
-                    className={`${
-                      opcionSeleccionado === option
-                        ? "bg-[#004643]"
-                        : "hover:bg-white hover:text-[#004643]"
-                    }  text-sm text-white  text-left font-ralewayFont font-semibold ` }
-                    role="menuitem"
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>*/}
-            </>
-          ) : (
-            <>
-              <IoMdOptions className="text-4xl mb-3" color="004643" />
             </>
           )}
         </button>

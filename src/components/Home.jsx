@@ -22,7 +22,7 @@ function Home() {
     <>
       <HeaderBase />
       <form onSubmit>
-        <BarraBusqueda />
+        <BarraBusqueda placeholder="Buscar por nombre, categoria etc...."/>
       </form>
 
       <div>

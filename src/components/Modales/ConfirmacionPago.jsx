@@ -1,17 +1,8 @@
 import { GoCheck } from "react-icons/go";
 import { useState, useEffect } from "react";
 
-function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
-  const [showModal, setshowModal] = useState(true);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setshowModal(false);
-    }, 5000);
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
+function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
 
 
   return (
@@ -33,7 +24,7 @@ function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
             ></span>
 
             <div className="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" >
-              <div className="bg-black sm:p-10 sm:pb-10 flex flex-col">
+              <div className="bg-black sm:p-10 sm:pb-10 flex flex-col" onClick={cerrar}>
                 <div className=" flex flex-row justify-between ">
                   <div>
                     <h3 className="text-3xl leading-6 font-bold font-ralewayFont text-white">
@@ -47,13 +38,6 @@ function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
                     <GoCheck color="green" />
                   </div>
                 </div>
-
-                <button
-                  className="bg-[#004643] font-ralewayFont font-semibold text-white h-[50px] w-[150px] text-center mt-5 ml-auto -mr-2 rounded-[5px] "
-                  onClick={cerrar}
-                >
-                  Aceptar
-                </button>
               </div>
             </div>
           </div>

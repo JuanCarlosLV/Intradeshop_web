@@ -18,6 +18,12 @@ function ProductoDetalle() {
 
   const { idProducto } = useParams();
 
+  
+  const navigate = useNavigate();
+  const regresar=()=>{
+    navigate(-1);
+  }
+
   useEffect(() => {
     async function getData() {
       const data = await getProducto(idProducto);
@@ -65,7 +71,7 @@ function ProductoDetalle() {
       <Header />
       <div className="flow flow-col">
         <div className="mt-5 ml-5 w-[30px]">
-          <NavLink to="">
+          <NavLink onClick={regresar}>
             <BsArrowLeftCircleFill className="text-5xl" color="D1AC00" />
           </NavLink>
         </div>

@@ -1,6 +1,6 @@
 import { VscSearch } from "react-icons/vsc";
 
-function BarraBusqueda() {
+function BarraBusqueda(props) {
   return (
     <>
       <div className=" mb-10 mt-8 ">
@@ -13,8 +13,7 @@ function BarraBusqueda() {
             <input
               type="text"
               name="barrabusqueda"
-              
-              placeholder="Buscar por nombre, categoria, talla etc..."
+              placeholder={props.placeholder}
               className="px-14  text-[#004643] text-xl w-[1200px] h-[50px] rounded-2xl border-b-[6px]  border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] font-ralewayFont   ml-[120px]"
             />
           </div>

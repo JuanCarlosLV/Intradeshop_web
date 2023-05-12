@@ -19,15 +19,13 @@ function CardProduct(props) {
             {"$ "+props.precio}
           </h2>
         </div>
-        <div className="p-4 items-center space-y-2 flex flex-col ">
-          <NavLink className="font-ralewayFont font-semibold text-white text-[20px] ml-5 rounded-[6px] w-[160px] h-[40px] items-center bg-[#004643] "
+        <div className="p-4 items-center  space-y-2 flex flex-col ">
+          <NavLink className="font-ralewayFont font-semibold text-white text-[20px] ml-5 rounded-[6px] w-[160px] h-[40px]  bg-[#004643] "
           to={`${props.idProducto}`}
           >
             Ver Producto
           </NavLink>
-          <NavLink className="font-ralewayFont font-semibold text-white text-[20px] ml-5 rounded-[6px] w-[180px] h-[40px]  bg-[#004643]">
-            Agregar al carrito
-          </NavLink>
+          
         </div>
       </div>
     </>
