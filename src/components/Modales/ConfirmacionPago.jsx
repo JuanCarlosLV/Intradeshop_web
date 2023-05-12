@@ -1,14 +1,29 @@
 import { GoCheck } from "react-icons/go";
+import { useState, useEffect } from "react";
 
 function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
+  const [showModal, setshowModal] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setshowModal(false);
+    }, 5000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+
   return (
     <>
       {mostrarModal && (
-        <div className="fixed z-50 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed z-50 inset-0 overflow-y-auto" >
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0" >
             {/* Esto es para que se ponga oscuro el fondo y evite que se quite el modal */}
+            
             <div
-              className="fixed inset-0 transition-opacity bg-gray-500 opacity-75"
+              className="fixed inset-0 transition-opacity bg-gray-500 opacity-75 "
+              onClick={cerrar}
               aria-hidden="true"
             ></div>
             {/* esto es para posicionar el modal en medio de la pantalla */}
@@ -17,7 +32,7 @@ function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
               aria-hidden="true"
             ></span>
 
-            <div className="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div className="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" >
               <div className="bg-black sm:p-10 sm:pb-10 flex flex-col">
                 <div className=" flex flex-row justify-between ">
                   <div>
@@ -33,7 +48,12 @@ function ConfirmacionPago({ mostrarModal, titulo, cuerpo, cerrar }) {
                   </div>
                 </div>
 
-                <button className="bg-[#004643] font-ralewayFont font-semibold text-white h-[50px] w-[150px] text-center mt-5 ml-auto -mr-2 rounded-[5px] " onClick={cerrar}>Aceptar</button>
+                <button
+                  className="bg-[#004643] font-ralewayFont font-semibold text-white h-[50px] w-[150px] text-center mt-5 ml-auto -mr-2 rounded-[5px] "
+                  onClick={cerrar}
+                >
+                  Aceptar
+                </button>
               </div>
             </div>
           </div>
