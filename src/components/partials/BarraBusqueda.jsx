@@ -1,6 +1,13 @@
 import { VscSearch } from "react-icons/vsc";
+import {useState} from 'react'
 
 function BarraBusqueda(props) {
+  const [datoBuscar, setdatoBuscar] = useState("");
+  const [sugerenciasBusqueda, setSugerenciasBusqueda] = useState([])
+
+
+  
+
   return (
     <>
       <div className=" mb-10 mt-8 ">

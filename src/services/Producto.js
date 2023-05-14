@@ -9,6 +9,8 @@ const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
 const getlastproducts = "getlastproducts";
 const añadirCarrito = "insertar_carrito";
+const buscarProductoCategoria = "getproductopercategoria";
+const buscarProductosGeneral = "buscarProductos";
 
 export const getProductsCategory = async (categoria) => {
   try {
@@ -41,14 +43,35 @@ export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
 export const getUltimosProductos = async () => {
   try {
     const { data, error } = await supabase.rpc(getlastproducts);
-    if(error) console.log(error)
+    if (error) console.log(error);
     return data;
   } catch (err) {
     console.log(err);
   }
 };
 
-//let idProducto;
+export const buscarProductosCategoria = async (producto, categoria) => {
+  try {
+    const { data, error } = await supabase.rpc(buscarProductoCategoria, {
+      nombre_producto: producto,
+      nombre_categoria: categoria,
+    });
+    if(error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const buscarProductos = async(producto)=>{
+  try {
+    const {error, data} = await supabase.rpc(buscarProductosGeneral,{nombre_producto: producto})
+    if(error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 export const getListProducto = async (nombre) => {
   try {

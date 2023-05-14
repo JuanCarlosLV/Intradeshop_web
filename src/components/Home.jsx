@@ -5,9 +5,10 @@ import { supabase } from "../supabase/connection";
 import { useEffect, useState } from "react";
 import CardProducto from '../components/partials/CardProduct'
 import {getUltimosProductos} from '../services/Producto'
+import CardProductoBuscado from './partials/CardProductoBuscado'
 
 function Home() {
-  {/* funcion */}
+ 
   const [session, setSession] = useState(null);
   const [username, setUsername] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
@@ -42,6 +43,9 @@ function Home() {
         </h1>
         <Carousel nombreTienda="trade" />
       </div>
+
+    
+
       <div>
         <h1 className="font-ralewayFont font-semibold text-[#004643] text-3xl mt-5 ml-10">
           Productos Recientes
