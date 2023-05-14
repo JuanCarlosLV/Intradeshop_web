@@ -10,7 +10,7 @@ const getProductsCategoria = "getproducts_category";
 const getlastproducts = "getlastproducts";
 const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
-const buscarProductosGeneral = "buscarProductos";
+const buscarProductosGeneral = "buscarproductos";
 
 export const getProductsCategory = async (categoria) => {
   try {
