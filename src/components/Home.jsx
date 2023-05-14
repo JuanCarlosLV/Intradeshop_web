@@ -5,7 +5,7 @@ import { supabase } from "../supabase/connection";
 import { useEffect, useState } from "react";
 import CardProducto from "../components/partials/CardProduct";
 import { getUltimosProductos } from "../services/Producto";
-import CardProductoBuscado from "./partials/CardProductoBuscado";
+
 
 function Home() {
   const [session, setSession] = useState(null);

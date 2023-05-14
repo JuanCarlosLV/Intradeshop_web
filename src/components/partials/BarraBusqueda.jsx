@@ -1,5 +1,5 @@
 import { VscSearch } from "react-icons/vsc";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   buscarProductos,
   buscarProductosCategoria,
@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 function BarraBusqueda(props) {
   const [datoBuscar, setdatoBuscar] = useState("");
   const [sugerenciasBusqueda, setSugerenciasBusqueda] = useState([]);
+  const barraRef = useRef(null);
 
   useEffect(() => {
     if (datoBuscar.length > 1) {
@@ -28,7 +29,16 @@ function BarraBusqueda(props) {
     } else {
       setSugerenciasBusqueda([]);
     }
-  }, [datoBuscar]);
+
+    const cerrarBarraBusqueda = (evt) => {
+      if (!barraRef.current.contains(evt.target)) {
+        setdatoBuscar("");
+        setSugerenciasBusqueda([]);
+      }
+    };
+    document.addEventListener("mousedown", cerrarBarraBusqueda);
+    return () => document.removeEventListener("mousedown", cerrarBarraBusqueda);
+  }, [datoBuscar, barraRef]);
 
   const handleBuscar = (evt) => {
     setdatoBuscar(evt.target.value);
@@ -36,7 +46,7 @@ function BarraBusqueda(props) {
 
   return (
     <>
-      <div className=" mb-10 mt-8 w-[1200px] ml-[150px] ">
+      <div className=" mb-10 mt-8 w-[1200px] ml-[150px] " ref={barraRef}>
         <div className="flex flex-row items-center">
           <VscSearch
             className="text-3xl ml-[15px] mr-auto block absolute "
@@ -52,10 +62,10 @@ function BarraBusqueda(props) {
           />
         </div>
         {datoBuscar && (
-          <div className="bg-[#004643] text-xl h-full left-2 text-white w-[1200px] rounded-[2px] font-ralewayFont border-[#004643] ">
+          <div className="bg-[#004643] text-xl h-full text-white w-[1200px] rounded-[2px] font-ralewayFont border-[#004643]  space-y-2 ">
             {sugerenciasBusqueda.map((resultado) => (
               <div>
-                <NavLink to="/productos">
+                <NavLink to={"/producto/" + resultado.idProducto}>
                   <div
                     key={resultado.idProducto}
                     className="hover:bg-white hover:text-[#004643] text-left "
