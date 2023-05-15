@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./Header";
 import BarraBusqueda from "./BarraBusqueda";
 import { useParams } from "react-router-dom";
-import { supabase } from "../../supabase/connection";
 import { useState, useEffect } from "react";
 import { buscarProductos } from "../../services/Producto";
 import CardProducto from "../partials/CardProduct";
