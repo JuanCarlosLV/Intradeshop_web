@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ChromePicker } from "react-color";
 import { agregarProducto, subirImagen } from "../../services/Producto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { supabase } from "../../supabase/connection";
 
 function AddProducto() {
   const navigateMisProductos = useNavigate();

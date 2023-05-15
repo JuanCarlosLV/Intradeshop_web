@@ -9,8 +9,6 @@ const editProduct = "edit_product";
 const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
 
-const añadirCarrito = "insertar_carrito";
-
 let idProducImg;
 
 export const getProductsCategory = async (categoria) => {
