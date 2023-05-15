@@ -12,7 +12,7 @@ const getlastproducts = "getlastproducts";
 const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
 const buscarProductosGeneral = "buscarproductos";
-
+let idProducImg;
 export const getProductsCategory = async (categoria) => {
   try {
     const { error, data } = await supabase.rpc(getProductsCategoria, {
