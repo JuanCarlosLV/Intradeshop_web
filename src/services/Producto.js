@@ -9,7 +9,8 @@ const editProduct = "edit_product";
 const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
 
-const añadirCarrito = "insertar_carrito"
+const añadirCarrito = "insertar_carrito";
+
 let idProducImg;
 
 export const getProductsCategory = async (categoria) => {
@@ -25,25 +26,30 @@ export const getProductsCategory = async (categoria) => {
   }
 };
 
-export const insertarACarrito = async(id,nombre,cantidad,subtotal)=>{
+export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
   try {
-    const {error,data} = await supabase.rpc(insertarACarrito,{
+    const { error, data } = await supabase.rpc(insertarACarrito, {
       idProducto: id,
       nombreProducto: nombre,
       cantidad: cantidad,
       subtotal: subtotal,
-    })
-    if(error) throw error
-    return data
+    });
+    if (error) throw error;
+    return data;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
 export const getListProducto = async (nombre) => {
   try {
+    //tomar el idNegocio perteneciente a sesion negociante activa
+    const session = await supabase.auth.getSession();
+    console.log("sesion activa",session.data.session.user.id)
+
     const { error, data } = await supabase.rpc(getProducts, {
       nom_product: nombre,
+      id_dealer: session.data.session.user.id
     });
     if (error) throw error;
     return data;
@@ -62,6 +68,7 @@ export const agregarProducto = async (
   talla
 ) => {
   try {
+    const session = await supabase.auth.getSession();
     const { error, data } = await supabase.rpc(addProduct, {
       nom_product: nombre,
       precio_product: precio,
@@ -70,7 +77,9 @@ export const agregarProducto = async (
       descripcion_product: descripcion,
       color_product: color,
       talla_product: talla,
+      id_dealer: session.data.session.user.id
     });
+
     if (error) throw error;
     idProducImg = data;
   } catch (error) {
@@ -95,7 +104,7 @@ export const getProducto = async (id) => {
     if (error) throw error;
     return data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -165,4 +174,16 @@ const guardarUrlProducto = async (imgUrl, idProd) => {
   } catch (error) {
     console.error(error);
   }
+};
+//ya obtiene el id del negocio correspondiente a la sesion activa del negociante
+export const pruebaAddProducto = async () => {
+  const info = await supabase.auth.getSession();
+  console.log("Sesion activa", info.data.session.user.id);
+  const idUser = info.data.session.user.id;
+  const { data, error } = await supabase.rpc("get_prueba", {
+    id_dealer: idUser,
+  });
+  if (error) console.log(error);
+  let idBuss = data[0];
+  console.log(idBuss);
 };

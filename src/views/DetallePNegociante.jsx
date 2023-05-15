@@ -2,12 +2,12 @@ import DetailProducto from "../components/Products/DetailProducto";
 import HeaderNegociante from "../components/Negocio/HeaderNegociante";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-function DetalleProducto() {
+function DetallePNegociante() {
   return (
     <>
       <HeaderNegociante />
       <div className="flex justify-between my-4">
-        <a href="/misproductos">
+        <a href="/mis-productos">
           <BsFillArrowLeftCircleFill
             className="text-4xl mt-2 ml-10"
             color={"D1AC00"}
@@ -21,4 +21,4 @@ function DetalleProducto() {
     </>
   );
 }
-export default DetalleProducto;
+export default DetallePNegociante;

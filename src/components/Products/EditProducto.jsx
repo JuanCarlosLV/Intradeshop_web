@@ -100,7 +100,6 @@ function EditProducto() {
               type="file"
               id="imagen"
               name="imagen"
-              value={formValues.imagen}
               onChange={handleInputChange}
               className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
             />

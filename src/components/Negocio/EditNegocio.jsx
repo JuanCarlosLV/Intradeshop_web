@@ -7,7 +7,7 @@ import ConfirmacionAction from "../Modales/ConfirmacionAction";
 function EditNegocio() {
   const navigatePrincipalDealer = useNavigate();
   const logo = "logo";
-  const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
+  //const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
   const [stateModal, setStateModal] = useState(false);
   const [formValues, setFormValues] = useState({
     nombre: "",
@@ -18,7 +18,7 @@ function EditNegocio() {
   });
   useEffect(() => {
     async function getInfo() {
-      const data = await getInfoNegocio(idDealer);
+      const data = await getInfoNegocio();
       setFormValues({
         nombre: data.nomNegocio,
         correo: data.correoElectronico,
