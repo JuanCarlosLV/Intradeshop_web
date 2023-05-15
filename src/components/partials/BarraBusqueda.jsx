@@ -4,9 +4,11 @@ import {
   buscarProductos,
   buscarProductosCategoria,
 } from "../../services/Producto";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function BarraBusqueda(props) {
+  const navigate = useNavigate();
+
   const [datoBuscar, setdatoBuscar] = useState("");
   const [sugerenciasBusqueda, setSugerenciasBusqueda] = useState([]);
   const barraRef = useRef(null);
@@ -44,6 +46,12 @@ function BarraBusqueda(props) {
     setdatoBuscar(evt.target.value);
   };
 
+  const handlePressEnterKey = (evt) => {
+    if (evt.key === "Enter") {
+      navigate("/search/"+ datoBuscar);
+    }
+  };
+
   return (
     <>
       <div className=" mb-10 mt-8 w-[1200px] ml-[150px] " ref={barraRef}>
@@ -54,9 +62,10 @@ function BarraBusqueda(props) {
           />
           <input
             type="text"
-            name="barrabusqueda"
+            name="search"
             value={datoBuscar}
             onChange={handleBuscar}
+            onKeyDown={handlePressEnterKey}
             placeholder={props.placeholder}
             className="px-14  text-[#004643] text-xl w-[1200px] h-[50px] rounded-2xl border-b-[6px]  border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] font-ralewayFont   "
           />

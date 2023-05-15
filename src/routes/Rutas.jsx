@@ -26,6 +26,7 @@ import EliminarProducto from "../views/EliminarProducto";
 import EditarProducto from "../views/EditarProducto";
 import EditarNegocio from "../views/EditarNegocio";
 import DarDeBajaNegocio from "../views/DarDeBajaNegocio";
+import ResultadoBusqueda from "../views/ResultadoBusqueda";
 
 function Rutas() {
   return (
@@ -92,6 +93,13 @@ function Rutas() {
         ></Route>
         <Route path="editar-negocio" element={<EditarNegocio />}></Route>
         <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
+
+
+        <Route path="/search/:nombreProducto" element={<ResultadoBusqueda/>}></Route>
+
+        
+
+
       </Routes>
     </>
   );

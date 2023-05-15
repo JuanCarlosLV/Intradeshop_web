@@ -46,9 +46,7 @@ function ProductoDetalle() {
 
   // metodo temporal para fines de prueba del modal
 
-  const cerrarModal = () => {
-    setmostrarModal(false);
-  };
+
 
   const agregarCarrito = async () => {
     const data = await insertarACarrito(
@@ -62,9 +60,7 @@ function ProductoDetalle() {
     }
   };
 
-  const handleShowModal = () => {
-    setmostrarModal(true);
-  };
+
 
   return (
     <>
@@ -190,22 +186,16 @@ function ProductoDetalle() {
 
               <button
                 className="bg-[#004643] text-[30px] font-ralewayFont text-white rounded-[5px] mt-10 w-[300px]"
-                onClick={handleShowModal}
               >
                 Agregar al carrito
               </button>
             </div>
           </div>
         </div>
-        <PagoExito
-          mostrarModal={mostrarModal}
-          titulo="Tu compra se ha registrado"
-          cuerpo="Recoge tus artículos en la fecha y hora indicada"
-          cerrar={cerrarModal}
-        />
+  
 
         <div className="flex flex-row">
-          <h1>Crrusel</h1>
+          <h1>Carrusel de imagenes</h1>
         </div>
       </div>
     </>
