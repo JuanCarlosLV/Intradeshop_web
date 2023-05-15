@@ -73,8 +73,11 @@ function ProductoDetalle() {
         </div>
 
         <div className="flex flex-row mt-7">
+        
           {/* Area de generador de ropa */}
-          <aside className="bg-[#D1AC00] h-[480px] w-[320px] ml-10 flex flex-col">
+        
+          <div className="flex flex-row ml-20">
+              <aside className="bg-[#D1AC00] h-[480px] w-[320px] ml-10 flex flex-col">
             <button
               type="button"
               id="opciones-menu"
@@ -105,7 +108,7 @@ function ProductoDetalle() {
               ) : (
                 <>
                   <MdKeyboardArrowRight
-                    className="text-[50px] ml-auto mr-1 mt-3"
+                    className="text-[50px] ml-auto mr-1 mt-3 "
                     color="004643"
                   />
                   <h1 className="text-[26px] font-ralewayFont font-semibold text-black text-center mt-[250px] ">
@@ -115,14 +118,13 @@ function ProductoDetalle() {
               )}
             </button>
           </aside>
-          <div className="flex flex-row ml-20">
             <img
               src={producto.imagen}
               alt={producto.nomProducto}
               className="w-auto h-[450px] mt-5 bg-red-400"
             ></img>
 
-            <div className="flex flex-col ml-10 w-[600px]">
+            <div className="flex flex-col ml-10 w-[600px] ">
               <h1 className="text-[30px] font-ralewayFont font-bold text-black">
                 {producto.nomProducto}
               </h1>
@@ -197,6 +199,8 @@ function ProductoDetalle() {
         <div className="flex flex-row">
           <h1>Carrusel de imagenes</h1>
         </div>
+      
+
       </div>
     </>
   );
