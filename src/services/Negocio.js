@@ -10,10 +10,12 @@ const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
 const apiKey = "wAmi1MLFEfz21fzdN";
 
-export const getInfoNegocio = async (idDealer) => {
+export const getInfoNegocio = async () => {
   try {
+    const session = await supabase.auth.getSession();
+    console.log("session active", session.data.session.user.id);
     const { error, data } = await supabase
-      .rpc(getBussiness, { id_dealer: idDealer })
+      .rpc(getBussiness, { id_dealer: session.data.session.user.id })
       .single();
     if (error) throw error;
     return data;

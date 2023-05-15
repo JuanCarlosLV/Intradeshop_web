@@ -1,7 +1,7 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect } from "react";
 import { NavLink, Navigate, useNavigate } from "react-router-dom";
-import { cerrarSesion } from "/intradeshop-web/src/services/Autenticacion";
+import { cerrarSesion } from "../../services/Autenticacion";
 import { supabase } from "../../supabase/connection";
 
 function HeaderCliente(props) {
