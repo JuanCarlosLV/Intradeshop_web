@@ -1,5 +1,6 @@
 import DetailProducto from "../components/Products/DetailProducto";
 import HeaderNegociante from "../components/Negocio/HeaderNegociante";
+import { NavLink } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 function DetalleProducto() {
