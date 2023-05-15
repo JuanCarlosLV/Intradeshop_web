@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 function CardProduct(props) {
   return (
     <>
-      <div class=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-[#F6BE9A]  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center items-center flex flex-col">
+      <div className=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-[#F6BE9A]  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center items-center flex flex-col">
         {/* aca iria imagen de buckets */}
 
         <img
@@ -12,11 +12,11 @@ function CardProduct(props) {
           alt={props.nombreProducto}
         ></img>
 
-        <div class="">
-          <h2 class="text-center text-[25px] font-ralewayFont font-semibold text-black ">
+        <div className="">
+          <h2 className="text-center text-[25px] font-ralewayFont font-semibold text-black ">
             {props.nombreProducto}
           </h2>
-          <h2 class="text-center text-[25px] font-ralewayFont font-semibold text-[#004643] ">
+          <h2 className="text-center text-[25px] font-ralewayFont font-semibold text-[#004643] ">
             {"$ " + props.precio}
           </h2>
         </div>

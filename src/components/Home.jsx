@@ -6,11 +6,9 @@ import { useEffect, useState } from "react";
 import CardProducto from "../components/partials/CardProduct";
 import { getUltimosProductos } from "../services/Producto";
 
-
 function Home() {
   const [session, setSession] = useState(null);
-  const [username, setUsername] = useState("");
-  const [productsSearch, setProductsSearch] = useState([]);
+
   const [lastProducts, setlastProducts] = useState([]);
   useEffect(() => {
     setSession(supabase.auth.getSession());
@@ -57,14 +55,15 @@ function Home() {
           <section className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {lastProducts.map((product) => (
               <>
-                <CardProducto
-                  key={product.idProducto}
-                  idProducto={product.idProducto}
-                  rutaActual="producto"
-                  nombreProducto={product.nomProducto}
-                  precio={product.precio}
-                  imagenProducto={product.imagen}
-                />
+                <div key={product.idProducto}>
+                  <CardProducto
+                    idProducto={product.idProducto}
+                    rutaActual="producto"
+                    nombreProducto={product.nomProducto}
+                    precio={product.precio}
+                    imagenProducto={product.imagen}
+                  />
+                </div>
               </>
             ))}
           </section>
