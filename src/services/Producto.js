@@ -27,9 +27,7 @@ export const getProductsCategory = async (categoria) => {
 };
 
 export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
-export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
   try {
-    const { error, data } = await supabase.rpc(insertarACarrito, {
     const { error, data } = await supabase.rpc(insertarACarrito, {
       idProducto: id,
       nombreProducto: nombre,
@@ -59,17 +57,19 @@ export const buscarProductosCategoria = async (producto, categoria) => {
       nombre_producto: producto,
       nombre_categoria: categoria,
     });
-    if(error) throw error;
+    if (error) throw error;
     return data;
   } catch (err) {
     console.log(err);
   }
 };
 
-export const buscarProductos = async(producto)=>{
+export const buscarProductos = async (producto) => {
   try {
-    const {error, data} = await supabase.rpc(buscarProductosGeneral,{nombre_producto: producto})
-    if(error) throw error;
+    const { error, data } = await supabase.rpc(buscarProductosGeneral, {
+      nombre_producto: producto,
+    });
+    if (error) throw error;
     return data;
   } catch (err) {
     console.log(err);
@@ -80,11 +80,11 @@ export const getListProducto = async (nombre) => {
   try {
     //tomar el idNegocio perteneciente a sesion negociante activa
     const session = await supabase.auth.getSession();
-    console.log("sesion activa",session.data.session.user.id)
+    console.log("sesion activa", session.data.session.user.id);
 
     const { error, data } = await supabase.rpc(getProducts, {
       nom_product: nombre,
-      id_dealer: session.data.session.user.id
+      id_dealer: session.data.session.user.id,
     });
     if (error) throw error;
     return data;
@@ -112,7 +112,7 @@ export const agregarProducto = async (
       descripcion_product: descripcion,
       color_product: color,
       talla_product: talla,
-      id_dealer: session.data.session.user.id
+      id_dealer: session.data.session.user.id,
     });
 
     if (error) throw error;
