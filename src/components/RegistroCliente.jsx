@@ -125,7 +125,7 @@ function RegistroCliente() {
             <div className=" ml-auto w-auto h-auto rounded-r-md  mb-64">
               <img
                 className="w-auto bg-center  rounded-r-md"
-                src="src\images\logoIntradeshop.png"
+                src="/src/images/logoIntradeshop.png"
               ></img>
             </div>
           </div>

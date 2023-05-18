@@ -8,6 +8,7 @@ import { getUltimosProductos } from "../services/Producto";
 
 function Home() {
   const [session, setSession] = useState(null);
+  const [username, setUsername] = useState("")
 
   const [lastProducts, setlastProducts] = useState([]);
   useEffect(() => {

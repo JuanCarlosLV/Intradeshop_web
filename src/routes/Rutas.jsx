@@ -28,6 +28,7 @@ import EditarNegocio from "../views/EditarNegocio";
 import DarDeBajaNegocio from "../views/DarDeBajaNegocio";
 import ResultadoBusqueda from "../views/ResultadoBusqueda";
 import DetallePNegociante from "../views/DetallePNegociante";
+import ReestablecerContraseña from "../components/ReestablecerContraseña";
 
 function Rutas() {
   return (
@@ -36,6 +37,8 @@ function Rutas() {
         <Route path="/" element={<Home />}></Route>
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/reestablecer-contraseña" element={<ReestablecerContraseña/>}></Route>
+
         <Route
           path="seleccion-registro"
           element={<SeleccionRegistro />}

@@ -117,9 +117,7 @@ function CategoriaProducts() {
 
       <div className="flex flex-row ml-5 justify-between mr-10">
         <div className="-ml-10 mr-10 ">
-          <form>
-            <Busqueda placeholder="Buscar por nombre" />
-          </form>
+          <Busqueda placeholder="Buscar por nombre" />
         </div>
 
         <button
@@ -145,9 +143,15 @@ function CategoriaProducts() {
 
                 <div className="bg-[#004643] font-ralewayFont font-light text-[20px] text-white  w-[130px] -ml-[18px] rounded-[5px] rounded-t-none ">
                   <lu className="list-none">
-                    <li className="hover:bg-white hover:text-[#004643]">Talla</li>
-                    <li className="hover:bg-white hover:text-[#004643]">Precio</li>
-                    <li className="hover:bg-white hover:text-[#004643]">Valoracion</li>
+                    <li className="hover:bg-white hover:text-[#004643]">
+                      Talla
+                    </li>
+                    <li className="hover:bg-white hover:text-[#004643]">
+                      Precio
+                    </li>
+                    <li className="hover:bg-white hover:text-[#004643]">
+                      Valoracion
+                    </li>
                   </lu>
                 </div>
               </section>
@@ -182,7 +186,7 @@ function CategoriaProducts() {
             <CardProducto
               key={product.idProducto}
               idProducto={product.idProducto}
-             
+              rutaActual="/producto"
               nombreProducto={product.nomProducto}
               precio={product.precio}
               imagenProducto={product.imagen}
