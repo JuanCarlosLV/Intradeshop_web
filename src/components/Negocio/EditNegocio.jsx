@@ -45,7 +45,6 @@ function EditNegocio() {
   const handleEditar = (evt) => {
     evt.preventDefault();
     editarInfoNegocio(
-      idDealer,
       formValues.nombre,
       formValues.correo,
       formValues.direccion,
