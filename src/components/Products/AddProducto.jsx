@@ -56,10 +56,11 @@ function AddProducto() {
     subirImagen(formValues.imagen);
   };
   const handleImagenChange = (evt) => {
-    setFormValues({
-      ...formValues,
-      imagen: evt.target.files[0],
-    });
+    const files = Array.from(evt.target.files).slice(0,5);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      imagen: prevValues.imagen.concat(files),
+    }));
   };
   const handleColorChange = (color) => {
     setFormValues({
@@ -139,6 +140,7 @@ function AddProducto() {
                 type="file"
                 id="imagen"
                 name="imagen"
+                multiple
                 onChange={handleImagenChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
               />
