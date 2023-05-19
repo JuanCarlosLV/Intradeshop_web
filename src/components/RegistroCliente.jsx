@@ -65,7 +65,7 @@ function RegistroCliente() {
           </div>
 
           <div className="  flex flex-row">
-            <div className="w-3/6 ml-20 mt-10 mb-52">
+            <div className="w-3/6 ml-20 mt-10 ">
               <label className="mb-3 block text-base text-left font-ralewayFont font-semibold ">
                 Nombre de Usuario
               </label>
@@ -122,7 +122,7 @@ function RegistroCliente() {
               </div>
             </div>
 
-            <div className=" ml-auto w-auto h-auto rounded-r-md  mb-64">
+            <div className=" ml-auto w-auto h-auto rounded-r-md ">
               <img
                 className="w-auto bg-center  rounded-r-md"
                 src="/src/images/logoIntradeshop.png"

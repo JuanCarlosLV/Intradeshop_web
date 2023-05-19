@@ -1,13 +1,13 @@
 import { supabase } from "../supabase/connection";
 
+const obtenerTiendas = "gettiendas"
+
 export const getTiendas = async () => {
   try {
-    const { data, error } = await supabase
-      .from("Negocio")
-      .select("idNegocio", "nomNegocio", "logo");
-    if (error) throw error;
+    const {data,error} = await supabase.rpc(obtenerTiendas);
+    if(error) console.log(error)
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };

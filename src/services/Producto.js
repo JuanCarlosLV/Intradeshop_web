@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const addProduct = "add_product";
 const getProducts = "get_products";
-const getProduct = "get_product";
+const getProduct = "getproducto";
 const deleteProduct = "delete_product";
 const editProduct = "edit_product";
 const filterProduct = "filter_product";
@@ -12,6 +12,7 @@ const getlastproducts = "getlastproducts";
 const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
 const buscarProductosGeneral = "buscarproductos";
+const obtenerImagenesProducto = "getimagesproduct";
 let idProducImg;
 
 export const getProductsCategory = async (categoria) => {
@@ -94,6 +95,18 @@ export const getListProducto = async (nombre) => {
   }
 };
 
+export const getImagenesProducto = async (idproducto) => {
+  try {
+    const { error, data } = await supabase.rpc(obtenerImagenesProducto, {
+      idproducto: idproducto,
+    });
+    if (error) console.log(error);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const agregarProducto = async (
   nombre,
   precio,
@@ -135,7 +148,7 @@ export const eliminarProducto = async (id) => {
 export const getProducto = async (id) => {
   try {
     const { error, data } = await supabase
-      .rpc(getProduct, { id_product: id })
+      .rpc(getProduct, { idproducto: id })
       .single();
     if (error) throw error;
     return data;

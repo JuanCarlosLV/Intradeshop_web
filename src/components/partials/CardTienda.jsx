@@ -2,8 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 function CardTienda(props) {
   const navigate = useNavigate();
-  const handleVerTienda = (nombreTienda) => {
-    navigate(`/tiendas-asociadas/${nombreTienda}`);
+  const handleVerTienda = () => {
+    navigate(`/tiendas-asociadas/${props.nombreTienda}`);
   };
 
   return (
@@ -22,7 +22,7 @@ function CardTienda(props) {
         </div>
         <div className="p-4 items-center flex flex-row bg-white rounded-lg w-[200px] h-[50px] mb-5 ml-auto mr-auto">
           <NavLink
-            to="intrade"
+            to={"/tiendas-asociadas/"+ props.nombreTienda}
             className="font-ralewayFont font-semibold text-[#004643] text-2xl ml-5"
           >
             Ver Tienda
