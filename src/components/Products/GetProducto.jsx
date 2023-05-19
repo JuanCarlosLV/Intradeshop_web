@@ -14,7 +14,7 @@ function GetProducto() {
       setProductos(data);
     }
     showData();
-  }, [getListProducto, nombre]);
+  }, [nombre]);
 
   const handleConsultar = (evt) => {
     setNombre(evt.target.value);

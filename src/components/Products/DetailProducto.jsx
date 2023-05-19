@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProducto, pruebaAddProducto } from "../../services/Producto";
+import { getProducto } from "../../services/Producto";
 
 function DetailProducto() {
   const { id } = useParams();
@@ -11,7 +11,6 @@ function DetailProducto() {
       setProducto(data);
     }
     showData();
-    pruebaAddProducto();
   }, [id]);
 
   return (
@@ -35,7 +34,7 @@ function DetailProducto() {
               Cantidad del producto
             </label>
             <p className="w-full rounded-md border bg-gray-200 py-3 px-6 font-medium text-black outline-none focus:shadow-md font-ralewayFont text-sm md:text-base lg:text-lg">
-              {producto.cantidad}
+              {producto.cantidadTotal}
             </p>
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Descripcion del producto
