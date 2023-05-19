@@ -1,38 +1,11 @@
-import { Sidebar } from "flowbite-react";
 
-/*
- <Sidebar className="h-60 bg-blue-500 ">
-          <Sidebar.Items className="bg-[#D1AC00] max-h-max ">
-            <Sidebar.ItemGroup>
-              <Sidebar.Item
-                href="#"
-                className=" mb-14 font-ralewayFont font-semibold hover:bg-[#004643] hover:text-white"
-              >
-                Mis Pedidos
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
-                className=" mb-14 hover:bg-[#004643] font-semibold  hover:text-white"
-              >
-                Mis Productos
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
-                className="mb-14 hover:bg-[#004643] font-semibold  hover:text-white"
-              >
-                Mis Ventas
-              </Sidebar.Item>
-            </Sidebar.ItemGroup>
-          </Sidebar.Items>
-        </Sidebar>
-*/
 function SidebarNegociante() {
   return (
     <>
-      <div className="bg-black ">
+      <div className="">
           <aside
             id="sidebar-multi-level-sidebar"
-            className="fixed top left-0 z-40 w-64 h-screen"
+            className="absolute top left-0 z-40 w-64 h-screen"
             aria-label="Sidebar"
           >
             <div class="h-full px-3 py-4 overflow-y-auto bg-[#D1AC00] dark:bg-gray-800">

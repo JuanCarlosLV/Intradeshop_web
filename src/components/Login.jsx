@@ -19,19 +19,6 @@ function Login() {
     });
   }, []);
 
-  const redireccion = async (dato) => {
-   
-    /*if (data == "cliente") {
-      navigate("/");
-    } else if (data === "negociante") {
-      navigate("home-negociante");
-    } else if (data === "administrador") {
-      navigate("home-administrador");
-    } else {
-      alert("error");
-    }*/
-  };
-
   const [formValues, setFormValues] = useState({
     correoElectronico: "",
     contraseña: "",
@@ -52,18 +39,17 @@ function Login() {
       formValues.contraseña
     );
     const cuenta = await getTipoCuenta(idUser);
-    console.log("id: "+ idUser)
-    console.log("tipo cliente:"+ cuenta)
-    if(cuenta==="cliente"){
-      navigate("/")
+    console.log("id: " + idUser);
+    console.log("tipo cliente:" + cuenta);
+    if (cuenta === "cliente") {
+      navigate("/");
+    } else if (cuenta === "negociante") {
+      navigate("/home-negociante");
+    } else if (cuenta === "administrador") {
+      navigate("/home-administrador");
+    }else{
+      console.log("no");
     }
-    if(cuenta==="negociante"){
-      navigate("/home-negociante")
-    }
-    if(cuenta==="administrador"){
-      navigate("/home-administrador")
-    }
-   
   };
 
   return (
@@ -71,12 +57,12 @@ function Login() {
       <HeaderLogin />
 
       <div className="mt-5 flex">
-        <a href="/">
+        <NavLink to="/">
           <BsArrowLeftCircleFill
             className="text-4xl ml-10 mt-3 "
             color="D1AC00"
           />
-        </a>
+        </NavLink>
 
         <h1 className="text-4xl mt-5 font-bold font-ralewayFont text-center mr-auto ml-auto">
           INICIAR SESIÓN
@@ -118,7 +104,7 @@ function Login() {
 
                 <div className="mb-3 flex flex-wrap content-center">
                   <NavLink
-                    to="/recuperar-contraseña"
+                    to="/reestablecer-contraseña"
                     className="text font-semibold font-ralewayFont text-[#D1AC00]"
                   >
                     ¿Se te olvidó la contraseña?
@@ -134,7 +120,6 @@ function Login() {
                   </button>
                 </div>
               </form>
-             
 
               <div className="text-center">
                 <span className="text-x text-black font-ralewayFont font-semibold">

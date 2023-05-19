@@ -14,10 +14,10 @@ function GetProducto() {
       setProductos(data);
     }
     showData();
-  }, [getListProducto, nombre]);
+  }, [nombre]);
 
-  const handleConsultar = (e) => {
-    setNombre(e.target.value);
+  const handleConsultar = (evt) => {
+    setNombre(evt.target.value);
   };
 
   function handleNavigateEditar(idProducto) {

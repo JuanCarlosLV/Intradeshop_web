@@ -12,7 +12,6 @@ function Header() {
     setSession(supabase.auth.getSession());
 
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
       setusername(session.user.email);
     });
@@ -67,10 +66,11 @@ function Header() {
 
             {isOpen && (
               <>
-                <div className="mt-2 mr-[60px] w-40  text-center font-ralewayFont text-2xl text-white rounded-md bg-[#D1AC00]  ">
+                <div className="mt-2 mr-[60px] w-[170px]  text-center font-ralewayFont text-2xl text-white rounded-md bg-[#D1AC00]  ">
                   {session != null ? (
                     <>
                       <NavLink to="/perfil-cliente">Mi cuenta</NavLink>
+                      <br />
                       <NavLink to="/login" onClick={cerrarSesion}>
                         Cerrar Sesión
                       </NavLink>

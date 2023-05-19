@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ConfirmacionAction from "../Modales/ConfirmacionAction";
 import {
   enviarCorreo,
   getInfoNegocio,
@@ -11,21 +12,35 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 const idBussiness = 1;
 
 function UnsubscribeNegocio() {
-  const [negocio, setNegocio] = useState("");
-
+  const [negocioData, setNegocioData] = useState({
+    bussinessname: "",
+    email: "",
+    message: "",
+  });
+  const [stateModal, setStateModal] = useState(false);
   useEffect(() => {
     async function getInfo() {
       //se obtiene desde la funcion de get id
       const idDealer = await getIdDealer(idBussiness);
       const data = await getInfoNegocio(idDealer);
-      setNegocio(data);
+      setNegocioData({
+        bussinessname: data.nomNegocio,
+        email: data.correoElectronico,
+      });
     }
     getInfo();
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
+  const handleShowModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(true);
+  };
+  const handleCloseModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(false);
+  };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const form = evt.target;
     enviarCorreo(form);
     darDeBajaNegocio(idBussiness);
   };
@@ -44,15 +59,14 @@ function UnsubscribeNegocio() {
         </h1>
       </div>
       <div className="top-1 left-60 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto p-4 ml-60">
-        <form onSubmit={(e) => handleSubmit(e)} className="max-w-lg">
+        <form onSubmit={handleShowModal} className="max-w-lg">
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
             Nombre
           </label>
           <input
-            placeholder="Nombre"
             name="bussinessname"
-            value={negocio.nomNegocio}
-            className="w-full rounded-md border-none bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:shadow-md focus:ring-2 focus:ring-[#004643] m-1 appearance-none"
+            value={negocioData.bussinessname}
+            className="w-full rounded-md border-none bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:outline-none m-1 appearance-none"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
             Email
@@ -60,7 +74,8 @@ function UnsubscribeNegocio() {
           <input
             type="email"
             name="email"
-            value={negocio.correoElectronico}
+            disabled
+            value={negocioData.email}
             className="w-full rounded-md border-none bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:shadow-md focus:ring-2 focus:ring-[#004643] m-1 appearance-none"
           />
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
@@ -77,6 +92,13 @@ function UnsubscribeNegocio() {
             </button>
           </div>
         </form>
+        <ConfirmacionAction
+          mostrarModal={stateModal}
+          titulo="Baja a tienda"
+          cuerpo="¿Estás seguro de dar de baja al negocio?"
+          cancelar={handleCloseModal}
+          confirmar={handleSubmit}
+        />
       </div>
     </>
   );

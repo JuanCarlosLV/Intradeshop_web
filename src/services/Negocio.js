@@ -1,5 +1,7 @@
 import { supabase } from "../supabase/connection";
 import emailjs from "@emailjs/browser";
+import { v4 as uuidv4 } from "uuid";
+
 
 const editBussiness = "edit_bussiness";
 const getBussiness = "get_bussiness";
@@ -10,10 +12,43 @@ const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
 const apiKey = "wAmi1MLFEfz21fzdN";
 
-export const getInfoNegocio = async (idDealer) => {
+
+
+/*export const subirLogo = async (logo) => {
+  const nombreLogo = `${uuidv4()}-${logo.name}`;
+  const { error } = await supabase.storage
+    .from("Tiendas")
+    .upload(nombreLogo, logo);
+  if (error) {
+    console.log("Error al subir la imagen: " + error.message);
+  } else {
+    const { data } = await supabase.storage
+      .from("Tiendas")
+      .getPublicUrl(nombreLogo);
+    const url = data.publicUrl;
+    const idNegocio = getIdNegocio()
+    guardarUrlLogo(url,idNegocio)
+  }
+};
+
+export const guardarUrlLogo = async (url, id_negocio) => {
   try {
+    const { error } = await supabase
+      .from("Negocio")
+      .update({ logo: url })
+      .eq("idNegocio", id_negocio);
+    if (error) throw error;
+  } catch (err){
+    console.error(err);
+  }
+}; */
+
+export const getInfoNegocio = async () => {
+  try {
+    const session = await supabase.auth.getSession();
+    console.log("session active", session.data.session.user.id);
     const { error, data } = await supabase
-      .rpc(getBussiness, { id_dealer: idDealer })
+      .rpc(getBussiness, { id_dealer: session.data.session.user.id })
       .single();
     if (error) throw error;
     return data;
