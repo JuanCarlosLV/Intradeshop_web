@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const nameBucket = "Products";
 const addProduct = "add_product";
 const getProducts = "get_products";
-const getProduct = "get_product";
+const getProduct = "getproducto";
 const deleteProduct = "delete_product";
 const editProduct = "edit_product";
 const filterProduct = "filter_product";
@@ -13,7 +13,9 @@ const getlastproducts = "getlastproducts";
 const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
 const buscarProductosGeneral = "buscarproductos";
+const obtenerImagenesProducto = "getimagesproduct";
 let idProducImg;
+
 export const getProductsCategory = async (categoria) => {
   try {
     const { error, data } = await supabase.rpc(getProductsCategoria, {
@@ -91,6 +93,18 @@ export const getListProducto = async (nombre) => {
     return data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getImagenesProducto = async (idproducto) => {
+  try {
+    const { error, data } = await supabase.rpc(obtenerImagenesProducto, {
+      idproducto: idproducto,
+    });
+    if (error) console.log(error);
+    return data;
+  } catch (err) {
+    console.log(err);
   }
 };
 

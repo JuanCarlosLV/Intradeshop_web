@@ -6,19 +6,16 @@ function ListaProductos() {
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">
-                Product name
+                Producto
               </th>
               <th scope="col" class="px-6 py-3">
-                Color
+                Cantidad
               </th>
               <th scope="col" class="px-6 py-3">
-                Category
+                Precio
               </th>
               <th scope="col" class="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Edit</span>
+                <span class="sr-only">Eliminar</span>
               </th>
             </tr>
           </thead>
@@ -31,7 +28,6 @@ function ListaProductos() {
                 Apple MacBook Pro 17"
               </th>
               <td class="px-6 py-4">Silver</td>
-              <td class="px-6 py-4">Laptop</td>
               <td class="px-6 py-4">$2999</td>
               <td class="px-6 py-4 text-right">
                 <a
@@ -50,7 +46,6 @@ function ListaProductos() {
                 Microsoft Surface Pro
               </th>
               <td class="px-6 py-4">White</td>
-              <td class="px-6 py-4">Laptop PC</td>
               <td class="px-6 py-4">$1999</td>
               <td class="px-6 py-4 text-right">
                 <a
@@ -69,7 +64,6 @@ function ListaProductos() {
                 Magic Mouse 2
               </th>
               <td class="px-6 py-4">Black</td>
-              <td class="px-6 py-4">Accessories</td>
               <td class="px-6 py-4">$99</td>
               <td class="px-6 py-4 text-right">
                 <a

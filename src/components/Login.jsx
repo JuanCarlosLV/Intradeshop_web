@@ -57,12 +57,12 @@ function Login() {
       <HeaderLogin />
 
       <div className="mt-5 flex">
-        <a href="/">
+        <NavLink to="/">
           <BsArrowLeftCircleFill
             className="text-4xl ml-10 mt-3 "
             color="D1AC00"
           />
-        </a>
+        </NavLink>
 
         <h1 className="text-4xl mt-5 font-bold font-ralewayFont text-center mr-auto ml-auto">
           INICIAR SESIÓN
@@ -104,7 +104,7 @@ function Login() {
 
                 <div className="mb-3 flex flex-wrap content-center">
                   <NavLink
-                    to="/recuperar-contraseña"
+                    to="/reestablecer-contraseña"
                     className="text font-semibold font-ralewayFont text-[#D1AC00]"
                   >
                     ¿Se te olvidó la contraseña?

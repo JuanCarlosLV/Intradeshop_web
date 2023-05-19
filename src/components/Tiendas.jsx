@@ -7,53 +7,18 @@ import { NavLink } from "react-router-dom";
 import { getTiendas } from "../services/Tiendas";
 import { useEffect, useState } from "react";
 
-const listaTiendas = [
-  {
-    id: 1,
-    nombreTienda: "Tienda 1",
-    imagenTienda: "logo",
-  },
-  { id: 2, nombreTienda: "Tienda 2", imagenTienda: "logo" },
-  {
-    id: 3,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-  {
-    id: 4,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-  {
-    id: 5,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-  {
-    id: 6,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
- 
-  {
-    id: 8,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-  {
-    id: 10,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-  {
-    id: 12,
-    nombreTienda: "Tienda 3",
-    imagenTienda: "logo",
-  },
-];
 
 function Tiendas() {
-  const [tiendas, setTiendas] = useState(listaTiendas);
+  const [tiendas, setTiendas] = useState([]);
+
+  useEffect(()=>{
+    async function mostrarTiendas() {
+      const data = await getTiendas();
+      setTiendas(data);
+      console.log(data);
+    }
+    mostrarTiendas()
+  },[])
 
   return (
     <>
@@ -85,9 +50,9 @@ function Tiendas() {
         {tiendas.map((tienda) => (
           <>
             <CardTienda
-              key={tienda.id}
-              nombreTienda={tienda.nombreTienda}
-              imagenTienda={tienda.imagenTienda}
+              key={tienda.idNegocio}
+              nombreTienda={tienda.nomNegocio}
+              imagenTienda={tienda.logo}
             />
           </>
         ))}

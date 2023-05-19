@@ -1,4 +1,7 @@
 import { Route, Routes } from "react-router-dom";
+import { supabase } from "../supabase/connection";
+import { getTipoCuenta } from "../services/Autenticacion";
+import { useState, useEffect } from "react";
 
 // ventanas de redireccion
 
@@ -28,34 +31,35 @@ import EditarNegocio from "../views/EditarNegocio";
 import DarDeBajaNegocio from "../views/DarDeBajaNegocio";
 import ResultadoBusqueda from "../views/ResultadoBusqueda";
 import DetallePNegociante from "../views/DetallePNegociante";
+import ReestablecerContraseña from "../components/ReestablecerContraseña";
 
 function Rutas() {
+  const [session, setSession] = useState(null);
+  const [idUser, setidUser] = useState("");
+  const [tipoCuenta, setTipoCuenta] = useState("");
+
+  useEffect(() => {
+    setSession(supabase.auth.getSession());
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setidUser(session.user.id);
+    });
+  }, []);
+
+  const getCuenta = async () => {
+    const cuenta = await getTipoCuenta(idUser);
+    if (cuenta === "cliente") {
+      setTipoCuenta("cliente");
+    } else if (cuenta === "administrador") {
+      setTipoCuenta("administrador");
+    } else if (cuenta === "negociante") setTipoCuenta("negociante");
+  };
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route
-          path="seleccion-registro"
-          element={<SeleccionRegistro />}
-        ></Route>
-        <Route path="registro-cliente" element={<RegistroCliente />}></Route>
-        <Route path="registro-negocio" element={<RegistroNegocio />}></Route>
-        <Route path="perfil-negocio:/id" element={<PerfilNegocio />}></Route>
-        <Route
-          path="perfil-administrador/:id"
-          element={<PerfilAdministrador />}
-        ></Route>
-        <Route path="perfil-cliente" element={<PerfilCliente />}></Route>
-        <Route path="home-negociante" element={<HomeNegociante />}></Route>
-        <Route
-          path="home-administrador"
-          element={<HomeAdministrador />}
-        ></Route>
         <Route path="carrito-compra" element={<Carrito />}></Route>
-        <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
-
         <Route
           path="/categoria-products/:nombreCategoria"
           element={<VerProductosCategoria />}
@@ -65,6 +69,28 @@ function Rutas() {
           element={<DetalleProducto />}
         ></Route>
 
+        {/* Rutas generales */}
+        <Route path="/" element={<Home />}></Route>
+
+        <Route path="*" element={<NotFound />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route
+          path="/reestablecer-contraseña"
+          element={<ReestablecerContraseña />}
+        ></Route>
+
+        <Route
+          path="seleccion-registro"
+          element={<SeleccionRegistro />}
+        ></Route>
+        <Route path="registro-cliente" element={<RegistroCliente />}></Route>
+        <Route path="registro-negocio" element={<RegistroNegocio />}></Route>
+        <Route path="perfil-negocio:/id" element={<PerfilNegocio />}></Route>
+
+        <Route path="perfil-cliente" element={<PerfilCliente />}></Route>
+        <Route path="home-negociante" element={<HomeNegociante />}></Route>
+
+        <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
         <Route
           path="/producto/:idProducto"
           element={<DetalleProducto />}
@@ -90,17 +116,15 @@ function Rutas() {
         ></Route>
         <Route
           path="mis-productos/detalle/:id"
-          element={<DetallePNegociante/>}
+          element={<DetallePNegociante />}
         ></Route>
         <Route path="editar-negocio" element={<EditarNegocio />}></Route>
         <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
 
-
-        <Route path="/search/:nombreProducto" element={<ResultadoBusqueda/>}></Route>
-
-        
-
-
+        <Route
+          path="/search/:nombreProducto"
+          element={<ResultadoBusqueda />}
+        ></Route>
       </Routes>
     </>
   );
