@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const nameBucket = "Products";
 const addProduct = "add_product";
-const getProducts = "get_products";
-const getProduct = "getproducto";
+const getListProducts = "get_list_products";
+const getProduct = "get_product_bussiness";
 const deleteProduct = "delete_product";
 const editProduct = "edit_product";
 const filterProduct = "filter_product";
@@ -85,7 +85,7 @@ export const getListProducto = async (nombre) => {
     const session = await supabase.auth.getSession();
     console.log("sesion activa", session.data.session.user.id);
 
-    const { error, data } = await supabase.rpc(getProducts, {
+    const { error, data } = await supabase.rpc(getListProducts, {
       nom_product: nombre,
       id_dealer: session.data.session.user.id,
     });
@@ -159,7 +159,6 @@ export const getProducto = async (id) => {
   } catch (error) {
     console.log(error);
   }
-  getImgProducto(id);
 };
 
 export const editarProducto = async (
@@ -243,20 +242,53 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
     }
   }
 };
-//ya obtiene el id del negocio correspondiente a la sesion activa del negociante
-export const pruebaAddProducto = async () => {
-  const info = await supabase.auth.getSession();
-  console.log("Sesion activa", info.data.session.user.id);
-  const idUser = info.data.session.user.id;
-  const { data, error } = await supabase.rpc("get_prueba", {
-    id_dealer: idUser,
-  });
-  if (error) console.log(error);
-  let idBuss = data[0];
-  console.log(idBuss);
-};
-//obtener los url de los productos
-const getImgProducto = async (id) => {
-  const { data, error } = await supabase.rpc('get_urls', { id_product: id })
-  console.log(data[0]);
+
+//obtener los url de las imagenes de los productos
+/*const getUrlImgProducto = async (id) => {
+  try {
+    const { data, error } = await supabase.rpc('get_urls', { id_product: id })
+    if (error) throw error;
+    for (let i = 0; i < data.length; i++) {
+      if (Array.isArray(data[i])) {
+        for (let j = 0; j < data[i].length; j++) {
+          const url = data[i][j];
+          console.log('URL:', url)
+        }
+      } else {
+        const url = data[i];
+        console.log('URL:', url);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}*/
+const eliminarImgBucket = async (urlImagen) => {
+  try {
+    const { error } = await supabase.storage.from(nameBucket).remove([urlImagen]);
+    if (error) throw error;
+  } catch (error) {
+    console.error(error);
+  }
 }
+export const getDeleteUrlImg = async (id) => {
+  try {
+    const { data, error } = await supabase.rpc('get_urls', { id_product: id })
+    if (error) throw error;
+    for (let i = 0; i < data.length; i++) {
+      if (Array.isArray(data[i])) {
+        for (let j = 0; j < data[i].length; j++) {
+          const url = data[i][j];
+          await eliminarImgBucket(url);
+        }
+      } else {
+        const url = data[i];
+        await eliminarImgBucket(url);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+

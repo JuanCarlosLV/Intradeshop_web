@@ -47,7 +47,7 @@ function EditProducto() {
   }
   const handleEdit = async (evt) => {
     evt.preventDefault();
-    editarProducto(
+    await editarProducto(
       id,
       formValues.nombre,
       formValues.precio,

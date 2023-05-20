@@ -43,7 +43,7 @@ function AddProducto() {
   };
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    agregarProducto(
+    await agregarProducto(
       formValues.nombre,
       formValues.precio,
       formValues.cantidad,
