@@ -10,7 +10,7 @@ import {
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useState, useEffect } from "react";
 import {
-  getProducto,
+  obtenerDetalleProducto,
   insertarACarrito,
   getImagenesProducto,
 } from "../../services/Producto";
@@ -30,14 +30,13 @@ function ProductoDetalle() {
 
   useEffect(() => {
     async function getData() {
-      const data = await getProducto(idProducto);
+      const data = await obtenerDetalleProducto(idProducto);
       setProducto(data);
-      
-    console.log(data)
     }
     getData();
-    
   }, [idProducto]);
+  
+
 
   const handleOpenButton = () => {
     setisGeneratorOpen((prev) => !prev);
@@ -126,11 +125,14 @@ function ProductoDetalle() {
                 )}
               </button>
             </aside>
-            <img
-              src={producto.imagen}
-              alt={producto.nomProducto}
-              className="w-auto h-[450px] mt-5 bg-red-400"
-            ></img>
+            <div>
+              
+              <img
+                src={producto.imagen}
+                alt={producto.nomProducto}
+                className="w-auto h-[450px] mt-5 bg-red-400"
+              ></img>
+            </div>
 
             <div className="flex flex-col ml-10 w-[600px] ">
               <h1 className="text-[30px] font-ralewayFont font-bold text-black">
@@ -200,7 +202,7 @@ function ProductoDetalle() {
             </div>
           </div>
         </div>
-        
+
         {/* carrusel de imagenes, todavia no funciona pq aun no hay imagenes
         <div className="flex flex-row ">
           <button

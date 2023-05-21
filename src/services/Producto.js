@@ -14,6 +14,7 @@ const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
 const buscarProductosGeneral = "buscarproductos";
 const obtenerImagenesProducto = "getimagesproduct";
+const getDetalleProducto = "getproducto";
 let idProducImg;
 
 export const getProductsCategory = async (categoria) => {
@@ -71,6 +72,18 @@ export const buscarProductos = async (producto) => {
   try {
     const { error, data } = await supabase.rpc(buscarProductosGeneral, {
       nombre_producto: producto,
+    });
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const obtenerDetalleProducto = async (idproducto) => {
+  try {
+    const { data, error } = await supabase.rpc(getDetalleProducto, {
+      idproducto: idproducto,
     });
     if (error) throw error;
     return data;
@@ -152,7 +165,10 @@ export const getProducto = async (id) => {
     console.log("sesion activa", session.data.session.user.id);
 
     const { error, data } = await supabase
-      .rpc(getProduct, { id_product: id, id_dealer: session.data.session.user.id })
+      .rpc(getProduct, {
+        id_product: id,
+        id_dealer: session.data.session.user.id,
+      })
       .single();
     if (error) throw error;
     return data;
@@ -204,7 +220,7 @@ export const filtrarProducto = async (precio, color, talla) => {
 export const subirImagen = async (imagenes) => {
   const imgUrls = [];
   for (const imagen of imagenes) {
-    const imagenName = `${uuidv4()}-${imagen.name}`
+    const imagenName = `${uuidv4()}-${imagen.name}`;
     const { error } = await supabase.storage
       .from("Products")
       .upload(imagenName, imagen);
@@ -233,10 +249,14 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
     console.error(error);
   }
   if (imgUrls.length > 1) {
-    const urlsToInsert = imgUrls.slice(1).map((url) => ({ imagenUrl: url, idProducto: idProd }));
+    const urlsToInsert = imgUrls
+      .slice(1)
+      .map((url) => ({ imagenUrl: url, idProducto: idProd }));
 
     try {
-      const { error } = await supabase.from("ImagenProducto").insert(urlsToInsert)
+      const { error } = await supabase
+        .from("ImagenProducto")
+        .insert(urlsToInsert);
       if (error) throw error;
     } catch (error) {
       console.error(error);
@@ -257,6 +277,6 @@ export const pruebaAddProducto = async () => {
 };
 //obtener los url de los productos
 const getImgProducto = async (id) => {
-  const { data, error } = await supabase.rpc('get_urls', { id_product: id })
+  const { data, error } = await supabase.rpc("get_urls", { id_product: id });
   console.log(data[0]);
-}
+};

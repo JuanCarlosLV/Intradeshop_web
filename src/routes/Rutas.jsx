@@ -34,27 +34,7 @@ import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
 
 function Rutas() {
-  const [session, setSession] = useState(null);
-  const [idUser, setidUser] = useState("");
-  const [tipoCuenta, setTipoCuenta] = useState("");
-
-  useEffect(() => {
-    setSession(supabase.auth.getSession());
-
-    supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setidUser(session.user.id);
-    });
-  }, []);
-
-  const getCuenta = async () => {
-    const cuenta = await getTipoCuenta(idUser);
-    if (cuenta === "cliente") {
-      setTipoCuenta("cliente");
-    } else if (cuenta === "administrador") {
-      setTipoCuenta("administrador");
-    } else if (cuenta === "negociante") setTipoCuenta("negociante");
-  };
+  
 
   return (
     <>
