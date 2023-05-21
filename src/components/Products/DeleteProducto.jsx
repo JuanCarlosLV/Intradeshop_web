@@ -1,6 +1,6 @@
 import { NavLink, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { eliminarProducto, getDeleteUrlImg } from "../../services/Producto";
+import { eliminarProducto, eliminarImgProducto } from "../../services/Producto";
 import DetailProducto from "../Products/DetailProducto";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
@@ -14,8 +14,8 @@ function DeleteProducto() {
 
   const handleDelete = async () => {
     try {
+      await eliminarImgProducto(id);
       await eliminarProducto(id);
-      await getDeleteUrlImg(id);
       navigateMisProductos("/mis-productos");
     } catch (error) {
       console.error(error);

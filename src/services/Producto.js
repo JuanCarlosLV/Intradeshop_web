@@ -2,6 +2,8 @@ import { supabase } from "../supabase/connection";
 import { v4 as uuidv4 } from "uuid";
 
 const nameBucket = "Products";
+const tableProduct = "Producto";
+const tableImgProduct = "ImagenProducto";
 const addProduct = "add_product";
 const getListProducts = "get_list_products";
 const getProduct = "get_product_bussiness";
@@ -165,7 +167,6 @@ export const editarProducto = async (
   id,
   nombre,
   precio,
-  imagen,
   cantidad,
   categoria,
   descripcion
@@ -175,7 +176,6 @@ export const editarProducto = async (
       id_product: id,
       nom_product: nombre,
       precio_product: precio,
-      imagen_product: imagen,
       cantidad_product: cantidad,
       categoria_product: categoria,
       descripcion_product: descripcion,
@@ -205,7 +205,7 @@ export const subirImagen = async (imagenes) => {
   for (const imagen of imagenes) {
     const imagenName = `${uuidv4()}-${imagen.name}`
     const { error } = await supabase.storage
-      .from("Products")
+      .from(nameBucket)
       .upload(imagenName, imagen);
 
     if (error) {
@@ -224,7 +224,7 @@ export const subirImagen = async (imagenes) => {
 const guardarUrlProducto = async (imgUrls, idProd) => {
   try {
     const { error } = await supabase
-      .from("Producto")
+      .from(tableProduct)
       .update({ imagen: imgUrls[0] })
       .eq("idProducto", idProd);
     if (error) throw error;
@@ -235,7 +235,7 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
     const urlsToInsert = imgUrls.slice(1).map((url) => ({ imagenUrl: url, idProducto: idProd }));
 
     try {
-      const { error } = await supabase.from("ImagenProducto").insert(urlsToInsert)
+      const { error } = await supabase.from(tableImgProduct).insert(urlsToInsert)
       if (error) throw error;
     } catch (error) {
       console.error(error);
@@ -263,15 +263,15 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
     console.error(error);
   }
 }*/
-const eliminarImgBucket = async (urlImagen) => {
+const eliminarImgBucket = async (nameImagen) => {
   try {
-    const { error } = await supabase.storage.from(nameBucket).remove([urlImagen]);
+    const { error } = await supabase.storage.from(nameBucket).remove([nameImagen]);
     if (error) throw error;
   } catch (error) {
     console.error(error);
   }
 }
-export const getDeleteUrlImg = async (id) => {
+export const eliminarImgProducto = async (id) => {
   try {
     const { data, error } = await supabase.rpc('get_urls', { id_product: id })
     if (error) throw error;
@@ -279,11 +279,15 @@ export const getDeleteUrlImg = async (id) => {
       if (Array.isArray(data[i])) {
         for (let j = 0; j < data[i].length; j++) {
           const url = data[i][j];
-          await eliminarImgBucket(url);
+          let nameImg = url.substring(url.lastIndexOf('/') + 1);
+          console.log(nameImg);
+          await eliminarImgBucket(nameImg);
         }
       } else {
         const url = data[i];
-        await eliminarImgBucket(url);
+        let nameImg = url.substring(url.lastIndexOf('/') + 1);
+        console.log(nameImg);
+        await eliminarImgBucket(nameImg);
       }
     }
   } catch (error) {
@@ -291,4 +295,42 @@ export const getDeleteUrlImg = async (id) => {
   }
 }
 
+export const subirImgEditar = async (imagenes,idProd) => {
+  const imgUrls = [];
+  for (const imagen of imagenes) {
+    const imagenName = `${uuidv4()}-${imagen.name}`
+    const { error } = await supabase.storage
+      .from(nameBucket)
+      .upload(imagenName, imagen);
 
+    if (error) {
+      console.log("Error al subir la imagen", error.message);
+    } else {
+      const { data } = await supabase.storage
+        .from(nameBucket)
+        .getPublicUrl(imagenName);
+      const imgUrlUpdate = data.publicUrl;
+      imgUrls.push(imgUrlUpdate);
+      editarImgProducto(imgUrls, idProd);
+    }
+  }
+};
+
+const editarImgProducto = async (imgUrls, idProd) => {
+  try {
+    const { error } = await supabase.from(tableProduct).update({ imagen: imgUrls[0] });
+    if (error) throw error;
+  } catch (error) {
+    console.error(error);
+  }
+  if (imgUrls.length > 1) {
+    const nuevasImgUrls = imgUrls.slice(1).map((url) => ({ imagenUrl: url, idProducto: idProd }));
+
+    try {
+      const { error } = await supabase.from(tableImgProduct).upsert(nuevasImgUrls, { onConflict: ['idProducto'] });
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
