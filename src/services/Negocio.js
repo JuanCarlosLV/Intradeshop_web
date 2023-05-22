@@ -2,6 +2,8 @@ import { supabase } from "../supabase/connection";
 import emailjs from "@emailjs/browser";
 import { v4 as uuidv4 } from "uuid";
 
+const agregartienda = "agregarnegocio";
+let idnegocio;
 
 const editBussiness = "edit_bussiness";
 const getBussiness = "get_bussiness";
@@ -12,9 +14,59 @@ const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
 const apiKey = "wAmi1MLFEfz21fzdN";
 
+export const registroNegociante = async (
+  nombreNegocio,
+  telefono,
+  correoNegocio,
+  direccion,
+  descripcion,
+  nombreNegociante,
+  nombreUsuario,
+  correo,
+  contraseña
+) => {
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: correo,
+      password: contraseña,
+    });
 
+    const { error: profileError } = await supabase.from("Negociante").insert([
+      {
+        idNegociante: data.user.id,
+        nombreUsuario: nombreUsuario,
+        nombreNegociante: nombreNegociante,
+        correoElectronico: correo,
+        contraseña: contraseña,
+      },
+    ]);
 
-/*export const subirLogo = async (logo) => {
+    const { error: tiendaError, dato } = await supabase.rpc(agregartienda, {
+      id_negociante: data.user.id,
+      nombre_negocio: nombreNegocio,
+      telefono: telefono,
+      direccion_negocio: direccion,
+      correo: correoNegocio,
+      descripcion: descripcion,
+    });
+    if (tiendaError) console.log(tiendaError);
+    idnegocio = dato;
+
+    const { error: userError } = await supabase.from("Users").insert([
+      {
+        id: data.user.id,
+        role: "negociante",
+      },
+    ]);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// proceso para subir logotipo al storage
+export const subirLogo = async (logo) => {
   const nombreLogo = `${uuidv4()}-${logo.name}`;
   const { error } = await supabase.storage
     .from("Tiendas")
@@ -26,8 +78,8 @@ const apiKey = "wAmi1MLFEfz21fzdN";
       .from("Tiendas")
       .getPublicUrl(nombreLogo);
     const url = data.publicUrl;
-    const idNegocio = getIdNegocio()
-    guardarUrlLogo(url,idNegocio)
+    console.log(url)
+    guardarUrlLogo(url, idnegocio);
   }
 };
 
@@ -38,10 +90,10 @@ export const guardarUrlLogo = async (url, id_negocio) => {
       .update({ logo: url })
       .eq("idNegocio", id_negocio);
     if (error) throw error;
-  } catch (err){
+  } catch (err) {
     console.error(err);
   }
-}; */
+};
 
 export const getInfoNegocio = async () => {
   try {

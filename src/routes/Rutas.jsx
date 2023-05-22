@@ -102,7 +102,7 @@ function Rutas() {
         <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
 
         <Route
-          path="/search/:nombreProducto"
+          path="/search/:resultado"
           element={<ResultadoBusqueda />}
         ></Route>
       </Routes>

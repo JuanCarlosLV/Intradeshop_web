@@ -1,9 +1,8 @@
 import Header from "./partials/HeaderLogin";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useState } from "react";
-import { registroNegociante, subirLogo } from "../services/Autenticacion";
+import { registroNegociante, subirLogo } from "../services/Negocio";
 import { NavLink, useNavigate } from "react-router-dom";
-
 
 function RegistroNegociante() {
   const navigate = useNavigate();
@@ -54,11 +53,10 @@ function RegistroNegociante() {
       formValues.contraseña
     );
 
-    subirLogo(formValues.logotipo);
-
     if (error) {
       alert(error.message);
     } else {
+      subirLogo(formValues.logotipo)
       navigate("/login");
     }
   };

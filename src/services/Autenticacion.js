@@ -1,8 +1,8 @@
 import { supabase } from "../supabase/connection";
+import { subirLogo } from "../services/Negocio";
 import { v4 as uuidv4 } from "uuid";
 
-const agregartienda = "agregarnegocio"
-let idNegocio;
+
 
 export const iniciarSesion = async (correo, contraseña) => {
   try {
@@ -50,83 +50,6 @@ export const registroCliente = async (correo, contraseña, usuario) => {
   }
 };
 
-export const registroNegociante = async (
-  nombreNegocio,
-  telefono,
-  correoNegocio,
-  direccion,
-  descripcion,
-  nombreNegociante,
-  nombreUsuario,
-  correo,
-  contraseña
-) => {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: correo,
-      password: contraseña,
-    });
-
-    const { error: profileError } = await supabase.from("Negociante").insert([
-      {
-        idNegociante: data.user.id,
-        nombreUsuario: nombreUsuario,
-        nombreNegociante: nombreNegociante,
-        correoElectronico: correo,
-        contraseña: contraseña,
-      },
-    ]);
-
-    const dato = await supabase.rpc(agregartienda, {
-      id_negociante: data.user.id,
-      nombre_negocio: nombreNegocio,
-      telefono: telefono,
-      direccion_negocio: direccion,
-      correo: correoNegocio,
-      descripcion: descripcion,
-    });
-
-    idNegocio = dato;
-    const { error: userError } = await supabase.from("Users").insert([
-      {
-        id: data.user.id,
-        role: "negociante",
-      },
-    ]);
-
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const subirLogo = async (logo) => {
-  const nombreLogo = `${uuidv4()}-${logo.name}`;
-  const { error } = await supabase.storage
-    .from("Tiendas")
-    .upload(nombreLogo, logo);
-  if (error) {
-    console.log("Error al subir la imagen: " + error.message);
-  } else {
-    const { data } = await supabase.storage
-      .from("Tiendas")
-      .getPublicUrl(nombreLogo);
-    const url = data.publicUrl;
-    guardarUrlLogo(url, idNegocio);
-  }
-};
-
-export const guardarUrlLogo = async (url, id_negocio) => {
-  try {
-    const { error } = await supabase
-      .from("Negocio")
-      .update({ logo: url })
-      .eq("idNegocio", id_negocio);
-    if (error) throw error;
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 export const getTipoCuenta = async (dato) => {
   const { data, error } = await supabase

@@ -69,7 +69,6 @@ function CategoriaProducts() {
     async function showProducts() {
       const data = await getProductsCategory(nombreCategoria);
       setProductos(data);
-      console.log(data);
     }
     showProducts();
     getImageCategory(nombreCategoria);
@@ -85,8 +84,6 @@ function CategoriaProducts() {
   const getImageCategory = (nombreCategoria) => {
     categories.map((categoriaName) => {
       if (nombreCategoria == categoriaName.name) {
-        console.log(nombreCategoria);
-        console.log(categoriaName.name);
         setImagenCategoria(categoriaName.img);
       }
     });
@@ -94,43 +91,75 @@ function CategoriaProducts() {
 
   return (
     <>
-      <Header />
-      <div className=" flex flex-row items-center mb-[20px]">
-        <div className="-mt-5 ml-5">
-          <NavLink to="/">
-            <AiFillHome className="text-[40px]" color="004643" />
-          </NavLink>
+      <main className="relative">
+        <Header />
+        <div className=" flex flex-row items-center mb-[20px]">
+          <div className="-mt-5 ml-5">
+            <NavLink to="/">
+              <AiFillHome className="text-[40px]" color="004643" />
+            </NavLink>
+          </div>
+
+          <div className="bg-[#F6BE9A] flex flex-row rounded-[10px] mt-5 justify-between w-full mr-10 ml-10 items-center h-[200px]">
+            <h1 className="font-ralewayFont font-bold ml-12 text-[45px]">
+              {nombreCategoria}
+            </h1>
+
+            <img
+              src={imagenCategoria}
+              alt={"img"}
+              className="w-[180px] h-[160px] mr-10"
+            ></img>
+          </div>
         </div>
 
-        <div className="bg-[#F6BE9A] flex flex-row rounded-[10px] mt-5 justify-between w-full mr-10 ml-10 items-center h-[200px]">
-          <h1 className="font-ralewayFont font-bold ml-12 text-[45px]">
-            {nombreCategoria}
-          </h1>
+        <div className="flex flex-row ml-5 justify-between mr-10 absolute z-50 mb-[50px]">
+          <div className="-ml-10 mr-10 ">
+            <Busqueda
+              placeholder="Buscar por nombre"
+              tipoBusqueda="categoria"
+              categoria={nombreCategoria}
+            />
+          </div>
 
-          <img
-            src={imagenCategoria}
-            alt={"img"}
-            className="w-[180px] h-[160px] mr-10"
-          ></img>
-        </div>
-      </div>
+          <button
+            type="button"
+            id="opciones-menu"
+            aria-haspopup="true"
+            aria-expanded="true"
+            onClick={handleOpenButton}
+            className="mr-[100px] h-1 mt-12 bg-black"
+          >
+            {isOpen ? (
+              <>
+                <section className="flex flex-col fixed -mt-[15px] -ml-[36px] mb-[10px]  ">
+                  <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
+                    <IoMdOptions
+                      className="text-4xl mt-2 mb-3 ml-[10px]"
+                      color="white"
+                    />
+                    <p className="ml-2 text-white font-ralewayFont font-semibold text-xl ">
+                      Filtros
+                    </p>
+                  </div>
 
-      <div className="flex flex-row ml-5 justify-between mr-10">
-        <div className="-ml-10 mr-10 ">
-          <Busqueda placeholder="Buscar por nombre" />
-        </div>
-
-        <button
-          type="button"
-          id="opciones-menu"
-          aria-haspopup="true"
-          aria-expanded="true"
-          onClick={handleOpenButton}
-          className="mr-[100px]"
-        >
-          {isOpen ? (
-            <>
-              <section className="flex flex-col fixed -mt-[15px] -ml-[36px] mb-[10px]  ">
+                  <div className="bg-[#004643] font-ralewayFont font-light text-[20px] text-white  w-[130px] -ml-[18px] rounded-[5px] rounded-t-none ">
+                    <lu className="list-none">
+                      <li className="hover:bg-white hover:text-[#004643]">
+                        Talla
+                      </li>
+                      <li className="hover:bg-white hover:text-[#004643]">
+                        Precio
+                      </li>
+                      <li className="hover:bg-white hover:text-[#004643]">
+                        Valoracion
+                      </li>
+                    </lu>
+                  </div>
+                </section>
+              </>
+            ) : (
+              <>
                 <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
                   <IoMdOptions
                     className="text-4xl mt-2 mb-3 ml-[10px]"
@@ -140,60 +169,34 @@ function CategoriaProducts() {
                     Filtros
                   </p>
                 </div>
+              </>
+            )}
+          </button>
+        </div>
 
-                <div className="bg-[#004643] font-ralewayFont font-light text-[20px] text-white  w-[130px] -ml-[18px] rounded-[5px] rounded-t-none ">
-                  <lu className="list-none">
-                    <li className="hover:bg-white hover:text-[#004643]">
-                      Talla
-                    </li>
-                    <li className="hover:bg-white hover:text-[#004643]">
-                      Precio
-                    </li>
-                    <li className="hover:bg-white hover:text-[#004643]">
-                      Valoracion
-                    </li>
-                  </lu>
-                </div>
-              </section>
-            </>
-          ) : (
-            <>
-              <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
-                <IoMdOptions
-                  className="text-4xl mt-2 mb-3 ml-[10px]"
-                  color="white"
+        {/* Despliegue de los productos */}
+
+        <section className="static mt-[120px]">
+          <h1 className="font-ralewayFont font-semibold text-[35px] ml-[100px]">
+            Productos
+          </h1>
+
+          <div className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5">
+            {productos.map((product) => (
+              <>
+                <CardProducto
+                  key={product.idProducto}
+                  idProducto={product.idProducto}
+                  rutaActual="/producto"
+                  nombreProducto={product.nomProducto}
+                  precio={product.precio}
+                  imagenProducto={product.imagen}
                 />
-                <p className="ml-2 text-white font-ralewayFont font-semibold text-xl ">
-                  Filtros
-                </p>
-              </div>
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Despliegue de los productos */}
-
-      <div>
-        <h1 className="font-ralewayFont font-semibold text-[35px] ml-[100px]">
-          Productos
-        </h1>
-      </div>
-
-      <div className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {productos.map((product) => (
-          <>
-            <CardProducto
-              key={product.idProducto}
-              idProducto={product.idProducto}
-              rutaActual="/producto"
-              nombreProducto={product.nomProducto}
-              precio={product.precio}
-              imagenProducto={product.imagen}
-            />
-          </>
-        ))}
-      </div>
+              </>
+            ))}
+          </div>
+        </section>
+      </main>
     </>
   );
 }
