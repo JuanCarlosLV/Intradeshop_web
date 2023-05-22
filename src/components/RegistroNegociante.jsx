@@ -81,7 +81,7 @@ function RegistroNegociante() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="  flex flex-wrap justify-center content-center">
+          <div className="flex flex-wrap justify-center content-center">
             <div className="w-3/6 ml-20 mt-10">
               <h1 className="font-ralewayFont font-semibold text-2xl">
                 Datos del Negocio

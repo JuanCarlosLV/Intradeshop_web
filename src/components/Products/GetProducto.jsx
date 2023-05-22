@@ -49,23 +49,23 @@ function GetProducto() {
         <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
           <thead className="w-full text-xs text-gray-700 uppercase bg-[#D1AC00] dark:bg-gray-700 dark:text-gray-500 font-medium font-ralewayFont">
             <tr>
-              <th scope="col" className="px-6 py-3 text-base text-center">
+              <th scope="col" className="px-4 py-3 text-base text-center">
                 id
               </th>
-              <th scope="col" className="px-6 py-3 text-base text-center">
+              <th scope="col" className="px-4 py-3 text-base text-center">
                 nombre
               </th>
-              <th scope="col" className="px-6 py-3 text-base text-center">
+              <th scope="col" className="px-4 py-3 text-base text-center">
                 cantidad
               </th>
-              <th scope="col" className="px-6 py-3 text-base text-center">
+              <th scope="col" className="px-4 py-3 text-base text-center">
                 Acciones
               </th>
             </tr>
           </thead>
           <tbody>
             {productos.map((producto) => (
-              <tr key={producto.idProducto}>
+              <tr key={producto.idProducto} className="bg-gray-100 border-b dark:bg-white-800 dark:border-gray-700">
                 <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
                   {producto.idProducto}
                 </td>

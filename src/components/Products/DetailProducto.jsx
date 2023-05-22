@@ -15,44 +15,43 @@ function DetailProducto() {
 
   return (
     <>
-      <div className="flex items-center mt-10">
-        {producto ? (
-          <div className="top-1 left-60 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto p-4 ml-80">
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1 ">
+      <div >
+        <div className="flex flex-row">
+          <div className="w-3/6 ml-40 mt-10">
+            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Nombre del producto
             </label>
-            <p className="w-full rounded-md border bg-gray-200 py-3 px-6 font-medium text-black outline-none focus:shadow-md font-ralewayFont text-sm md:text-base lg:text-lg ">
+            <p className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]">
               {producto.nomProducto}
             </p>
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Precio del producto
             </label>
-            <p className="w-full rounded-md border bg-gray-200 py-3 px-6 font-medium text-black outline-none focus:shadow-md font-ralewayFont text-sm md:text-base lg:text-lg">
+            <p className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]">
               {producto.precio}
             </p>
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Cantidad del producto
             </label>
-            <p className="w-full rounded-md border bg-gray-200 py-3 px-6 font-medium text-black outline-none focus:shadow-md font-ralewayFont text-sm md:text-base lg:text-lg">
+            <p className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]">
               {producto.cantidadTotal}
             </p>
             <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
               Descripcion del producto
             </label>
-            <p className="w-full rounded-md border bg-gray-200 py-3 px-6 font-medium text-black outline-none focus:shadow-md font-ralewayFont text-sm md:text-base lg:text-lg">
+            <p className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]">
               {producto.descripcion}
             </p>
           </div>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
-      <div className="shadow-md rounded-md top-40 left-60 mx-auto p-1 ml-60">
-        <img
-          src={producto.imagen}
-          className="object-contain float-left mr-4 shadow-md rounded-md h-64 w-3/12"
-          alt={producto.nomProducto}
-        />
+
+          <div className="mt-20 ml-40 w-auto h-auto rounded-r-md shadow-lg">
+            <img
+              src={producto.imagen}
+              className="w-80 h-80 object-cover bg-center rounded-r-md rounded-md"
+              alt={producto.nomProducto}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

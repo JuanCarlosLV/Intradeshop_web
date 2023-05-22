@@ -30,27 +30,32 @@ function DeleteProducto() {
   return (
     <>
       <div>
-        <div className="flex justify-between my-4">
+        <div className="flex items-center  mt-5 mr-20 ">
           <NavLink to="/mis-productos">
             <BsFillArrowLeftCircleFill
               className="text-4xl mt-2 ml-10"
               color={"D1AC00"}
             />
           </NavLink>
-          <h1 className="font-ralewayFont font-bold text-3xl  mt-2  ml-10 mr-auto">
+          <h1 className="font-ralewayFont font-bold text-4xl text-white ml-20 mr-auto bg-[#004643]  border-[#004643] focus:border-[#004643] py-2 px-60 rounded-md">
             Eliminar producto
           </h1>
         </div>
         <DetailProducto />
-        <div>
-          <button
-            className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8 flex justify-center"
-            onClick={handleShowModal}
-          >
-            Eliminar
-          </button>
+        <div className="flex flex-row">
+          <div className="w-3/6 ml-40 mt-10">
+            <div className="px-96 ml-40 py-2">
+              <button
+                className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
+                onClick={handleShowModal}
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
       <ConfirmacionAction
         mostrarModal={mostrarModal}
         titulo="Eliminar producto"

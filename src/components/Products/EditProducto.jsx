@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill, BsFillImageFill } from "react-icons/bs";
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
-import { getProducto, editarProducto, subirImgEditar } from "../../services/Producto";
+import { getProducto, editarProducto, subirImgEditar, eliminarImgProducto } from "../../services/Producto";
 
 
 function EditProducto() {
@@ -80,117 +80,125 @@ function EditProducto() {
     const files = Array.from(evt.target.files).slice(0, 5);
     setFormValues((prevValues) => ({
       ...prevValues,
-      imagen: files, 
+      imagen: files,
     }));
   }
   return (
     <>
       <div>
-        <div className="flex justify-between my-4">
-          <NavLink to="/mis-productos">
-            <BsFillArrowLeftCircleFill
-              className="text-4xl mt-2 ml-10"
-              color={"D1AC00"}
-            />
-          </NavLink>
-          <h1 className="font-ralewayFont font-bold text-3xl  mt-2  ml-10 mr-auto">
-            Editar producto
-          </h1>
-        </div>
-        <div className="flex justify-center items-center">
-          <form onSubmit={handleShowModal} className="max-w-lg">
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
-              Nombre del producto
-            </label>
-            <input
-              id="nombre"
-              name="nombre"
-              value={formValues.nombre}
-              onChange={handleInputChange}
-              className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
-            />
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
-              Precio del producto
-            </label>
-            <input
-              id="precio"
-              name="precio"
-              value={formValues.precio}
-              onChange={handleInputChange}
-              className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
-            />
-
-            <img src={imagenShow} alt={formValues.nombre} className="smt-4 mx-auto mb-20"></img>
-            <button onClick={handleStateEditImg}>Edit Picture</button>
-
-            {stateEditImg && (
-              <input
-                type="file"
-                id="imagen"
-                name="imagen"
-                multiple
-                onChange={handleImgChange}
-                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
+        <form onSubmit={handleShowModal}>
+          <div className="flex items-center  mt-5 mr-20 ">
+            <NavLink to="/mis-productos">
+              <BsFillArrowLeftCircleFill
+                className="text-4xl mt-2 ml-10"
+                color={"D1AC00"}
               />
-            )}
+            </NavLink>
 
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
-              Cantidad del producto
-            </label>
-            <input
-              id="cantidad"
-              name="cantidad"
-              value={formValues.cantidad}
-              onChange={handleInputChange}
-              className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
-            />
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
-              Categoria del producto
-            </label>
-            <select
-              id="categoria"
-              name="categoria"
-              value={formValues.categoria}
-              onChange={handleInputChange}
-              className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
-            >
-              <option value="Playeras">Playeras</option>
-              <option value="Pantalones">Pantalones</option>
-              <option value="Abrigos">Abrigos</option>
-              <option value="Zapatos">Zapatos</option>
-              <option value="Vestidos">Vestidos</option>
-              <option value="Blusas">Blusas</option>
-              <option value="Accesorios">Abrigos</option>
-              <option value="RopaInterior">Ropa interior</option>
-              <option value="Shorts">Shorts</option>
-            </select>
+            <h1 className="font-ralewayFont font-bold text-4xl text-white ml-20 mr-auto bg-[#004643]  border-[#004643] focus:border-[#004643] py-2 px-60 rounded-md">
+              Editar producto
+            </h1>
+          </div>
 
-            <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
-              Descripcion del producto
-            </label>
-            <input
-              id="descripcion"
-              name="descripcion"
-              defaultValue={formValues.descripcion}
-              onChange={handleInputChange}
-              className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
-            />
-            <div className="px-96 ml-48 py-2">
-              <button
-                className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
+          <div className="flex flex-row">
+            <div className="w-3/6 ml-40 mt-10">
+              <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
+                Nombre del producto
+              </label>
+              <input
+                id="nombre"
+                name="nombre"
+                value={formValues.nombre}
+                onChange={handleInputChange}
+                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]"
+              />
+              <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
+                Precio del producto
+              </label>
+              <input
+                id="precio"
+                name="precio"
+                value={formValues.precio}
+                onChange={handleInputChange}
+                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]"
+              />
+
+              {stateEditImg && (
+                <input
+                  type="file"
+                  id="imagen"
+                  name="imagen"
+                  multiple
+                  onChange={handleImgChange}
+                  className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-[#004643] focus:ring-2 focus:ring-[#004643] my-1"
+                />
+              )}
+
+              <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
+                Cantidad del producto
+              </label>
+              <input
+                id="cantidad"
+                name="cantidad"
+                value={formValues.cantidad}
+                onChange={handleInputChange}
+                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
+              />
+              <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
+                Categoria del producto
+              </label>
+              <select
+                id="categoria"
+                name="categoria"
+                value={formValues.categoria}
+                onChange={handleInputChange}
+                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
               >
-                Modificar
+                <option value="Playeras">Playeras</option>
+                <option value="Pantalones">Pantalones</option>
+                <option value="Abrigos">Abrigos</option>
+                <option value="Zapatos">Zapatos</option>
+                <option value="Vestidos">Vestidos</option>
+                <option value="Blusas">Blusas</option>
+                <option value="Accesorios">Abrigos</option>
+                <option value="RopaInterior">Ropa interior</option>
+                <option value="Shorts">Shorts</option>
+              </select>
+
+              <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">
+                Descripcion del producto
+              </label>
+              <input
+                id="descripcion"
+                name="descripcion"
+                defaultValue={formValues.descripcion}
+                onChange={handleInputChange}
+                className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
+              />
+              <div className="px-96 ml-40 py-2">
+                <button
+                  className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
+                >
+                  Modificar
+                </button>
+              </div>
+            </div>
+            <div className="mt-20 ml-40 w-auto h-auto rounded-r-md shadow-lg">
+              <img src={imagenShow} alt={formValues.nombre} className="w-80 h-80 object-cover bg-center rounded-r-md rounded-md"></img>
+              <button onClick={handleStateEditImg} className="hover:bg-black rounded-md bg-[#004643] py-3 px-5  font-semibold text-white font-ralewayFont m-8">
+                <BsFillImageFill />
               </button>
             </div>
-          </form>
-          <ConfirmacionAction
-            mostrarModal={showModal}
-            titulo="Editar producto"
-            cuerpo="¿Estás seguro de modificar la información?"
-            cancelar={handleCloseModal}
-            confirmar={handleEdit}
-          />
-        </div>
+          </div>
+        </form>
+
+        <ConfirmacionAction
+          mostrarModal={showModal}
+          titulo="Editar producto"
+          cuerpo="¿Estás seguro de modificar la información?"
+          cancelar={handleCloseModal}
+          confirmar={handleEdit}
+        />
       </div>
     </>
   );
