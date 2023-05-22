@@ -41,7 +41,7 @@ export const registroNegociante = async (
       },
     ]);
 
-    const { error: tiendaError, dato } = await supabase.rpc(agregartienda, {
+    const { error: tiendaError, data: dato } = await supabase.rpc(agregartienda, {
       id_negociante: data.user.id,
       nombre_negocio: nombreNegocio,
       telefono: telefono,
