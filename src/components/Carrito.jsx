@@ -1,8 +1,11 @@
 import Header from "../components/partials/Header";
+import Item from "./partials/ItemCarrito";
+
+import { mostrarArticulos } from "../services/Carrito";
+
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import Lista from "../components/Products/ListaProductos";
 import { BsArrowLeftCircleFill, BsFillCartFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { RiErrorWarningFill } from "react-icons/ri";
@@ -10,19 +13,30 @@ import { RiErrorWarningFill } from "react-icons/ri";
 function Carrito() {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
+  const [user, setuser] = useState("");
+  const [productosCarrito, setproductosCarrito] = useState([]);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
-
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
+      setuser(session.user.id);
     });
   }, []);
 
-  const regresar=()=>{
+  useEffect(() => {
+    if (user !== "") {
+      async function getItemsCarrito() {
+        const data = await mostrarArticulos(user);
+        setproductosCarrito(data);
+      }
+      getItemsCarrito();
+    }
+  }, [user]);
+
+  const regresar = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <>
@@ -49,7 +63,28 @@ function Carrito() {
       </div>
 
       {session != null ? (
-        <Lista />
+        <>
+          <section className="flex flex-col mt-5">
+            <article className="ml-7 mb-5">
+              <h1 className="font-ralewayFont font-semibold text-3xl">Productos</h1>
+            </article>
+            {productosCarrito.map((item) => (
+              <>
+                <section className="flex flex-col">
+                  <Item
+                    idproducto={item.idProducto}
+                    imagen={item.imagenProducto}
+                    nombreProducto={item.nombreProducto}
+                    cantidad={item.cantidad}
+                    talla ={item.tallaProducto}
+                    subtotal={item.subtotal}
+                  />
+                  
+                </section>
+              </>
+            ))}
+          </section>
+        </>
       ) : (
         <>
           <div className="mt-[100px] w-[800px] h-[300px] flex flex- justify-center bg-[#F6BE9A] rounded-[30px] mr-auto ml-auto">

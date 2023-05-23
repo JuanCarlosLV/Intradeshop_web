@@ -12,10 +12,11 @@ const editProduct = "edit_product";
 const filterProduct = "filter_product";
 const getProductsCategoria = "getproducts_category";
 const getlastproducts = "getlastproducts";
-const añadirCarrito = "insertar_carrito";
 const buscarProductoCategoria = "getproductopercategoria";
 const buscarProductosGeneral = "buscarproductos";
 const obtenerImagenesProducto = "getimagesproduct";
+const getDetalleProducto = "getdetalleproducto";
+const getDProducto = "getproducto";
 let idProducImg;
 
 export const getProductsCategory = async (categoria) => {
@@ -25,21 +26,6 @@ export const getProductsCategory = async (categoria) => {
     });
 
     if (error) console.log(error);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const insertarACarrito = async (id, nombre, cantidad, subtotal) => {
-  try {
-    const { error, data } = await supabase.rpc(insertarACarrito, {
-      idProducto: id,
-      nombreProducto: nombre,
-      cantidad: cantidad,
-      subtotal: subtotal,
-    });
-    if (error) throw error;
     return data;
   } catch (err) {
     console.log(err);
@@ -75,6 +61,32 @@ export const buscarProductos = async (producto) => {
       nombre_producto: producto,
     });
     if (error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const obtenerProducto = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .rpc(getDProducto, {
+        idproducto: id,
+      })
+      .single();
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const obtenerDetalleProducto = async (id) => {
+  try {
+    const { data, error } = await supabase.rpc(getDetalleProducto, {
+      idproducto: id,
+    });
+    if (error) console.log(error);
     return data;
   } catch (err) {
     console.log(err);
@@ -154,7 +166,10 @@ export const getProducto = async (id) => {
     console.log("sesion activa", session.data.session.user.id);
 
     const { error, data } = await supabase
-      .rpc(getProduct, { id_product: id, id_dealer: session.data.session.user.id })
+      .rpc(getProduct, {
+        id_product: id,
+        id_dealer: session.data.session.user.id,
+      })
       .single();
     if (error) throw error;
     return data;
@@ -203,7 +218,7 @@ export const filtrarProducto = async (precio, color, talla) => {
 export const subirImagen = async (imagenes) => {
   const imgUrls = [];
   for (const imagen of imagenes) {
-    const imagenName = `${uuidv4()}-${imagen.name}`
+    const imagenName = `${uuidv4()}-${imagen.name}`;
     const { error } = await supabase.storage
       .from(nameBucket)
       .upload(imagenName, imagen);
@@ -232,7 +247,9 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
     console.error(error);
   }
   if (imgUrls.length > 1) {
-    const urlsToInsert = imgUrls.slice(1).map((url) => ({ imagenUrl: url, idProducto: idProd }));
+    const urlsToInsert = imgUrls
+      .slice(1)
+      .map((url) => ({ imagenUrl: url, idProducto: idProd }));
 
     try {
       const { error } = await supabase.from(tableImgProduct).insert(urlsToInsert)

@@ -1,9 +1,8 @@
 import Header from "./partials/HeaderLogin";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useState } from "react";
-import { registroNegociante, subirLogo } from "../services/Autenticacion";
+import { registroNegociante, subirLogo } from "../services/Negocio";
 import { NavLink, useNavigate } from "react-router-dom";
-
 
 function RegistroNegociante() {
   const navigate = useNavigate();
@@ -54,11 +53,10 @@ function RegistroNegociante() {
       formValues.contraseña
     );
 
-    subirLogo(formValues.logotipo);
-
     if (error) {
       alert(error.message);
     } else {
+      subirLogo(formValues.logotipo);
       navigate("/login");
     }
   };
@@ -221,10 +219,7 @@ function RegistroNegociante() {
               </div>
 
               <div className="px-96 ml-48 py-2 ">
-                <button
-                  type="submit"
-                  className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
-                >
+                <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
                   Registrar
                 </button>
               </div>

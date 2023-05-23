@@ -34,27 +34,7 @@ import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
 
 function Rutas() {
-  const [session, setSession] = useState(null);
-  const [idUser, setidUser] = useState("");
-  const [tipoCuenta, setTipoCuenta] = useState("");
-
-  useEffect(() => {
-    setSession(supabase.auth.getSession());
-
-    supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setidUser(session.user.id);
-    });
-  }, []);
-
-  const getCuenta = async () => {
-    const cuenta = await getTipoCuenta(idUser);
-    if (cuenta === "cliente") {
-      setTipoCuenta("cliente");
-    } else if (cuenta === "administrador") {
-      setTipoCuenta("administrador");
-    } else if (cuenta === "negociante") setTipoCuenta("negociante");
-  };
+  
 
   return (
     <>
@@ -89,6 +69,7 @@ function Rutas() {
 
         <Route path="perfil-cliente" element={<PerfilCliente />}></Route>
         <Route path="home-negociante" element={<HomeNegociante />}></Route>
+        <Route path="home-administrador" element={<HomeAdministrador />}></Route>
 
         <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
         <Route
@@ -122,7 +103,7 @@ function Rutas() {
         <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
 
         <Route
-          path="/search/:nombreProducto"
+          path="/search/:resultado"
           element={<ResultadoBusqueda />}
         ></Route>
       </Routes>

@@ -4,6 +4,7 @@ import {
   buscarProductos,
   buscarProductosCategoria,
 } from "../../services/Producto";
+import { buscarTiendas, getTiendas } from "../../services/Tiendas";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function BarraBusqueda(props) {
@@ -15,7 +16,7 @@ function BarraBusqueda(props) {
 
   useEffect(() => {
     if (datoBuscar.length > 1) {
-      async function mostrarProductos() {
+      async function mostrarResultados() {
         if (props.tipoBusqueda === "producto") {
           const data = await buscarProductos(datoBuscar);
           setSugerenciasBusqueda(data);
@@ -25,9 +26,12 @@ function BarraBusqueda(props) {
             props.categoria
           );
           setSugerenciasBusqueda(data);
+        } else if (props.tipoBusqueda === "tienda") {
+          const data = await buscarTiendas(datoBuscar);
+          setSugerenciasBusqueda(data);
         }
       }
-      mostrarProductos();
+      mostrarResultados();
     } else {
       setSugerenciasBusqueda([]);
     }
@@ -48,7 +52,7 @@ function BarraBusqueda(props) {
 
   const handlePressEnterKey = (evt) => {
     if (evt.key === "Enter") {
-      navigate("/search/"+ datoBuscar);
+      navigate("/search/" + datoBuscar);
     }
   };
 
