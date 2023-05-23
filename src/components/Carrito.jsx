@@ -3,6 +3,9 @@ import Item from "./partials/ItemCarrito";
 
 import { mostrarArticulos } from "../services/Carrito";
 
+//prueba de compra
+import { procesoCompra, addDetalle } from "../services/Compra";
+
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";
 import { NavLink, Link, useNavigate } from "react-router-dom";
@@ -31,19 +34,44 @@ function Carrito() {
         const data = await mostrarArticulos(user);
         setproductosCarrito(data);
       }
-      calcularTotal();
       getItemsCarrito();
-      
     }
   }, [user]);
+  useEffect(() => {
+    if (productosCarrito.length > 0) {
+      const costototal = productosCarrito.reduce(
+        (total, producto) => total + producto.subtotal,
+        0
+      );
+      settotal(costototal);
+    } else {
+      settotal(0);
+    }
+  }, [productosCarrito]);
 
-  const calcularTotal = () => {
-    let subtotalProducto = 0.0;
-    productosCarrito.map((item) => {
-      subtotalProducto = + item.subtotal;
-    });
+  const añadirCompra = async (evt) => {
+    evt.preventDefault();
 
-    settotal(subtotalProducto);
+    if (productosCarrito.length > 0) {
+      const data = procesoCompra(user, total, "proceso");
+      console.log(data)
+      if (data) {
+        productosCarrito.map((producto) => {
+          addDetalle(
+            data,
+            producto.idProducto,
+            producto.nombreProducto,
+            producto.cantidad,
+            producto.tallaProducto,
+            producto.subtotal,
+            producto.imagenProducto
+          );
+        });
+        console.log("agregado")
+      }else{
+        console.log("erorr")
+      }
+    }
   };
 
   const regresar = () => {
@@ -97,16 +125,16 @@ function Carrito() {
               </>
             ))}
 
-            <section className="bg-[#FAF4D3] flex flex-row">
-              <p className="font-ralewayFont font-semibold text-[20px]">
-                Total de compra: <strong>{total}</strong>
+            <section className="bg-[#FAF4D3] flex flex-row mb-4 justify-end mr-7 ml-[28px] items-center h-[60px]">
+              <p className="font-ralewayFont font-semibold text-[23px] mr-5">
+                Total de compra: <strong>$ {total} mx</strong>
               </p>
             </section>
           </section>
           <section className="flex flex-row mb-5 justify-end mr-7">
             <button
-              className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[25px] w-[230px] h-[40px] text-white hover:bg-[#014c48]"
-              onClick={"metodo para compra"}
+              className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48]"
+              onClick={añadirCompra}
             >
               Procesar compra
             </button>

@@ -1,6 +1,8 @@
 import { supabase } from "../supabase/connection";
 const añadirCarrito = "insertar_carrito";
 const getItems = "getcarrito";
+const añadirCompra = "agregarcompra";
+const añadirDetalleCompra = "agregardetallecompra";
 
 export const insertarACarrito = async (
   idcliente,
@@ -40,14 +42,6 @@ export const mostrarArticulos = async (idcliente) => {
   }
 };
 
-export const eliminarProducto = async(idproducto)=>{
+export const eliminarProducto = async (idproducto) => {};
 
-}
-
-export const vaciarCarrito = async (idcliente)=>{
-
-}
-
-export const comprar = async (idcliente)=>{
-  
-}
+export const vaciarCarrito = async () => {};

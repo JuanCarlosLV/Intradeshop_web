@@ -37,7 +37,7 @@ function ItemCarrito(props) {
         </article>
         <article className="w-1/5">
           <h2 className="font-ralewayFont text-[20px] text-white">
-            Subtotal: <strong>${props.subtotal}.00 mx</strong>
+            Subtotal: <strong>$ {props.subtotal} mx</strong>
           </h2>
         </article>
         <article className="w-1/5">
