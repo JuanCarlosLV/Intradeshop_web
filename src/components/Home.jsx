@@ -5,10 +5,12 @@ import { supabase } from "../supabase/connection";
 import { useEffect, useState } from "react";
 import CardProducto from "../components/partials/CardProduct";
 import { getUltimosProductos } from "../services/Producto";
+import { getTipoCuenta } from "../services/Autenticacion";
 
 function Home() {
   const [session, setSession] = useState(null);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
+  const [idCuenta, setidCuenta] = useState("");
 
   const [lastProducts, setlastProducts] = useState([]);
   useEffect(() => {
@@ -18,7 +20,24 @@ function Home() {
       console.log(event, session);
       setSession(session);
       setUsername(session.user.email);
+      setidCuenta(session.user.id)
     });
+
+    async function redireccion() {
+      const cuenta = await getTipoCuenta(idCuenta);
+      console.log("id: " + idCuenta);
+      console.log("tipo cliente:" + cuenta);
+      if (cuenta === "cliente") {
+        navigate("/");
+      } else if (cuenta === "negociante") {
+        navigate("/home-negociante");
+      } else if (cuenta === "administrador") {
+        navigate("/home-administrador");
+      } else {
+        console.log("no");
+      }
+    }
+    redireccion()
 
     async function mostrarUltimosProductos() {
       const data = await getUltimosProductos();
@@ -26,7 +45,7 @@ function Home() {
       console.log(data);
     }
     mostrarUltimosProductos();
-  }, []);
+  }, [idCuenta]);
 
   return (
     <>

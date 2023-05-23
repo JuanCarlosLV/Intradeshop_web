@@ -1,8 +1,4 @@
 import { supabase } from "../supabase/connection";
-import { subirLogo } from "../services/Negocio";
-import { v4 as uuidv4 } from "uuid";
-
-
 
 export const iniciarSesion = async (correo, contraseña) => {
   try {
@@ -49,7 +45,6 @@ export const registroCliente = async (correo, contraseña, usuario) => {
     console.log(error);
   }
 };
-
 
 export const getTipoCuenta = async (dato) => {
   const { data, error } = await supabase

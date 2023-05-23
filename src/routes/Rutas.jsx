@@ -69,6 +69,7 @@ function Rutas() {
 
         <Route path="perfil-cliente" element={<PerfilCliente />}></Route>
         <Route path="home-negociante" element={<HomeNegociante />}></Route>
+        <Route path="home-administrador" element={<HomeAdministrador />}></Route>
 
         <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
         <Route
