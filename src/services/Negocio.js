@@ -165,4 +165,11 @@ export const enviarCorreo = async (form) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
+const deleteImgNegocio = async (idBussiness) => { 
+  try {
+    
+  } catch (error) {
+    
+  }
+}

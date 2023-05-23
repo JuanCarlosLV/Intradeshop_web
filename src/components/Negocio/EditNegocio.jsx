@@ -6,7 +6,6 @@ import ConfirmacionAction from "../Modales/ConfirmacionAction";
 
 function EditNegocio() {
   const navigatePrincipalDealer = useNavigate();
-  const logo = "logo";
   //const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
   const [stateModal, setStateModal] = useState(false);
   const [formValues, setFormValues] = useState({
@@ -15,6 +14,7 @@ function EditNegocio() {
     direccion: "",
     descripcion: "",
     telefono: "",
+    logo:""
   });
   useEffect(() => {
     async function getInfo() {
@@ -25,6 +25,7 @@ function EditNegocio() {
         direccion: data.direccion,
         descripcion: data.descripcion,
         telefono: data.telContacto,
+        logo: data.logo,
       });
     }
     getInfo();
@@ -50,7 +51,6 @@ function EditNegocio() {
       formValues.direccion,
       formValues.descripcion,
       formValues.telefono,
-      logo
     );
     navigatePrincipalDealer("/home-negociante");
   };
@@ -130,6 +130,9 @@ function EditNegocio() {
                   Modificar
                 </button>
               </div>
+            </div>
+            <div>
+              <img src={formValues.logo}/>
             </div>
           </div>
         </form>
