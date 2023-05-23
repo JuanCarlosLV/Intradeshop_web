@@ -2,10 +2,10 @@ import HeaderLogin from "../components/partials/HeaderLogin";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useState } from "react";
 import { registroCliente } from "../services/Autenticacion";
-import { NavLink, useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function RegistroCliente() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     nombreUsuario: "",
@@ -13,7 +13,6 @@ function RegistroCliente() {
     contraseña: "",
     confirmarContraseña: "",
   });
-
 
   const handleInputChange = (evt) => {
     setFormValues({
@@ -35,15 +34,12 @@ function RegistroCliente() {
       formValues.contraseña,
       formValues.nombreUsuario
     );
-    
+
     if (error) {
-      alert(error.message);
-    }else{
-      navigate('/login')
+      clg(error.message);
+    } else {
+      navigate("/");
     }
-    
-    
-    
   };
 
   return (
@@ -113,10 +109,7 @@ function RegistroCliente() {
               ></input>
 
               <div className="px-96 ml-48 py-2 ">
-                <button
-                  
-                  className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8"
-                >
+                <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
                   Registrar
                 </button>
               </div>

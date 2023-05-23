@@ -15,6 +15,7 @@ function Carrito() {
   const [session, setSession] = useState(null);
   const [user, setuser] = useState("");
   const [productosCarrito, setproductosCarrito] = useState([]);
+  const [total, settotal] = useState(0);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
@@ -30,9 +31,20 @@ function Carrito() {
         const data = await mostrarArticulos(user);
         setproductosCarrito(data);
       }
+      calcularTotal();
       getItemsCarrito();
+      
     }
   }, [user]);
+
+  const calcularTotal = () => {
+    let subtotalProducto = 0.0;
+    productosCarrito.map((item) => {
+      subtotalProducto = + item.subtotal;
+    });
+
+    settotal(subtotalProducto);
+  };
 
   const regresar = () => {
     navigate(-1);
@@ -66,7 +78,9 @@ function Carrito() {
         <>
           <section className="flex flex-col mt-5">
             <article className="ml-7 mb-5">
-              <h1 className="font-ralewayFont font-semibold text-3xl">Productos</h1>
+              <h1 className="font-ralewayFont font-semibold text-3xl">
+                Productos
+              </h1>
             </article>
             {productosCarrito.map((item) => (
               <>
@@ -76,13 +90,26 @@ function Carrito() {
                     imagen={item.imagenProducto}
                     nombreProducto={item.nombreProducto}
                     cantidad={item.cantidad}
-                    talla ={item.tallaProducto}
+                    talla={item.tallaProducto}
                     subtotal={item.subtotal}
                   />
-                  
                 </section>
               </>
             ))}
+
+            <section className="bg-[#FAF4D3] flex flex-row">
+              <p className="font-ralewayFont font-semibold text-[20px]">
+                Total de compra: <strong>{total}</strong>
+              </p>
+            </section>
+          </section>
+          <section className="flex flex-row mb-5 justify-end mr-7">
+            <button
+              className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[25px] w-[230px] h-[40px] text-white hover:bg-[#014c48]"
+              onClick={"metodo para compra"}
+            >
+              Procesar compra
+            </button>
           </section>
         </>
       ) : (
