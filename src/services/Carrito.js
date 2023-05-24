@@ -3,6 +3,7 @@ const añadirCarrito = "insertar_carrito";
 const getItems = "getcarrito";
 const añadirCompra = "agregarcompra";
 const añadirDetalleCompra = "agregardetallecompra";
+const eliminaproductocarrito = "eliminaritemcarrito";
 
 export const insertarACarrito = async (
   idcliente,
@@ -42,6 +43,18 @@ export const mostrarArticulos = async (idcliente) => {
   }
 };
 
-export const eliminarProducto = async (idproducto) => {};
+export const eliminarProducto = async (idproducto, idcliente, talla_p) => {
+  try {
+    const { data, error } = await supabase.rpc(eliminaproductocarrito, {
+      id_producto: idproducto,
+      idcliente: idcliente,
+      talla: talla_p,
+    });
+    if(error) throw error;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const vaciarCarrito = async () => {};

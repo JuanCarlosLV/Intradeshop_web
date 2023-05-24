@@ -1,7 +1,7 @@
 import Header from "../components/partials/Header";
 import Item from "./partials/ItemCarrito";
 
-import { mostrarArticulos } from "../services/Carrito";
+import { mostrarArticulos, eliminarProducto } from "../services/Carrito";
 
 //prueba de compra
 import { procesoCompra, addDetalle } from "../services/Compra";
@@ -37,7 +37,7 @@ function Carrito() {
       getItemsCarrito();
     }
   }, [user]);
-  
+
   useEffect(() => {
     if (productosCarrito.length > 0) {
       const costototal = productosCarrito.reduce(
@@ -49,6 +49,10 @@ function Carrito() {
       settotal(0);
     }
   }, [productosCarrito]);
+
+  const regresar = () => {
+    navigate(-1);
+  };
 
   const añadirCompra = async (evt) => {
     evt.preventDefault();
@@ -73,10 +77,6 @@ function Carrito() {
         console.log("erorr");
       }
     }
-  };
-
-  const regresar = () => {
-    navigate(-1);
   };
 
   return (
@@ -121,6 +121,7 @@ function Carrito() {
                     cantidad={item.cantidad}
                     talla={item.tallaProducto}
                     subtotal={item.subtotal}
+                    idcliente={user}
                   />
                 </section>
               </>
