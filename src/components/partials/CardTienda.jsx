@@ -9,9 +9,9 @@ function CardTienda(props) {
   return (
     <>
       <section class=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-[#FAF4D3]  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center">
-        <article className="justify-center items-center mr-3 ml-3 mt-4 rounded-[5px]">
+        <article className="justify-center object-center object-contain items-center mr-3 ml-3 mt-4 rounded-[5px]">
           <img
-            className="w-[280px object-cover object-center rounded-[5px]"
+            className="w-[280px  object-center object-contain rounded-[5px]"
             src={props.imagenTienda}
             alt={props.nombreTienda}
           />

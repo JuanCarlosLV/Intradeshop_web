@@ -38,8 +38,13 @@ function ContraEntrega() {
           </div>
         </section>
 
-        <section className="bg-[#D1AC00] rounded-[5px]">
-            
+        <section className="bg-[#D1AC00] rounded-[5px] flex flex-row items-center justify-center text-center space-x-[40px] h-auto w-[1100px]">
+          <section className="bg-white">
+            <p>Resumen de compra</p>
+          </section>
+          <section className="bg-white">
+            <h2>Lugares de entrega</h2>
+          </section>
         </section>
       </main>
     </>
