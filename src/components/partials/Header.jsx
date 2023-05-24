@@ -48,6 +48,7 @@ function Header() {
             className="text-2xl text-[#D1AC00] font-ralewayFont"
             to="/carrito-compra"
           >
+            
             Carrito
           </NavLink>
         </div>

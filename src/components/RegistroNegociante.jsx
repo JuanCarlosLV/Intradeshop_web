@@ -57,7 +57,7 @@ function RegistroNegociante() {
       alert(error.message);
     } else {
       subirLogo(formValues.logotipo);
-      navigate("/login");
+      navigate("/home-negociante");
     }
   };
 
