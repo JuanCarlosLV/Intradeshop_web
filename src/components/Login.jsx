@@ -47,7 +47,7 @@ function Login() {
       navigate("/home-negociante");
     } else if (cuenta === "administrador") {
       navigate("/home-administrador");
-    }else{
+    } else {
       console.log("no");
     }
   };
@@ -100,15 +100,6 @@ function Login() {
                     placeholder="*******"
                     className="block w-full rounded-md border border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] py-2 px-3 text-black"
                   />
-                </div>
-
-                <div className="mb-3 flex flex-wrap content-center">
-                  <NavLink
-                    to="/reestablecer-contraseña"
-                    className="text font-semibold font-ralewayFont text-[#D1AC00]"
-                  >
-                    ¿Se te olvidó la contraseña?
-                  </NavLink>
                 </div>
 
                 <div className="mb-3">

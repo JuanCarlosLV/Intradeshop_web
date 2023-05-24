@@ -1,8 +1,14 @@
 import Header from "../components/partials/Header";
+import Item from "./partials/ItemCarrito";
+
+import { mostrarArticulos, eliminarProducto } from "../services/Carrito";
+
+//prueba de compra
+import { procesoCompra, addDetalle } from "../services/Compra";
+
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import Lista from "../components/Products/ListaProductos";
 import { BsArrowLeftCircleFill, BsFillCartFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { RiErrorWarningFill } from "react-icons/ri";
@@ -10,19 +16,68 @@ import { RiErrorWarningFill } from "react-icons/ri";
 function Carrito() {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
+  const [user, setuser] = useState("");
+  const [productosCarrito, setproductosCarrito] = useState([]);
+  const [total, settotal] = useState(0);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
-
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
+      setuser(session.user.id);
     });
   }, []);
 
-  const regresar=()=>{
+  useEffect(() => {
+    if (user !== "") {
+      async function getItemsCarrito() {
+        const data = await mostrarArticulos(user);
+        setproductosCarrito(data);
+      }
+      getItemsCarrito();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (productosCarrito.length > 0) {
+      const costototal = productosCarrito.reduce(
+        (total, producto) => total + producto.subtotal,
+        0
+      );
+      settotal(costototal);
+    } else {
+      settotal(0);
+    }
+  }, [productosCarrito]);
+
+  const regresar = () => {
     navigate(-1);
-  }
+  };
+
+  const añadirCompra = async (evt) => {
+    evt.preventDefault();
+
+    if (productosCarrito.length > 0) {
+      const data = await procesoCompra(user, total, "proceso");
+      console.log(data);
+      if (data) {
+        productosCarrito.map((producto) => {
+          addDetalle(
+            data,
+            producto.idProducto,
+            producto.nombreProducto,
+            producto.cantidad,
+            producto.tallaProducto,
+            producto.subtotal,
+            producto.imagenProducto
+          );
+        });
+        console.log("agregado");
+      } else {
+        console.log("erorr");
+      }
+    }
+  };
 
   return (
     <>
@@ -49,7 +104,44 @@ function Carrito() {
       </div>
 
       {session != null ? (
-        <Lista />
+        <>
+          <section className="flex flex-col mt-5">
+            <article className="ml-7 mb-5">
+              <h1 className="font-ralewayFont font-semibold text-3xl">
+                Productos
+              </h1>
+            </article>
+            {productosCarrito.map((item) => (
+              <>
+                <section className="flex flex-col">
+                  <Item
+                    idproducto={item.idProducto}
+                    imagen={item.imagenProducto}
+                    nombreProducto={item.nombreProducto}
+                    cantidad={item.cantidad}
+                    talla={item.tallaProducto}
+                    subtotal={item.subtotal}
+                    idcliente={user}
+                  />
+                </section>
+              </>
+            ))}
+
+            <section className="bg-[#FAF4D3] flex flex-row mb-4 justify-end mr-7 ml-[28px] items-center h-[60px]">
+              <p className="font-ralewayFont font-semibold text-[23px] mr-5">
+                Total de compra: <strong>$ {total} mx</strong>
+              </p>
+            </section>
+          </section>
+          <section className="flex flex-row mb-5 justify-end mr-7">
+            <NavLink
+              to="/proceso-pago"
+              className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48]"
+            >
+              Procesar compra
+            </NavLink>
+          </section>
+        </>
       ) : (
         <>
           <div className="mt-[100px] w-[800px] h-[300px] flex flex- justify-center bg-[#F6BE9A] rounded-[30px] mr-auto ml-auto">
