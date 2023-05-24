@@ -61,7 +61,7 @@ function Home() {
             <h1 className="font-ralewayFont font-semibold text-[#004643] text-3xl mb-4 ml-10">
               Categorias
             </h1>
-            <Carousel nombreTienda="trade" />
+            <Carousel/>
           </div>
 
           <div>

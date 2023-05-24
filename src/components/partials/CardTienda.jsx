@@ -1,11 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 function CardTienda(props) {
-  const navigate = useNavigate();
-  const handleVerTienda = () => {
-    navigate(`/tiendas-asociadas/${props.nombreTienda}`);
-  };
-
   return (
     <>
       <section class=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-[#FAF4D3]  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center">

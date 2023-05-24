@@ -4,7 +4,7 @@ import Header from "../partials/Header";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 
-function PerfilCliente() {
+function PerfilCliente(props) {
   return (
     <>
       <Header />
