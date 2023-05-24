@@ -37,6 +37,7 @@ function Carrito() {
       getItemsCarrito();
     }
   }, [user]);
+  
   useEffect(() => {
     if (productosCarrito.length > 0) {
       const costototal = productosCarrito.reduce(
@@ -53,8 +54,8 @@ function Carrito() {
     evt.preventDefault();
 
     if (productosCarrito.length > 0) {
-      const data = procesoCompra(user, total, "proceso");
-      console.log(data)
+      const data = await procesoCompra(user, total, "proceso");
+      console.log(data);
       if (data) {
         productosCarrito.map((producto) => {
           addDetalle(
@@ -67,9 +68,9 @@ function Carrito() {
             producto.imagenProducto
           );
         });
-        console.log("agregado")
-      }else{
-        console.log("erorr")
+        console.log("agregado");
+      } else {
+        console.log("erorr");
       }
     }
   };
@@ -132,12 +133,12 @@ function Carrito() {
             </section>
           </section>
           <section className="flex flex-row mb-5 justify-end mr-7">
-            <button
+            <NavLink
+              to="/proceso-pago"
               className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48]"
-              onClick={añadirCompra}
             >
               Procesar compra
-            </button>
+            </NavLink>
           </section>
         </>
       ) : (

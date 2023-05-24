@@ -41,3 +41,11 @@ export const addDetalle = async (
     console.log(err);
   }
 };
+
+export const mostrarCompra = async()=>{
+
+}
+
+export const mostrarDetallesCompra = async()=>{
+    
+}

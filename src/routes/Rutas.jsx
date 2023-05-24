@@ -14,6 +14,7 @@ import RegistroNegocio from "../views/RegistroNegocio";
 import PerfilNegocio from "../views/PerfilNegocio";
 import PerfilAdministrador from "../views/PerfilAdministrador";
 import PerfilCliente from "../views/PerfilCliente";
+import ResumenCompra from "../views/ResumenCompra";
 
 import HomeNegociante from "../views/HomeNegociante";
 import HomeAdministrador from "../views/HomeAdministrador";
@@ -32,10 +33,9 @@ import DarDeBajaNegocio from "../views/DarDeBajaNegocio";
 import ResultadoBusqueda from "../views/ResultadoBusqueda";
 import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
+import ContraEntrega from '../views/ContraEntrega'
 
 function Rutas() {
-  
-
   return (
     <>
       <Routes>
@@ -69,7 +69,10 @@ function Rutas() {
 
         <Route path="perfil-cliente" element={<PerfilCliente />}></Route>
         <Route path="home-negociante" element={<HomeNegociante />}></Route>
-        <Route path="home-administrador" element={<HomeAdministrador />}></Route>
+        <Route
+          path="home-administrador"
+          element={<HomeAdministrador />}
+        ></Route>
 
         <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
         <Route
@@ -106,6 +109,9 @@ function Rutas() {
           path="/search/:resultado"
           element={<ResultadoBusqueda />}
         ></Route>
+
+        <Route path="/proceso-pago" element={<ResumenCompra />}></Route>
+        <Route path="/contra-entrega" element={<ContraEntrega />}></Route>
       </Routes>
     </>
   );
