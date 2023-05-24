@@ -32,9 +32,11 @@ import DarDeBajaNegocio from "../views/DarDeBajaNegocio";
 import ResultadoBusqueda from "../views/ResultadoBusqueda";
 import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
+import MisPedidos from "../views/MisPedidos";
+import DetallePedido from "../views/DetallePedido";
 
 function Rutas() {
-  
+
 
   return (
     <>
@@ -101,7 +103,8 @@ function Rutas() {
         ></Route>
         <Route path="editar-negocio" element={<EditarNegocio />}></Route>
         <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
-
+        <Route path="mis-pedidos" element={<MisPedidos />}></Route>
+        <Route path="mis-pedidos/detalle/:id" element={<DetallePedido />}></Route>
         <Route
           path="/search/:resultado"
           element={<ResultadoBusqueda />}

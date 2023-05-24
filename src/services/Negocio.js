@@ -9,6 +9,8 @@ const editBussiness = "edit_bussiness";
 const getBussiness = "get_bussiness";
 const getDealer = "get_iddealer";
 const deleteBussiness = "delete_bussiness";
+const getListPedidos = "get_list_pedidos";
+const getDetailPedido = "get_detail_pedido";
 //credenciales para envio de correo
 const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
@@ -166,10 +168,31 @@ export const enviarCorreo = async (form) => {
     console.log(error);
   }
 }
-const deleteImgNegocio = async (idBussiness) => { 
+
+export const getAllPedidos = async (idPedido) => {
+  const session = await supabase.auth.getSession();
+  console.log("sesion activa", session.data.session.user.id);
+
   try {
-    
+    const { error, data } = await supabase.rpc(getListPedidos,
+      { id_dealer: session.data.session.user.id });
+
+    if (error) throw error;
+    return data;
   } catch (error) {
-    
+    console.error(error);
   }
 }
+export const getDetallePedido = async (idPedido) => {
+  try {
+    const { error, data } = await supabase.rpc(getDetailPedido, { id_pedido: idPedido })
+    if (error) throw error
+
+    console.log(data)
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+

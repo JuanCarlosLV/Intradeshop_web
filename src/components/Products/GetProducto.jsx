@@ -66,46 +66,43 @@ function GetProducto() {
           <tbody>
             {productos.map((producto) => (
               <tr key={producto.idProducto} className="bg-gray-100 border-b dark:bg-white-800 dark:border-gray-700">
-                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
+                <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
                   {producto.idProducto}
                 </td>
-                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
+                <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
                   {producto.nomProducto}
                 </td>
-                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
-                  {producto.cantidad}
-                </td>
-                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
-                  <div>
+                <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
+                 
                     <button
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-4 py-2 text-base"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-2 py-1 text-base"
                       onClick={() => handleNavigateEditar(producto.idProducto)}
                     >
                       Editar
                     </button>
-                  </div>
+               
                 </td>
                 <td>
-                  <div>
+                 
                     <button
-                      className="font-medium text-red-600 dark:text-blue-500 hover:underline px-4 py-2 text-base font-ralewayFont"
+                      className="font-medium text-red-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
                       onClick={() =>
                         handleNavigateEliminar(producto.idProducto)
                       }
                     >
                       Eliminar
                     </button>
-                  </div>
+              
                 </td>
                 <td>
-                  <div>
+                
                     <button
-                      className="font-medium text-green-600 dark:text-blue-500 hover:underline px-4 py-2 text-base font-ralewayFont"
+                      className="font-medium text-green-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
                       onClick={() => handleNavigateDetalle(producto.idProducto)}
                     >
                       Detalle
                     </button>
-                  </div>
+        
                 </td>
               </tr>
             ))}
