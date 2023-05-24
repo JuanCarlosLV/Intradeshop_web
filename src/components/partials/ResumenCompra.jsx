@@ -4,7 +4,6 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { MdPayments } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { FaHandshake } from "react-icons/fa";
 
 import { useState, useEffect } from "react";
 import { mostrarArticulos } from "../../services/Carrito";
@@ -111,7 +110,7 @@ function ResumenCompra() {
               </button>
               <NavLink
                 className="bg-black rounded-[5px]  items-center justify-center flex flex-col w-[250px] h-[120px] hover:bg-gray-900"
-                to="contra-entrega"
+                to="/contra-entrega"
               >
                 <p className="text-white disabled:text-red-600">
                   Contra-Entrega
