@@ -13,7 +13,6 @@ function Login() {
     setSession(supabase.auth.getSession());
 
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
       setidUser(session.user.id);
     });
@@ -38,8 +37,9 @@ function Login() {
       formValues.correoElectronico,
       formValues.contraseña
     );
-    const cuenta = await getTipoCuenta(idUser);
-    console.log("id: " + idUser);
+
+    const cuenta = await getTipoCuenta(data);
+    console.log("id: " + data);
     console.log("tipo cliente:" + cuenta);
     if (cuenta === "cliente") {
       navigate("/");
@@ -47,8 +47,6 @@ function Login() {
       navigate("/home-negociante");
     } else if (cuenta === "administrador") {
       navigate("/home-administrador");
-    } else {
-      console.log("no");
     }
   };
 

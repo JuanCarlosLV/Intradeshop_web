@@ -23,7 +23,9 @@ function Home() {
       setUsername(session.user.email);
       setid(session.user.id);
     });
-
+    
+   
+    
     async function redireccion() {
       const cuenta = await getTipoCuenta(id);
       if (cuenta === "cliente") {
@@ -39,10 +41,9 @@ function Home() {
     async function mostrarUltimosProductos() {
       const data = await getUltimosProductos();
       setlastProducts(data);
-      console.log(data);
     }
     mostrarUltimosProductos();
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <>

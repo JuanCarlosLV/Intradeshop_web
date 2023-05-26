@@ -47,13 +47,17 @@ export const registroCliente = async (correo, contraseña, usuario) => {
 };
 
 export const getTipoCuenta = async (dato) => {
-  const { data, error } = await supabase
-    .from("Users")
-    .select("role")
-    .eq("id", dato)
-    .single();
-  if (error) console.log(error);
-  return data.role;
+  try {
+    const { data, error } = await supabase
+      .from("Users")
+      .select("role")
+      .eq("id", dato)
+      .single();
+    if (error) console.log(error);
+    return data.role;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const cerrarSesion = async () => {
