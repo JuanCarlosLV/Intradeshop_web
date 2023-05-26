@@ -16,7 +16,7 @@ function Header() {
       setSession(session);
       setusername(session.user.email);
     });
-  }, []);
+  }, [username]);
 
   //prueba de authContext
 

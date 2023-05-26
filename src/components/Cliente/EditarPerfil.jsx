@@ -57,6 +57,7 @@ function EditarPerfil() {
       alert("las contraseña no coinciden");
     } else {
       const data = await modificarDatos(
+        idcliente,
         formValues.nombreUsuario,
         formValues.correoElectronico,
         formValues.contraseña
@@ -97,7 +98,7 @@ function EditarPerfil() {
             <hr className="mt-2 border-black border-[2px] rounded-[2px]"></hr>
           </header>
 
-          <form>
+          <form onSubmit={handleModificarDatos}>
             <div className="flex flex-col w-auto mt-[30px] font ">
               <article className="flex flex-col">
                 <label htmlFor="" className="text-[25px] font-semibold mr-10">

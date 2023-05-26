@@ -23,7 +23,7 @@ export const modificarDatos = async (id, usuario, correo, contraseña) => {
       idcliente: id,
       nuevo_usuario: usuario,
       nuevo_correo: correo,
-      nueva_contraseña: contraseña,
+      nuevacontraseña: contraseña,
     });
 
     if(error) throw error;

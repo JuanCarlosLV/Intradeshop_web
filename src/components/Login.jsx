@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import HeaderLogin from "./partials/HeaderLogin";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { getTipoCuenta, iniciarSesion } from "../services/Autenticacion";
 import { supabase } from "../supabase/connection";
 function Login() {
   const navigate = useNavigate();
+  const [mostrarContraseña, setMostrarContraseña] = useState(false);
+  const [mostrarContraseñaConfirmada, setMostrarContraseñaConfirmada] =
+    useState(false);
   const [idUser, setidUser] = useState("");
   const [session, setSession] = useState(null);
 
@@ -28,6 +32,14 @@ function Login() {
       ...formValues,
       [evt.target.name]: evt.target.value,
     });
+  };
+
+  const botonMostrarContraseña = () => {
+    setMostrarContraseña(!mostrarContraseña);
+  };
+
+  const botonMostrarContraseñaConfirmada = () => {
+    setMostrarContraseñaConfirmada(!mostrarContraseñaConfirmada);
   };
 
   const handleSubmit = async (evt) => {
