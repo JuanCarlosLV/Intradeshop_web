@@ -27,7 +27,7 @@ function HeaderAdministrador() {
   return (
     <>
       <div className="bg-[#124846] h-28  flex flex-row items-center justify-between">
-        <NavLink to="/home-negociante" className="flex ">
+        <NavLink to="/home-administrador" className="flex ">
           <img
             src="src\images\logoIntradeshop.png"
             className="ml-10 h-20 w-30"

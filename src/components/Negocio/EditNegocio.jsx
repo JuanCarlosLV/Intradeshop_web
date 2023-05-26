@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
-import { getInfoNegocio, editarInfoNegocio } from "../../services/Negocio";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { getInfoNegocio, editarInfoNegocio, editarImgLogo, eliminarImgBucket } from "../../services/Negocio";
+import { BsFillArrowLeftCircleFill, BsFillImageFill } from "react-icons/bs";
 import { useNavigate, NavLink } from "react-router-dom";
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
 
 function EditNegocio() {
   const navigatePrincipalDealer = useNavigate();
-  //const idDealer = "e2b5cb16-d834-4cee-b6d9-90aea4af67ae";
   const [stateModal, setStateModal] = useState(false);
   const [formValues, setFormValues] = useState({
+    id: "",
     nombre: "",
     correo: "",
     direccion: "",
     descripcion: "",
     telefono: "",
-    logo:""
+    logo: "",
   });
+  const [stateEditImg, setEditImg] = useState(false);
   useEffect(() => {
     async function getInfo() {
       const data = await getInfoNegocio();
       setFormValues({
+        id: data.idNegocio,
         nombre: data.nomNegocio,
         correo: data.correoElectronico,
         direccion: data.direccion,
@@ -40,21 +42,43 @@ function EditNegocio() {
   const handleInputChange = (evt) => {
     setFormValues({
       ...formValues,
-      [evt.target.name]: evt.value,
+      [evt.target.name]: evt.target.value,
     });
   };
-  const handleEditar = (evt) => {
+  const handleEditar = async (evt) => {
     evt.preventDefault();
-    editarInfoNegocio(
-      formValues.nombre,
-      formValues.correo,
-      formValues.direccion,
-      formValues.descripcion,
-      formValues.telefono,
-    );
+    if (stateEditImg) {
+      await eliminarImgBucket();
+      await editarImgLogo(formValues.logo, formValues.id);
+      await editarInfoNegocio(
+        formValues.nombre,
+        formValues.correo,
+        formValues.direccion,
+        formValues.descripcion,
+        formValues.telefono,
+      );
+    } else {
+      await editarInfoNegocio(
+        formValues.nombre,
+        formValues.correo,
+        formValues.direccion,
+        formValues.descripcion,
+        formValues.telefono,
+      );
+    }
     navigatePrincipalDealer("/home-negociante");
   };
-
+  const handleEditImg = (evt) => {
+    evt.preventDefault();
+    setEditImg(true);
+  }
+  const handleImageChange = (evt) => {
+    const file = evt.target.files[0]
+    setFormValues({
+      ...formValues,
+      logo: file
+    })
+  }
   return (
     <>
       <div>
@@ -124,15 +148,22 @@ function EditNegocio() {
                 onChange={handleInputChange}
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] m-1"
               />
-
+              {stateEditImg && (
+                <input type="file" id="logo" name="logo" accept=".jpeg .png .jpg" onChange={handleImageChange}></input>
+              )}
               <div className="px-96 ml-40 py-2">
                 <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
                   Modificar
                 </button>
               </div>
             </div>
-            <div>
-              <img src={formValues.logo}/>
+            <div className="mt-20 ml-40 w-auto h-auto rounded-r-md shadow-lg">
+              <img src={formValues.logo} alt={formValues.nombre} className="w-80 h-80 object-cover bg-center rounded-r-md rounded-md" />
+              {!stateEditImg && (
+                <button onClick={handleEditImg} className="hover:bg-black rounded-md bg-[#004643] py-3 px-5  font-semibold text-white font-ralewayFont m-8">
+                  <BsFillImageFill />
+                </button>
+              )}
             </div>
           </div>
         </form>

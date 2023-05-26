@@ -260,26 +260,6 @@ const guardarUrlProducto = async (imgUrls, idProd) => {
   }
 };
 
-//obtener los url de las imagenes de los productos
-/*const getUrlImgProducto = async (id) => {
-  try {
-    const { data, error } = await supabase.rpc('get_urls', { id_product: id })
-    if (error) throw error;
-    for (let i = 0; i < data.length; i++) {
-      if (Array.isArray(data[i])) {
-        for (let j = 0; j < data[i].length; j++) {
-          const url = data[i][j];
-          console.log('URL:', url)
-        }
-      } else {
-        const url = data[i];
-        console.log('URL:', url);
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}*/
 const eliminarImgBucket = async (nameImagen) => {
   try {
     const { error } = await supabase.storage.from(nameBucket).remove([nameImagen]);

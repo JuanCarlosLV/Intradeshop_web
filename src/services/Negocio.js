@@ -15,7 +15,7 @@ const getDetailPedido = "get_detail_pedido";
 const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
 const apiKey = "wAmi1MLFEfz21fzdN";
-
+const bucketLogos = "Tiendas";
 export const registroNegociante = async (
   nombreNegocio,
   telefono,
@@ -100,7 +100,6 @@ export const guardarUrlLogo = async (url, id_negocio) => {
 export const getInfoNegocio = async () => {
   try {
     const session = await supabase.auth.getSession();
-    console.log("session active", session.data.session.user.id);
     const { error, data } = await supabase
       .rpc(getBussiness, { id_dealer: session.data.session.user.id })
       .single();
@@ -112,23 +111,23 @@ export const getInfoNegocio = async () => {
 };
 
 export const editarInfoNegocio = async (
-  idNegociante,
   nombre,
   correo,
   direccion,
   descripcion,
   telefono,
-  logo
 ) => {
+
+  const session = await supabase.auth.getSession();
+  console.log(session.data.session.user.id);
   try {
-    const { error } = await supabase.rpc(editBussiness, {
-      id_dealer: idNegociante,
+    const { error } = await supabase.rpc('edit_bussiness', {
+      id_dealer: session.data.session.user.id,
       nom_negocio: nombre,
       correo_electronico: correo,
       direccion_negocio: direccion,
       descripcion_negocio: descripcion,
       tel_negocio: telefono,
-      logo_negocio: logo,
     });
     if (error) throw error;
   } catch (error) {
@@ -169,7 +168,7 @@ export const enviarCorreo = async (form) => {
   }
 }
 
-export const getAllPedidos = async (idPedido) => {
+export const getAllPedidos = async () => {
   const session = await supabase.auth.getSession();
   console.log("sesion activa", session.data.session.user.id);
 
@@ -195,4 +194,40 @@ export const getDetallePedido = async (idPedido) => {
   }
 }
 
-
+export const eliminarImgBucket = async () => {
+  try {
+    const nameImg = await getUrlLogo();
+    console.log(nameImg);
+    const { error } = await supabase.storage.from(bucketLogos).remove([nameImg]);
+    if (error) throw error;
+  } catch (error) {
+    console.error(error);
+  }
+}
+const getUrlLogo = async () => {
+  const session = await supabase.auth.getSession();
+  try {
+    const { error, data } = await supabase.rpc('get_url_negocio', { id_dealer: session.data.session.user.id });
+    if (error) throw error;
+    let nameImg = data.substring(data.lastIndexOf('/') + 1);
+    return nameImg;
+  } catch (error) {
+    console.error(error);
+  }
+}
+export const editarImgLogo = async (logo, idBussiness) => {
+  const nombreLogo = `${uuidv4()}-${logo.name}`;
+  const { error } = await supabase.storage
+    .from("Tiendas")
+    .upload(nombreLogo, logo);
+  if (error) {
+    console.log("Error al subir la imagen: " + error.message);
+  } else {
+    const { data } = await supabase.storage
+      .from("Tiendas")
+      .getPublicUrl(nombreLogo);
+    const url = data.publicUrl;
+    console.log(url)
+    guardarUrlLogo(url, idBussiness);
+  }
+}
