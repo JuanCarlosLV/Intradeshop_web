@@ -4,14 +4,14 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { MdPayments } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-
-import { useState, useEffect } from "react";
+import {AuthContext} from '../AuthContainer'
+import { useState, useEffect , useContext} from "react";
 import { mostrarArticulos } from "../../services/Carrito";
 
 
 function ResumenCompra() {
-  const [session, setSession] = useState(null);
-  const [user, setuser] = useState("");
+  
+  
   const [productosCarrito, setproductosCarrito] = useState([]);
   const [total, settotal] = useState(0);
   const [cantidadProductos, setcantidadProductos] = useState(0);
@@ -20,23 +20,29 @@ function ResumenCompra() {
     navigate(-1);
   };
 
+  const [session, setSession] = useState(null);
+  const [username, setusername] = useState("usuario");
+
   useEffect(() => {
     setSession(supabase.auth.getSession());
+
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      setuser(session.user.id);
+      setusername(session.user.email);
     });
   }, []);
 
+
   useEffect(() => {
-    if (user !== "") {
+    
+    if (username !== "") {
       async function getItemsCarrito() {
-        const data = await mostrarArticulos(user);
+        const data = await mostrarArticulos(username);
         setproductosCarrito(data);
       }
       getItemsCarrito();
     }
-  }, [user]);
+  }, [username]);
 
   useEffect(() => {
     if (productosCarrito.length > 0) {
@@ -82,7 +88,7 @@ function ResumenCompra() {
         </section>
 
         <section className="flex flex-col mt-12 items-center">
-          <section className="bg-[#D1AC00] mr-auto ml-[200px] w-[1000px] rounded-[5px]">
+          <section className="bg-[#D1AC00] mr-auto ml-[200px] w-[1000px] rounded-[5px] ">
             <p className="font-ralewayFont font-bold mt-6 ml-10">
               Resúmen de compra
             </p>

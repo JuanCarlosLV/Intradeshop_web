@@ -3,8 +3,27 @@ import { supabase } from "../../supabase/connection";
 import Header from "../partials/Header";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
+import { useState, useEffect } from "react";
 
 function PerfilCliente(props) {
+
+  const [session, setSession] = useState(null);
+  const [username, setusername] = useState("usuario");
+  const [iduser, setIdUser] = useState("")
+
+  useEffect(() => {
+    setSession(supabase.auth.getSession());
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setusername(session.user.email);
+      setIdUser(session.user.id)
+    });
+  }, []);
+
+
+
+
   return (
     <>
       <Header />
@@ -19,7 +38,7 @@ function PerfilCliente(props) {
               MI CUENTA
             </h1>
             <NavLink className="font-ralewayFont  text-2xl text-[#D1AC00] mr-10"
-            to="editar-perfil">
+            to={`/editar-perfil/${iduser}`}>
               Editar
             </NavLink>
           </div>
