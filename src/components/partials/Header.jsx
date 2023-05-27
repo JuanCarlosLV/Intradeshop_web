@@ -42,13 +42,13 @@ function Header() {
 
         <div className="space-x-10 ml-auto mr-20">
           <NavLink
-            className="text-2xl text-[#D1AC00] font-ralewayFont "
+            className="text-2xl text-[#D1AC00] font-ralewayFont hover:text-black "
             to="/tiendas-asociadas"
           >
             Tiendas Asociadas
           </NavLink>
           <NavLink
-            className="text-2xl text-[#D1AC00] font-ralewayFont"
+            className="text-2xl text-[#D1AC00] font-ralewayFont hover:text-black "
             to="/carrito-compra"
           >
             Carrito
