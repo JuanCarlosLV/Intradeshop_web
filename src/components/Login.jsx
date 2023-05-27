@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import Modal from "../components/Modales/ModalAviso";
 import HeaderLogin from "./partials/HeaderLogin";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
@@ -8,8 +9,7 @@ import { supabase } from "../supabase/connection";
 function Login() {
   const navigate = useNavigate();
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
-  const [mostrarContraseñaConfirmada, setMostrarContraseñaConfirmada] =
-    useState(false);
+  const [cargando, setCargando] = useState(false);
   const [idUser, setidUser] = useState("");
   const [session, setSession] = useState(null);
 
@@ -38,27 +38,40 @@ function Login() {
     setMostrarContraseña(!mostrarContraseña);
   };
 
-  const botonMostrarContraseñaConfirmada = () => {
-    setMostrarContraseñaConfirmada(!mostrarContraseñaConfirmada);
+  const limpiarCampos = () => {
+    (formValues.correoElectronico = ""), (formValues.contraseña = "");
+  };
+
+  const handleKeyPress = (evt) => {
+    if (evt.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-
+    setCargando(true);
     const data = await iniciarSesion(
       formValues.correoElectronico,
       formValues.contraseña
     );
 
-    const cuenta = await getTipoCuenta(data);
-    console.log("id: " + data);
-    console.log("tipo cliente:" + cuenta);
-    if (cuenta === "cliente") {
-      navigate("/");
-    } else if (cuenta === "negociante") {
-      navigate("/home-negociante");
-    } else if (cuenta === "administrador") {
-      navigate("/home-administrador");
+    if (data) {
+      const cuenta = await getTipoCuenta(data);
+      console.log("id: " + data);
+      console.log("tipo cliente:" + cuenta);
+      if (cuenta === "cliente") {
+        navigate("/");
+      } else if (cuenta === "negociante") {
+        navigate("/home-negociante");
+      } else if (cuenta === "administrador") {
+        navigate("/home-administrador");
+      }
+      setCargando(false);
+    } else {
+      alert("No existe esta cuenta");
+      setCargando(false);
+      limpiarCampos();
     }
   };
 
@@ -94,30 +107,45 @@ function Login() {
                     placeholder="Correo electrónico"
                     value={formValues.correoElectronico}
                     onChange={handleInputChange}
-                    className="block w-full rounded-md border border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] py-2 px-3 text-black font-ralewayFont"
+                    className="block w-full rounded-md border border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] py-2 px-3 text-black font-ralewayFont "
                   />
                 </div>
 
-                <div className="mb-3 mt-7">
+                <div className=" mt-7">
                   <label className="mb-2 block text-2xl font-semibold font-ralewayFont">
                     Contraseña
                   </label>
                   <input
-                    type="password"
+                    type={mostrarContraseña ? "text" : "password"}
                     name="contraseña"
                     value={formValues.contraseña}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyPress}
                     placeholder="*******"
                     className="block w-full rounded-md border border-[#004643] focus:border-[#004643] focus:outline-none focus:ring-1 focus:ring-[#004643] py-2 px-3 text-black"
                   />
+                  <button
+                    type="button"
+                    onClick={botonMostrarContraseña}
+                    className="transform -translate-y-[37px] ml-[340px] "
+                  >
+                    {mostrarContraseña ? (
+                      <IoMdEyeOff className="text-[32px] text-[#004643]" />
+                    ) : (
+                      <IoMdEye className="text-[32px] text-[#004643]" />
+                    )}
+                  </button>
                 </div>
 
                 <div className="mb-3">
                   <button
                     type="submit"
-                    className="mb-1.5 text-xl block w-full text-center text-white font-ralewayFont font-semibold bg-[#004643] hover:bg-black px-2 h-12 py-1.5 rounded-md"
+                    className={`text-xl block w-full text-center text-white font-ralewayFont font-semibold bg-[#004643] hover:bg-black px-2 h-12 py-1.5 rounded-md  transition-colors duration-300 ${
+                      cargando ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                    disabled={cargando}
                   >
-                    Iniciar Sesión
+                    {cargando ? "Iniciando sesion...." : "Iniciar sesión"}
                   </button>
                 </div>
               </form>

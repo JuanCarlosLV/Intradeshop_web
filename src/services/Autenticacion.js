@@ -7,7 +7,7 @@ export const iniciarSesion = async (correo, contraseña) => {
       password: contraseña,
     });
     if (error) {
-      alert("La cuenta no existe");
+      return null;
     } else {
       return data.user.id;
     }
