@@ -11,6 +11,7 @@ const getDealer = "get_iddealer";
 const deleteBussiness = "delete_bussiness";
 const getListPedidos = "get_list_pedidos";
 const getDetailPedido = "get_detail_pedido";
+const getPedidosRecientes = "get_pedidos_recientes";
 //credenciales para envio de correo
 const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
@@ -121,7 +122,7 @@ export const editarInfoNegocio = async (
   const session = await supabase.auth.getSession();
   console.log(session.data.session.user.id);
   try {
-    const { error } = await supabase.rpc('edit_bussiness', {
+    const { error } = await supabase.rpc(editBussiness, {
       id_dealer: session.data.session.user.id,
       nom_negocio: nombre,
       correo_electronico: correo,
@@ -229,5 +230,15 @@ export const editarImgLogo = async (logo, idBussiness) => {
     const url = data.publicUrl;
     console.log(url)
     guardarUrlLogo(url, idBussiness);
+  }
+}
+export const getListPediRecientes = async () => {
+  try {
+    const session = await supabase.auth.getSession();
+    const { data, error } = await supabase.rpc(getPedidosRecientes, { id_dealer: session.data.session.user.id });
+    if (error) throw error
+    return data;
+  } catch (error) {
+    console.error(error);
   }
 }

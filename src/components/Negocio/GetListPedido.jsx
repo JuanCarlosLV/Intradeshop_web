@@ -23,34 +23,34 @@ function GetListPedido() {
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="w-full text-xs text-gray-700 uppercase bg-[#D1AC00] dark:bg-gray-700 dark:text-gray-500 font-medium font-ralewayFont">
                         <tr>
-                            <th scope="col" className="px-4 py-3 text-base text-center">
+                            <th scope="col" className="px-10 py-4 text-base text-center">
                                 id
                             </th>
-                            <th scope="col" className="px-4 py-3 text-base text-center">
+                            <th scope="col" className="px-10 py-4 text-base text-center">
                                 fecha
                             </th>
-                            <th scope="col" className="px-4 py-3 text-base text-center">
+                            <th scope="col" className="px-10 py-4 text-base text-center">
                                 total
                             </th>
-                            <th scope="col" className="px-4 py-3 text-base text-center">
+                            <th scope="col" className="px-10 py-4 text-base text-center">
                                 Acción
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {pedidos.map((pedido) => (
-                            <tr key={pedido.idCompra} className="bg-gray-100 border-b dark:bg-white-800 dark:border-gray-700">
-                                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
-                                    {pedido.idCompra}
+                        {pedidos.map((pedido, index) => (
+                            <tr key={index} className="bg-gray-100 border-b dark:bg-white-800 dark:border-gray-700">
+                                <td className="px-10 py-4 text-base text-center font-medium font-ralewayFont">
+                                    {pedido.id_compra}
                                 </td>
-                                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
-                                    {pedido.fecha}
+                                <td className="px-10 py-4 text-base text-center font-medium font-ralewayFont">
+                                    {pedido.fecha_c}
                                 </td>
-                                <td className="px-6 py-4 text-base text-center font-medium font-ralewayFont">
-                                    {pedido.totalCompra}
+                                <td className="px-10 py-4 text-base text-center font-medium font-ralewayFont">
+                                    {pedido.total_compra}
                                 </td>
-                                <td>
-                                    <button onClick={() => handleNavigateDetalle(pedido.idCompra)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-4 py-2 text-base">Detalle</button>
+                                <td className="px-10 py-4 text-base text-center font-medium font-ralewayFont">
+                                    <button onClick={() => handleNavigateDetalle(pedido.id_compra)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-4 py-2 text-base">Detalle</button>
                                 </td>
                             </tr>
                         ))}

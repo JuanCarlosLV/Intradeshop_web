@@ -73,6 +73,9 @@ function GetProducto() {
                   {producto.nomProducto}
                 </td>
                 <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
+                  {producto.cantidadTotal}
+                </td>
+                <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
                  
                     <button
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-2 py-1 text-base"

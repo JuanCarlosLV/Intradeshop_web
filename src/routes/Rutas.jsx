@@ -40,7 +40,7 @@ import EditarPerfilCliente from '../views/EditarPerfilCliente'
 import { AuthProvider } from "../components/AuthContainer";
 import MisPedidos from "../views/MisPedidos";
 import DetallePedido from "../views/DetallePedido";
-import ContraEntrega from '../views/ContraEntrega';
+
 
 function Rutas() {
 
@@ -116,7 +116,8 @@ function Rutas() {
           ></Route>
           <Route path="editar-negocio" element={<EditarNegocio />}></Route>
           <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
-
+          <Route path="mis-pedidos" element={<MisPedidos />}></Route>
+          <Route path="mis-pedidos/detalle/:id" element={<DetallePedido />}></Route>
           <Route
             path="/search/:resultado"
             element={<ResultadoBusqueda />}
