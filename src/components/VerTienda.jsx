@@ -53,11 +53,13 @@ function VerTienda() {
       <Header />
       <main className="flex flex-col">
         <section className="flex flex-row mt-[20px] ">
-          <BsArrowLeftCircleFill
-            className="text-4xl ml-10 mt-[25px]"
-            color="D1AC00"
-            onClick={regresar}
-          />
+          <NavLink>
+            <BsArrowLeftCircleFill
+              className="text-4xl ml-10 mt-[25px]"
+              color="D1AC00"
+              onClick={regresar}
+            />
+          </NavLink>
 
           <div className="bg-[#004643] items-center flex justify-start w-[1500px] h-[170px] rounded-[5px] mr-[60px] ml-[50px]">
             <img

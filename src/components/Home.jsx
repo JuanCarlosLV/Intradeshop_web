@@ -1,4 +1,5 @@
 import HeaderBase from "./partials/Header";
+import Footer from './partials/Footer'
 import BarraBusqueda from "./partials/BarraBusqueda";
 import Carousel from "./partials/CarruselCategorias";
 import { supabase } from "../supabase/connection";
@@ -47,29 +48,29 @@ function Home() {
 
   return (
     <>
-      <div className="relative">
-        <div>
+      <main className="relative">
+        <header>
           <HeaderBase />
-        </div>
-        <div className="absolute z-50">
+        </header>
+        <section className="absolute z-50">
           <BarraBusqueda
             placeholder="Buscar por nombre, categoria etc...."
             tipoBusqueda="producto"
           />
-        </div>
+        </section>
         <section className="static mt-[140px]">
-          <div>
+          <article>
             <h1 className="font-ralewayFont font-semibold text-[#004643] text-3xl mb-4 ml-10">
               Categorias
             </h1>
             <Carousel/>
-          </div>
+          </article>
 
-          <div>
+          <header>
             <h1 className="font-ralewayFont font-semibold text-[#004643] text-3xl mt-5 ml-10">
               Productos Recientes
             </h1>
-          </div>
+          </header>
           <section className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5">
             {lastProducts.map((product) => (
               <>
@@ -85,8 +86,12 @@ function Home() {
               </>
             ))}
           </section>
+
+          <footer className="mt-[40px]">
+            <Footer/>
+          </footer>
         </section>
-      </div>
+      </main>
     </>
   );
 }
