@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../../supabase/connection";
+import { AuthContext } from "../AuthContainer";
 import { cerrarSesion } from "../../services/Autenticacion";
 
 function Header() {
@@ -15,7 +16,9 @@ function Header() {
       setSession(session);
       setusername(session.user.email);
     });
-  }, []);
+  }, [username]);
+
+  //prueba de authContext
 
   const [isOpen, setisOpen] = useState(false);
 
@@ -39,16 +42,15 @@ function Header() {
 
         <div className="space-x-10 ml-auto mr-20">
           <NavLink
-            className="text-2xl text-[#D1AC00] font-ralewayFont "
+            className="text-2xl text-[#D1AC00] font-ralewayFont hover:text-black "
             to="/tiendas-asociadas"
           >
             Tiendas Asociadas
           </NavLink>
           <NavLink
-            className="text-2xl text-[#D1AC00] font-ralewayFont"
+            className="text-2xl text-[#D1AC00] font-ralewayFont hover:text-black "
             to="/carrito-compra"
           >
-            
             Carrito
           </NavLink>
         </div>

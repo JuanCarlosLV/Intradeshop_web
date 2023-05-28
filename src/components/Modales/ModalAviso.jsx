@@ -11,12 +11,12 @@ function ModalAviso(props) {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="fixed inset-0 flex items-center justify-center ">
         <section>
           <div
-            className={`bg-${props.color} font-mono font-medium rounded-[5px] flex items-center justify-center h-[40px] w-[300px] ml-10`}
+            className={`bg-${props.color} font-mono font-medium rounded-[5px] flex items-center justify-center h-auto w-1/2 ml-10 p-2`}
           >
-            <p className="text-white">{props.mensaje}</p>
+            <p className="text-white break-words">{props.mensaje}</p>
           </div>
         </section>
       </div>

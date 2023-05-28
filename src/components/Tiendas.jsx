@@ -21,23 +21,21 @@ function Tiendas() {
   return (
     <>
       <main className="relative">
-        <section>
-          <Header />
-        </section>
-        <div className=" flex flex-row   mt-12">
-          <div className="-mt-5 ml-5">
+        <Header />
+
+        <section className=" flex flex-row mt-12 ">
+          <div>
             <NavLink to="/">
-              <AiFillHome className="text-[40px]" color="004643" />
+              <AiFillHome className="text-[40px] mb-5 ml-[50px]" color="004643" />
             </NavLink>
           </div>
-
-          <div className="absolute z-50 -mt-[50px] ">
-            <Busqueda placeholder="Buscar por nombre" tipoBusqueda="tienda" />
+          <div className="absolute z-50 items-center flex ml-12 -mt-8 ">
+            <Busqueda placeholder="Buscar por nombre" tipoBusqueda="producto" />
           </div>
-        </div>
+        </section>
 
-        <div className="static mt-[110px]">
-          <h1 className="text-3xl font-ralewayFont font-semibold ml-[35px] mt-3">
+        <div className="static mt-[80px]">
+          <h1 className="text-3xl font-ralewayFont font-semibold ml-[35px] ">
             Tiendas Asociadas
           </h1>
 

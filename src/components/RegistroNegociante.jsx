@@ -1,10 +1,14 @@
 import Header from "./partials/HeaderLogin";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useState } from "react";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { registroNegociante, subirLogo } from "../services/Negocio";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function RegistroNegociante() {
+  const [mostrarContraseña, setMostrarContraseña] = useState(false);
+  const [mostrarContraseñaConfirmada, setMostrarContraseñaConfirmada] =
+    useState(false);
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     nombreNegocio: "",
@@ -32,6 +36,14 @@ function RegistroNegociante() {
       ...formValues,
       logotipo: evt.target.files[0],
     });
+  };
+
+  const botonMostrarContraseña = () => {
+    setMostrarContraseña(!mostrarContraseña);
+  };
+
+  const botonMostrarContraseñaConfirmada = () => {
+    setMostrarContraseñaConfirmada(!mostrarContraseñaConfirmada);
   };
 
   const handleSubmit = async (evt) => {
@@ -198,24 +210,47 @@ function RegistroNegociante() {
                   Contraseña
                 </label>
                 <input
-                  type="password"
+                  type={mostrarContraseña ? "text" : "password"}
                   name="contraseña"
                   value={formValues.contraseña}
                   onChange={handleInputChange}
                   placeholder="********"
                   className="w-full rounded-md border  bg-white py-3 px-6  font-semibold text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] font-ralewayFont "
                 ></input>
-                <label className="mb-3 block text-base text-left font-ralewayFont font-semibold">
+                <button
+                  type="button"
+                  onClick={botonMostrarContraseña}
+                  className="transform -translate-y-[40px] ml-[780px] "
+                >
+                  {mostrarContraseña ? (
+                    <IoMdEyeOff className="text-[35px] text-[#004643]" />
+                  ) : (
+                    <IoMdEye className="text-[35px] text-[#004643]" />
+                  )}
+                </button>
+
+                <label className="mb-3 block text-base text-left font-ralewayFont font-semibold -mt-7">
                   Confirmar contraseña
                 </label>
                 <input
-                  type="password"
+                  type={mostrarContraseñaConfirmada ? "text" : "password"}
                   name="contraseñaConfirmada"
                   value={formValues.contraseñaConfirmada}
                   onChange={handleInputChange}
                   placeholder="********"
                   className="w-full rounded-md border  bg-white py-3 px-6  font-semibold text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643] font-ralewayFont "
                 ></input>
+                <button
+                  type="button"
+                  onClick={botonMostrarContraseñaConfirmada}
+                  className="transform -translate-y-[40px] ml-[780px] "
+                >
+                  {mostrarContraseñaConfirmada ? (
+                    <IoMdEyeOff className="text-[35px] text-[#004643]" />
+                  ) : (
+                    <IoMdEye className="text-[35px] text-[#004643]" />
+                  )}
+                </button>
               </div>
 
               <div className="px-96 ml-48 py-2 ">
