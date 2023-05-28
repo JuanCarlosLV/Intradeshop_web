@@ -1,11 +1,10 @@
-import UnsubscribeNegocio from "../components/Administrador/UnsubscribeNegocio";
-import HeaderNegociante from "../components/Negocio/HeaderNegociante";
+import DarBajaNegocio from "../components/Administrador/UnsubscribeNegocio";
+
 
 function DarDeBajaNegocio() {
   return (
     <>
-      <HeaderNegociante />
-      <UnsubscribeNegocio />
+      <DarBajaNegocio />
     </>
   );
 }

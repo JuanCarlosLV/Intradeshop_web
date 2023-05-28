@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Header from '../Administrador/HeaderAdministrador'
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
 import {
   enviarCorreo,
@@ -7,11 +8,14 @@ import {
   darDeBajaNegocio,
 } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { NavLink, useParams } from "react-router-dom";
 
 //este se obtendra del useParams;
-const idBussiness = 1;
+
 
 function UnsubscribeNegocio() {
+
+  const {idNegocio} = useParams()
   const [negocioData, setNegocioData] = useState({
     bussinessname: "",
     email: "",
@@ -20,9 +24,11 @@ function UnsubscribeNegocio() {
   const [stateModal, setStateModal] = useState(false);
   useEffect(() => {
     async function getInfo() {
-      //se obtiene desde la funcion de get id
-      const idDealer = await getIdDealer(idBussiness);
+      
+      const idDealer = await getIdDealer(idNegocio);
+      console.log(idDealer)
       const data = await getInfoNegocio(idDealer);
+      console.log(data)
       setNegocioData({
         bussinessname: data.nomNegocio,
         email: data.correoElectronico,
@@ -42,22 +48,23 @@ function UnsubscribeNegocio() {
     evt.preventDefault();
     const form = evt.target;
     enviarCorreo(form);
-    darDeBajaNegocio(idBussiness);
+    darDeBajaNegocio(idNegocio);
   };
 
   return (
     <>
-      <div className="flex justify-between my-4">
-        <a href="/home-negociante">
+    <Header/>
+      <section className="flex justify-between my-4">
+        <NavLink to="/home-administrador">
           <BsFillArrowLeftCircleFill
             className="text-4xl mt-2 ml-10"
             color={"D1AC00"}
           />
-        </a>
+        </NavLink>
         <h1 className="font-ralewayFont font-bold text-3xl  mt-2  ml-10 mr-auto">
           Dar de baja tienda
         </h1>
-      </div>
+      </section>
       <div className="top-1 left-60 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto p-4 ml-60">
         <form onSubmit={handleShowModal} className="max-w-lg">
           <label className="mb-3 block text-base text-left font-ralewayFont font-semibold my-1">

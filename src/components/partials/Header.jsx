@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect, useContext } from "react";
 import { supabase } from "../../supabase/connection";
-import { AuthContext } from "../AuthContainer";
 import { cerrarSesion } from "../../services/Autenticacion";
 
 function Header() {

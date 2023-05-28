@@ -4,7 +4,6 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { MdPayments } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import {AuthContext} from '../AuthContainer'
 import { useState, useEffect , useContext} from "react";
 import { mostrarArticulos } from "../../services/Carrito";
 

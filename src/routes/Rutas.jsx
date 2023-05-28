@@ -112,7 +112,7 @@ function Rutas() {
             element={<DetallePNegociante />}
           ></Route>
           <Route path="editar-negocio" element={<EditarNegocio />}></Route>
-          <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
+          <Route path="baja-negocio/:idNegocio" element={<DarDeBajaNegocio />}></Route>
 
           <Route
             path="/search/:resultado"

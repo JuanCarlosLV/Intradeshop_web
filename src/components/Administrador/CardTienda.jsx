@@ -1,4 +1,4 @@
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function CardTienda(props) {
   return (
@@ -12,19 +12,25 @@ function CardTienda(props) {
           />
         </article>
 
-        <div class="p-4">
+        <article className="p-4">
           <h2 class="text-center text-[20px] font-ralewayFont font-semibold text-white ">
             {props.nombreTienda}
           </h2>
-        </div>
-        <div className="p-4 items-center flex flex-row bg-white rounded-lg w-[200px] h-[50px] mb-5 ml-auto mr-auto">
+        </article>
+        <article className="p-4 items-center flex flex-row bg-white rounded-lg w-[200px] h-[50px] mb-5 ml-auto mr-auto">
           <NavLink
             to={"/tienda/" + props.nombreTienda}
             className="font-ralewayFont font-semibold text-[#004643] text-2xl ml-5"
           >
             Ver Tienda
           </NavLink>
-        </div>
+        </article>
+
+        <NavLink to={"/baja-negocio/" + props.idNegocio}>
+          <button className="p-4 items-center justify-center flex  bg-white rounded-lg w-[200px] h-[50px] mb-5 ml-auto mr-auto text-[#004643] font-ralewayFont font-semibold text-2xl">
+            Dar de baja
+          </button>
+        </NavLink>
       </section>
     </>
   );
