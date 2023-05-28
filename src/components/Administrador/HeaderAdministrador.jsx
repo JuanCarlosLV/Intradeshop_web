@@ -12,7 +12,6 @@ function HeaderAdministrador() {
     setSession(supabase.auth.getSession());
 
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
       setusername(session.user.email);
     });
@@ -29,7 +28,7 @@ function HeaderAdministrador() {
       <div className="bg-[#124846] h-28  flex flex-row items-center justify-between">
         <NavLink to="/home-negociante" className="flex ">
           <img
-            src="src\images\logoIntradeshop.png"
+            src="/src/images/logoIntradeshop.png"
             className="ml-10 h-20 w-30"
             alt="logo de intradeshop"
           />

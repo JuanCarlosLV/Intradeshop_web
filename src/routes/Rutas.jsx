@@ -35,6 +35,7 @@ import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
 import ContraEntrega from "../views/ContraEntrega";
 import EditarPerfilCliente from '../views/EditarPerfilCliente'
+import EditarPerfilAdministrador from '../views/EditarPerfilAdministrador'
 
 //prueba de Auth
 import { AuthProvider } from "../components/AuthContainer";
@@ -80,6 +81,7 @@ function Rutas() {
             path="home-administrador"
             element={<HomeAdministrador />}
           ></Route>
+          <Route path="editar-perfiladministrador/:idadministrador" element={<EditarPerfilAdministrador />}></Route>
 
           <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
           <Route
