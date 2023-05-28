@@ -57,13 +57,14 @@ function EditarPerfil() {
     if (formValues.contraseña !== formValues.contraseñaConfirmada) {
       alert("las contraseña no coinciden");
     } else {
+        console.log(idadministrador)
       const data = await editarCuenta(
         idadministrador,
         formValues.nombreUsuario,
         formValues.correoElectronico,
         formValues.contraseña
       );
-
+    console.log(data)
       if (data) {
         console.log("se modifico");
       } else {

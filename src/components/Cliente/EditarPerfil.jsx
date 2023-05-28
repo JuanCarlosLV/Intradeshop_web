@@ -59,7 +59,6 @@ function EditarPerfil() {
       const data = await modificarDatos(
         idcliente,
         formValues.nombreUsuario,
-        formValues.correoElectronico,
         formValues.contraseña
       );
 
@@ -122,6 +121,7 @@ function EditarPerfil() {
                   name="correoElectronico"
                   onChange={handleInputChange}
                   value={formValues.correoElectronico}
+                  disabled="true"
                   className="w-[700px] rounded-md border  bg-white py-3 px-6 text-[18px] mt-4 font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]"
                 />
               </article>

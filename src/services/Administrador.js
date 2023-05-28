@@ -23,7 +23,7 @@ export const editarCuenta = async (
   contraseña
 ) => {
   try {
-    const { data, error } = await supabase.rpc(editarCuenta, {
+    const { data, error } = await supabase.rpc(editarcuenta, {
       idadmin: idadministrador,
       nuevousuario: nombreusuario,
       nuevocorreo: correo,

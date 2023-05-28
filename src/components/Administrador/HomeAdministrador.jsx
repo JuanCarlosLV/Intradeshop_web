@@ -1,37 +1,55 @@
-import Sidebar from "./SidebarAdmin";
+import { useState, useEffect } from "react";
 import Header from "../Administrador/HeaderAdministrador";
 import CardProfile from "../Administrador/CardProfile";
 import BarraBusqueda from "./BarraBusqueda";
-import CardTiendas from "../partials/CardTienda";
+import CardTienda from "../Administrador/CardTienda";
+import { getTiendas } from "../../services/Tiendas";
 function HomeAdministrador() {
+  const [tiendas, setTiendas] = useState([]);
+
+  useEffect(() => {
+    async function mostrarTiendas() {
+      const data = await getTiendas();
+      setTiendas(data);
+      console.log(data);
+    }
+    mostrarTiendas();
+  }, []);
+
   return (
     <>
-    
-      <div className="relative">
+      <main className="">
         <Header />
-        <div className="fixed">
-          <Sidebar/>
-        </div>
-        <CardProfile />
-        <div className="items-center mt-6 ml-72 mr-[1000px]">
-          <h1 className="font-ralewayFont text-[20px] text-[#004643]">
-            Tiendas Asocidas
-          </h1>
-          <hr className="border-[#D1AC00] border-y-2"></hr>
-        </div>
 
-        <div className="ml-[170px] items-center">
-          <BarraBusqueda />
-        </div>
+        <section className="flex flex-col">
+          <article className="">
+            <CardProfile />
+          </article>
 
-        <div>
-          <CardTiendas />
-          <CardTiendas />
-          <CardTiendas />
-          <CardTiendas />
-          <CardTiendas />
-        </div>
-      </div>
+          <header className="items-center mt-8 ml-[50px] mr-[50px] ">
+            <h1 className="font-ralewayFont text-[30px] text-[#004643]">
+              Tiendas Asociadas
+            </h1>
+            <hr className="border-[#D1AC00] border-y-2"></hr>
+          </header>
+
+          <article className="items-center">
+            <BarraBusqueda />
+          </article>
+
+          <section className=" relative grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5 mr-[50px] ml-[50px]">
+            {tiendas.map((tienda) => (
+              <>
+                <CardTienda
+                  key={tienda.idNegocio}
+                  nombreTienda={tienda.nomNegocio}
+                  imagenTienda={tienda.logo}
+                />
+              </>
+            ))}
+          </section>
+        </section>
+      </main>
     </>
   );
 }

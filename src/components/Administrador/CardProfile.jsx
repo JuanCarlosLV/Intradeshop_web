@@ -26,8 +26,8 @@ function CardProfile() {
 
   return (
     <>
-      <main className="mt-5 ml-72 mr-10 text-center ml-2/6 bg-[#004643] rounded-lg h-28 flex flex-row justify-between">
-        <section className="ml-4 mt-8">
+      <main className="mt-5 ml-[50px] mr-[50px] bg-[#004643] rounded-lg h-28 flex flex-row justify-between">
+        <section className="ml-[40px] mt-8">
           <h1 className="font-ralewayFont  text-4xl text-white">{username}</h1>
         </section>
         <section className=" mt-10 mr-20 ml-auto ">

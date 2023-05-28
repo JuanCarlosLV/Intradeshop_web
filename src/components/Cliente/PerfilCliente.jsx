@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { supabase } from "../../supabase/connection";
 import Header from "../partials/Header";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import {
+  IoIosArrowDropdownCircle
+} from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 import { useState, useEffect } from "react";
 
@@ -33,7 +35,7 @@ function PerfilCliente(props) {
             <AiFillHome color="004643" className="text-[40px] ml-10 mt-10" />
           </NavLink>
 
-          <div className="bg-[#004643] rounded-[5px] flex flex-row items-center justify-between h-[120px] w-[1500px] ml-[35px]">
+          <div className="bg-[#004643] rounded-[5px] flex flex-row items-center justify-between h-[120px] w-[1500px] ml-[35px] mr-[20px]">
             <h1 className="ml-10 font-ralewayFont font-semibold text-2xl text-white">
               MI CUENTA
             </h1>
@@ -45,60 +47,44 @@ function PerfilCliente(props) {
         </section>
 
         <section className="flex flex-col">
-          <div class="grid divide-y divide-[#D1AC00] w-[1500px] ml-[110px] mt-8 ">
+          <section class="grid divide-y divide-[#D1AC00] w-[1400px] ml-[110px]  mt-8 ">
             
-            <div class="py-5">
+            <article class="py-5">
               <details class="group">
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> Mis Pedidos</span>
+                <summary class="flex justify-between items-center font-semibold font-ralewayFont cursor-pointer list-none">
+                  <span className="text-[23px] "> Mis Pedidos</span>
                   <span class="transition group-open:rotate-180">
-                    <svg
-                      fill="none"
-                      height="24"
-                      shape-rendering="geometricPrecision"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
-                      viewBox="0 0 24 24"
-                      width="24"
-                    >
-                      <path d="M6 9l6 6 6-6"></path>
-                    </svg>
+                    <IoIosArrowDropdownCircle
+                    color="D1AC00"
+                    className="text-[35px]"/>
                   </span>
                 </summary>
                 <div>
                   <h1>USERNAME</h1>
                 </div>
               </details>
-            </div>
+            </article>
 
-            <div class="py-5">
+              
+            <article class="py-5">
               <details class="group">
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> Mis Compras</span>
+                <summary class="flex justify-between items-center font-semibold font-ralewayFont cursor-pointer list-none">
+                  <span className="text-[23px] "> Mis Compras</span>
                   <span class="transition group-open:rotate-180">
-                    <svg
-                      fill="none"
-                      height="24"
-                      shape-rendering="geometricPrecision"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
-                      viewBox="0 0 24 24"
-                      width="24"
-                    >
-                      <path d="M6 9l6 6 6-6"></path>
-                    </svg>
+                    <IoIosArrowDropdownCircle
+                    color="D1AC00"
+                    className="text-[35px]"/>
                   </span>
                 </summary>
                 <div>
                   <h1>USERNAME</h1>
                 </div>
               </details>
-            </div>
-          </div>
+            </article>
+
+
+           
+          </section>
         </section>
       </main>
     </>

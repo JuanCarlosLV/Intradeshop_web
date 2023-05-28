@@ -52,8 +52,6 @@ function HeaderAdministrador() {
             {isOpen && (
               <>
                 <div className="mt-2 mr-[60px] w-40  text-center font-ralewayFont text-2xl text-white rounded-md bg-[#D1AC00]  ">
-                  <NavLink to="/perfil-administrador">Mi cuenta</NavLink>
-                  <br></br>
                   <NavLink to="/login" onClick={cerrarSesion}>
                     Cerrar Sesión
                   </NavLink>

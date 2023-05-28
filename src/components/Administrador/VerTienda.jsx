@@ -6,9 +6,9 @@ import {
   getInformacionTienda,
   getInformacionNegociante,
   getProductosNegocio,
-} from "../services/Tiendas";
-import Header from "./partials/Header";
-import CardProducto from "../components/partials/CardProduct";
+} from "../../services/Tiendas";
+import Header from "../Administrador/HeaderAdministrador";
+import CardProducto from "../../components/partials/CardProduct";
 import { useEffect, useState } from "react";
 
 function VerTienda() {
