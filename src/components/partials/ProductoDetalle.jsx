@@ -171,7 +171,7 @@ function ProductoDetalle() {
               id="imagen-seleccionada"
               src={producto.imagen}
               alt={producto.nomProducto}
-              className="w-auto h-auto object-cover object-center mr-auto "
+              className="w-auto h-auto object-cover object-center mr-auto  "
             ></img>
           </div>
           {/* Area de detalles de ropa */}
@@ -255,7 +255,7 @@ function ProductoDetalle() {
           <div className="carousel flex ml-10  overflow-x-auto">
             {imagenes.map((imagen) => (
               <>
-                <div className="mt-[100px] mb-[50px] static  carousel-item  mr-[50px]   overflow-hidden    shadow-2xl duration-100 hover:scale-105 hover:shadow-lg">
+                <div className="mt-[100px] mb-[50px] static  carousel-item  mr-[50px]   overflow-hidden    shadow-2xl  hover:shadow-lg transform hover:scale-150 transition duration-500 ease-in-out">
                   <img
                     src={imagen.urlimagen}
                     onClick={() => {
