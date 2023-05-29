@@ -8,12 +8,14 @@ import {
   darDeBajaNegocio,
 } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 //este se obtendra del useParams;
 
 
 function UnsubscribeNegocio() {
+
+  const navigate = useNavigate()
 
   const {idNegocio} = useParams()
   const [negocioData, setNegocioData] = useState({
@@ -51,11 +53,15 @@ function UnsubscribeNegocio() {
     darDeBajaNegocio(idNegocio);
   };
 
+  const regresar=()=>{
+    navigate(-1)
+  }
+
   return (
     <>
     <Header/>
       <section className="flex justify-between my-4">
-        <NavLink to="/home-administrador">
+        <NavLink onClick={regresar}>
           <BsFillArrowLeftCircleFill
             className="text-4xl mt-2 ml-10"
             color={"D1AC00"}

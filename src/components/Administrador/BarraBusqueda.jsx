@@ -36,7 +36,7 @@ function BarraBusqueda(props) {
 
   const handlePressEnterKey = (evt) => {
     if (evt.key === "Enter") {
-      navigate("/search/" + datoBuscar);
+      navigate("/resultado/" + datoBuscar);
     }
   };
   return (

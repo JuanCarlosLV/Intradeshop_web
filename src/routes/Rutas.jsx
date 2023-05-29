@@ -36,6 +36,7 @@ import ContraEntrega from "../views/ContraEntrega";
 import EditarPerfilCliente from '../views/EditarPerfilCliente'
 import EditarPerfilAdministrador from '../views/EditarPerfilAdministrador'
 import AccionesTienda from '../views/AccionesTienda'
+import ResultadosTienda from '../views/ResultadoBusquedaTienda'
 
 
 
@@ -82,6 +83,7 @@ function Rutas() {
           ></Route>
           <Route path="editar-perfiladministrador/:idadministrador" element={<EditarPerfilAdministrador />}></Route>
           <Route path="tienda/:nombreTienda" element={<AccionesTienda />}></Route>
+          <Route path="resultado/:resultado" element={<ResultadosTienda />}></Route>
 
           <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
           <Route

@@ -14,7 +14,6 @@ function HomeAdministrador() {
       const data = await getTiendas();
       setTiendas(data);
       setresultadosBusqueda(data);
-      console.log(data);
     }
     mostrarTiendas();
   }, []);
