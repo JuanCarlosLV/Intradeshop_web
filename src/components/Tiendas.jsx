@@ -26,7 +26,10 @@ function Tiendas() {
         <section className=" flex flex-row mt-12 ">
           <div>
             <NavLink to="/">
-              <AiFillHome className="text-[40px] mb-5 ml-[50px]" color="004643" />
+              <AiFillHome
+                className="text-[40px] mb-5 ml-[50px]"
+                color="004643"
+              />
             </NavLink>
           </div>
           <div className="absolute z-50 items-center flex ml-12 -mt-8 ">
@@ -39,9 +42,7 @@ function Tiendas() {
             Tiendas Asociadas
           </h1>
 
-          {/* Aqui estarian las cards de tiendas */}
-
-          <div className=" relative grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5">
+          <div className=" relative grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5 ">
             {tiendas.map((tienda) => (
               <>
                 <CardTienda

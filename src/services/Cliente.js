@@ -17,17 +17,20 @@ export const mostrarDatos = async (id) => {
   }
 };
 
-export const modificarDatos = async (id, usuario, correo, contraseña) => {
+export const modificarDatos = async (id, usuario, contraseña) => {
   try {
     const { data, error } = await supabase.rpc(updatedatos, {
       idcliente: id,
       nuevo_usuario: usuario,
-      nuevo_correo: correo,
       nuevacontraseña: contraseña,
     });
 
-    if(error) throw error;
-    return data
+    const {data: dataUpdate, error: errorUpdate} = await supabase.auth.updateUser({password: contraseña})
+    
+    console.log(dataUpdate)
+
+    if(error || errorUpdate ) throw error || errorUpdate ;
+    return data && dataUpdate 
   } catch (err) {
     console.log(err);
   }

@@ -12,7 +12,6 @@ function HeaderAdministrador() {
     setSession(supabase.auth.getSession());
 
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
       setSession(session);
       setusername(session.user.email);
     });
@@ -29,7 +28,7 @@ function HeaderAdministrador() {
       <div className="bg-[#124846] h-28  flex flex-row items-center justify-between">
         <NavLink to="/home-administrador" className="flex ">
           <img
-            src="src\images\logoIntradeshop.png"
+            src="/src/images/logoIntradeshop.png"
             className="ml-10 h-20 w-30"
             alt="logo de intradeshop"
           />
@@ -53,8 +52,6 @@ function HeaderAdministrador() {
             {isOpen && (
               <>
                 <div className="mt-2 mr-[60px] w-40  text-center font-ralewayFont text-2xl text-white rounded-md bg-[#D1AC00]  ">
-                  <NavLink to="/perfil-administrador">Mi cuenta</NavLink>
-                  <br></br>
                   <NavLink to="/login" onClick={cerrarSesion}>
                     Cerrar Sesión
                   </NavLink>

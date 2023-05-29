@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Header from '../Administrador/HeaderAdministrador'
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
 import {
   enviarCorreo,
@@ -7,12 +8,16 @@ import {
   darDeBajaNegocio,
 } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 //este se obtendra del useParams;
-const idBussiness = 1;
+
 
 function UnsubscribeNegocio() {
+
+  const navigate = useNavigate()
+
+  const {idNegocio} = useParams()
   const [negocioData, setNegocioData] = useState({
     bussinessname: "",
     email: "",
@@ -21,9 +26,11 @@ function UnsubscribeNegocio() {
   const [stateModal, setStateModal] = useState(false);
   useEffect(() => {
     async function getInfo() {
-      //se obtiene desde la funcion de get id
-      const idDealer = await getIdDealer(idBussiness);
+      
+      const idDealer = await getIdDealer(idNegocio);
+      console.log(idDealer)
       const data = await getInfoNegocio(idDealer);
+      console.log(data)
       setNegocioData({
         bussinessname: data.nomNegocio,
         email: data.correoElectronico,
@@ -43,8 +50,12 @@ function UnsubscribeNegocio() {
     evt.preventDefault();
     const form = evt.target;
     enviarCorreo(form);
-    darDeBajaNegocio(idBussiness);
+    darDeBajaNegocio(idNegocio);
   };
+
+  const regresar=()=>{
+    navigate(-1)
+  }
 
   return (
     <>

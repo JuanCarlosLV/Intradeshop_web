@@ -58,7 +58,7 @@ function BarraBusqueda(props) {
 
   return (
     <>
-      <div className=" mb-10 mt-8 w-[1200px] ml-[150px] " ref={barraRef}>
+      <main className=" mb-10 mt-8 w-[1200px] ml-[150px] " ref={barraRef}>
         <div className="flex flex-row items-center">
           <VscSearch
             className="text-3xl ml-[15px] mr-auto block absolute "
@@ -90,7 +90,7 @@ function BarraBusqueda(props) {
             ))}
           </div>
         )}
-      </div>
+      </main>
     </>
   );
 }

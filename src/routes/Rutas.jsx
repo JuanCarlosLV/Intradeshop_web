@@ -12,7 +12,6 @@ import SeleccionRegistro from "../views/SeleccionRegistro";
 import RegistroCliente from "../views/RegistroCliente";
 import RegistroNegocio from "../views/RegistroNegocio";
 import PerfilNegocio from "../views/PerfilNegocio";
-import PerfilAdministrador from "../views/PerfilAdministrador";
 import PerfilCliente from "../views/PerfilCliente";
 import ResumenCompra from "../views/ResumenCompra";
 
@@ -35,6 +34,9 @@ import DetallePNegociante from "../views/DetallePNegociante";
 import ReestablecerContraseña from "../components/ReestablecerContraseña";
 import ContraEntrega from "../views/ContraEntrega";
 import EditarPerfilCliente from '../views/EditarPerfilCliente'
+import EditarPerfilAdministrador from '../views/EditarPerfilAdministrador'
+import AccionesTienda from '../views/AccionesTienda'
+import ResultadosTienda from '../views/ResultadoBusquedaTienda'
 
 //prueba de Auth
 import { AuthProvider } from "../components/AuthContainer";
@@ -86,6 +88,9 @@ function Rutas() {
             path="home-administrador"
             element={<HomeAdministrador />}
           ></Route>
+          <Route path="editar-perfiladministrador/:idadministrador" element={<EditarPerfilAdministrador />}></Route>
+          <Route path="tienda/:nombreTienda" element={<AccionesTienda />}></Route>
+          <Route path="resultado/:resultado" element={<ResultadosTienda />}></Route>
 
           <Route path="/tiendas-asociadas" element={<Tiendas />}></Route>
           <Route
@@ -120,6 +125,8 @@ function Rutas() {
           <Route path="mis-pedidos" element={<MisPedidos />}></Route>
           <Route path="mis-pedidos/detalle/:id" element={<DetallePedido />}></Route>
           <Route path="mis-ventas" element={<MisVentas />}></Route>
+          <Route path="baja-negocio/:idNegocio" element={<DarDeBajaNegocio />}></Route>
+
           <Route
             path="/search/:resultado"
             element={<ResultadoBusqueda />}

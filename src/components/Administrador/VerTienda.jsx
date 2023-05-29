@@ -5,10 +5,9 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import {
   getInformacionTienda,
   getInformacionNegociante,
-  getProductosNegocio,
-} from "../services/Tiendas";
-import Header from "./partials/Header";
-import CardProducto from "../components/partials/CardProduct";
+} from "../../services/Tiendas";
+import Header from "../Administrador/HeaderAdministrador";
+import CardProducto from "../../components/partials/CardProduct";
 import { useEffect, useState } from "react";
 
 function VerTienda() {
@@ -16,7 +15,7 @@ function VerTienda() {
   const navigate = useNavigate();
   const [negocio, setNegocio] = useState("");
   const [negociante, setNegociante] = useState("");
-  const [productos, setProductos] = useState([]);
+
 
 
   const regresar = () => {
@@ -33,8 +32,6 @@ function VerTienda() {
       if (idNegociante && idNegocio) {
         const dataNegociante = await getInformacionNegociante(idNegociante);
         setNegociante(dataNegociante);
-        const dataProductos = await getProductosNegocio(idNegocio);
-        setProductos(dataProductos);
       }
     }
     verInformacionTiendaYNegociante();
@@ -53,7 +50,7 @@ function VerTienda() {
             />
           </NavLink>
 
-          <div className="bg-[#004643] items-center flex justify-start w-[1500px] h-[170px] rounded-[5px] mr-[60px] ml-[50px]">
+          <article className="bg-[#004643] items-center flex justify-start w-[1500px] h-[170px] rounded-[5px] mr-[60px] ml-[50px]">
             <img
               src={negocio.logo || ""}
               alt={negocio.nomNegocio}
@@ -63,7 +60,7 @@ function VerTienda() {
             <h2 className="text-white text-[50px] ml-5 font-ralewayFont font-semibold">
               {negocio.nomNegocio}
             </h2>
-          </div>
+          </article>
 
           <NavLink to="/">
             <AiFillHome
@@ -141,24 +138,10 @@ function VerTienda() {
 
           <article className="py-5 flex flex-col ml-[30px] mr-[20px]">
             <section className="font-ralewayFont font-semibold">
-              <span className="text-[25px]"> Publicaciones</span>
+              <span className="text-[25px]"> Comentarios y Valoracion</span>
             </section>
 
-            <section className=" grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5">
-              {productos.map((producto) => (
-                <>
-                  <div key={producto.idProducto}>
-                    <CardProducto
-                      idProducto={producto.idProducto}
-                      rutaActual="/producto"
-                      nombreProducto={producto.nomProducto}
-                      precio={producto.precio}
-                      imagenProducto={producto.imagen}
-                    />
-                  </div>
-                </>
-              ))}
-            </section>
+            
           </article>
         </section>
 

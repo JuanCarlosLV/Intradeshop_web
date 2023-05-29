@@ -1,9 +1,9 @@
-import Header from "../partials/Header";
+import Header from "../Administrador/HeaderAdministrador";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { modificarDatos, mostrarDatos } from "../../services/Cliente";
+import { datosCuenta, editarCuenta } from "../../services/Administrador";
 
 function EditarPerfil() {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
@@ -15,7 +15,8 @@ function EditarPerfil() {
     contraseña: "",
     contraseñaConfirmada: "",
   });
-  const { idcliente } = useParams();
+  const { idadministrador } = useParams();
+
   const navigate = useNavigate();
 
   const regresar = () => {
@@ -39,16 +40,16 @@ function EditarPerfil() {
 
   useEffect(() => {
     async function obtenerDatos() {
-      const data = await mostrarDatos(idcliente);
+      const data = await datosCuenta(idadministrador);
       setFormValues({
         nombreUsuario: data.nombreUsuario || "",
-        correoElectronico: data.correoElectronico || "",
+        correoElectronico: data.correo || "",
         contraseña: data.contraseña || "",
         contraseñaConfirmada: data.contraseña || "",
       });
     }
     obtenerDatos();
-  }, [idcliente]);
+  }, [idadministrador]);
 
   const handleModificarDatos = async (evt) => {
     evt.preventDefault();
@@ -56,12 +57,13 @@ function EditarPerfil() {
     if (formValues.contraseña !== formValues.contraseñaConfirmada) {
       alert("las contraseña no coinciden");
     } else {
-      const data = await modificarDatos(
-        idcliente,
+      console.log(idadministrador);
+      const data = await editarCuenta(
+        idadministrador,
         formValues.nombreUsuario,
         formValues.contraseña
       );
-
+      console.log(data);
       if (data) {
         console.log("se modifico");
       } else {
@@ -71,9 +73,7 @@ function EditarPerfil() {
   };
   return (
     <>
-      <section className="sticky">
-        <Header />
-      </section>
+      <Header />
 
       <main className="flex flex-col">
         <section className="flex flex-row">
