@@ -12,6 +12,8 @@ const deleteBussiness = "delete_bussiness";
 const getListPedidos = "get_list_pedidos";
 const getDetailPedido = "get_detail_pedido";
 const getPedidosRecientes = "get_pedidos_recientes";
+const changeEstadoPedido = "change_status_pedido";
+const getVentas = "get_list_ventas";
 //credenciales para envio de correo
 const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
@@ -240,5 +242,23 @@ export const getListPediRecientes = async () => {
     return data;
   } catch (error) {
     console.error(error);
+  }
+}
+export const cambioEstadoPedido = async (idPedido) => {
+  try {
+    const { error } = await supabase.rpc(changeEstadoPedido, { id_pedido: idPedido });
+    if (error) throw error;
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const getListVentas = async () => {
+  try {
+    const session = await supabase.auth.getSession();
+    const { error, data } = await supabase.rpc(getVentas, { id_dealer: session.data.session.user.id });
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error(error)
   }
 }

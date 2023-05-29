@@ -19,7 +19,6 @@ function GetListPedido() {
     return (
         <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg top-40 mx-auto max-w-4xl mt-5 mb-8  float-right mr-60">
-
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="w-full text-xs text-gray-700 uppercase bg-[#D1AC00] dark:bg-gray-700 dark:text-gray-500 font-medium font-ralewayFont">
                         <tr>

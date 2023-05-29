@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDetallePedido } from "../../services/Negocio";
+import { getDetallePedido, cambioEstadoPedido } from "../../services/Negocio";
 import { NavLink } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { data } from "autoprefixer";
+
 function DetailPedidos() {
     const { id } = useParams();
     const [pedidos, setPedidos] = useState([]);
@@ -33,6 +33,9 @@ function DetailPedidos() {
         }
         getDetail();
     }, [id])
+    const handleStatusPedido = async () => {
+        await cambioEstadoPedido(id);
+    }
     return (
         <>
             <div>
@@ -84,6 +87,9 @@ function DetailPedidos() {
                             ))}
                             <div className="flex flex-col justify-start items-start dark:bg-[#004643] bg-[#004643] px-2 py-2 md:py-2 md:p-2 xl:p-4 w-full rounded-md">
                                 <h3 className="text-base dark:text-white xl:text-3xl leading-6 text-white font-ralewayFont px-4">Total: {dataPedido.totalCompra} </h3>
+                            </div>
+                            <div className="px-60 ml-40 py-2">
+                                <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8" onClick={handleStatusPedido}>Entregado</button>
                             </div>
                         </div>
                     </div>
