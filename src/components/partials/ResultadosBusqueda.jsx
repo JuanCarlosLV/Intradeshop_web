@@ -56,7 +56,7 @@ function ResultadosBusqueda() {
           </section>
         ) : (
           <div className="bg-gray-400">
-            <p></p>
+            <p className="text-[20px] text-black font-ralewayFont font-semibold">No se encontraron resultados para <strong>{resultado}</strong></p>
           </div>
         )}
       </main>

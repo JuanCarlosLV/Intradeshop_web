@@ -19,17 +19,17 @@ export const datosCuenta = async (idadministrador) => {
 export const editarCuenta = async (
   idadministrador,
   nombreusuario,
-  correo,
   contraseña
 ) => {
   try {
     const { data, error } = await supabase.rpc(editarcuenta, {
       idadmin: idadministrador,
       nuevousuario: nombreusuario,
-      nuevocorreo: correo,
       nuevacontraseña: contraseña,
     });
-    if (error) throw error;
+    const {data: dataUpdate, error: errorUpdate} = await supabase.auth.updateUser({password: contraseña})
+    
+    if (error || errorUpdate) throw error || errorUpdate;
     return data;
   } catch (err) {
     console.log(err);

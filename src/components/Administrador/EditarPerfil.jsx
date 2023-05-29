@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { datosCuenta, editarCuenta} from "../../services/Administrador";
+import { datosCuenta, editarCuenta } from "../../services/Administrador";
 
 function EditarPerfil() {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
@@ -57,14 +57,13 @@ function EditarPerfil() {
     if (formValues.contraseña !== formValues.contraseñaConfirmada) {
       alert("las contraseña no coinciden");
     } else {
-        console.log(idadministrador)
+      console.log(idadministrador);
       const data = await editarCuenta(
         idadministrador,
         formValues.nombreUsuario,
-        formValues.correoElectronico,
         formValues.contraseña
       );
-    console.log(data)
+      console.log(data);
       if (data) {
         console.log("se modifico");
       } else {
@@ -124,6 +123,7 @@ function EditarPerfil() {
                   name="correoElectronico"
                   onChange={handleInputChange}
                   value={formValues.correoElectronico}
+                  disabled="true"
                   className="w-[700px] rounded-md border  bg-white py-3 px-6 text-[18px] mt-4 font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]"
                 />
               </article>
