@@ -38,7 +38,7 @@ import EditarPerfilAdministrador from '../views/EditarPerfilAdministrador'
 import AccionesTienda from '../views/AccionesTienda'
 import ResultadosTienda from '../views/ResultadoBusquedaTienda'
 
-
+import TerminosCondiciones from '../views/TerminosCondiciones'
 
 function Rutas() {
   return (
@@ -123,6 +123,9 @@ function Rutas() {
 
           <Route path="/proceso-pago" element={<ResumenCompra />}></Route>
           <Route path="/contra-entrega" element={<ContraEntrega />}></Route>
+
+          {/* Rutas legales */}
+          <Route path="terminos-condiciones" element={<TerminosCondiciones/>}></Route>
         </Routes>
       </>
   

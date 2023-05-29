@@ -4,13 +4,10 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { MdPayments } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { useState, useEffect , useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import { mostrarArticulos } from "../../services/Carrito";
 
-
 function ResumenCompra() {
-  
-  
   const [productosCarrito, setproductosCarrito] = useState([]);
   const [total, settotal] = useState(0);
   const [cantidadProductos, setcantidadProductos] = useState(0);
@@ -20,23 +17,24 @@ function ResumenCompra() {
   };
 
   const [session, setSession] = useState(null);
-  const [username, setusername] = useState("usuario");
+  const [username, setusername] = useState(null);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
 
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      setusername(session.user.email);
+      if (session?.user?.id) {
+        setusername(session.user.id);
+      }
     });
   }, []);
 
-
   useEffect(() => {
-    
     if (username !== "") {
       async function getItemsCarrito() {
         const data = await mostrarArticulos(username);
+        console.log(data);
         setproductosCarrito(data);
       }
       getItemsCarrito();
@@ -45,21 +43,20 @@ function ResumenCompra() {
 
   useEffect(() => {
     if (productosCarrito.length > 0) {
-        const cantidadTotal = productosCarrito.reduce(
-            (total, producto) => total + producto.cantidad,
-            0
-          );
+      const cantidadTotal = productosCarrito.reduce(
+        (total, producto) => total + producto.cantidad,
+        0
+      );
       const costoTotal = productosCarrito.reduce(
         (total, producto) => total + producto.subtotal,
         0
       );
-      setcantidadProductos(cantidadTotal)
+      setcantidadProductos(cantidadTotal);
       settotal(costoTotal);
     } else {
       settotal(0);
     }
   }, [productosCarrito]);
-
 
   return (
     <>
