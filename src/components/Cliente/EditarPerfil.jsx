@@ -71,7 +71,9 @@ function EditarPerfil() {
   };
   return (
     <>
-      <Header />
+      <section className="sticky">
+        <Header />
+      </section>
 
       <main className="flex flex-col">
         <section className="flex flex-row">
