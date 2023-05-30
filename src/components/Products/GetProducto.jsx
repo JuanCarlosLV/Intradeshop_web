@@ -76,36 +76,28 @@ function GetProducto() {
                   {producto.cantidadTotal}
                 </td>
                 <td className="px-4 py-3 text-base text-center font-medium font-ralewayFont">
-                 
-                    <button
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-2 py-1 text-base"
-                      onClick={() => handleNavigateEditar(producto.idProducto)}
-                    >
-                      Editar
-                    </button>
-               
-                </td>
-                <td>
-                 
-                    <button
-                      className="font-medium text-red-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
-                      onClick={() =>
-                        handleNavigateEliminar(producto.idProducto)
-                      }
-                    >
-                      Eliminar
-                    </button>
-              
-                </td>
-                <td>
-                
-                    <button
-                      className="font-medium text-green-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
-                      onClick={() => handleNavigateDetalle(producto.idProducto)}
-                    >
-                      Detalle
-                    </button>
-        
+
+                  <button
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-2 py-1 text-base"
+                    onClick={() => handleNavigateEditar(producto.idProducto)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="font-medium text-red-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
+                    onClick={() =>
+                      handleNavigateEliminar(producto.idProducto)
+                    }
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    className="font-medium text-green-600 dark:text-blue-500 hover:underline px-2 py-2 text-base font-ralewayFont"
+                    onClick={() => handleNavigateDetalle(producto.idProducto)}
+                  >
+                    Detalle
+                  </button>
+
                 </td>
               </tr>
             ))}

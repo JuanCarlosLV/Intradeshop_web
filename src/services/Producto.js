@@ -9,7 +9,7 @@ const getListProducts = "get_list_products";
 const getProduct = "get_product_bussiness";
 const deleteProduct = "delete_product";
 const editProduct = "edit_product";
-const filterProduct = "filter_product";
+const filterProduct = "filtrar_producto";
 const getProductsCategoria = "getproducts_category";
 const getlastproducts = "getlastproducts";
 const buscarProductoCategoria = "getproductopercategoria";
@@ -201,15 +201,16 @@ export const editarProducto = async (
   }
 };
 
-export const filtrarProducto = async (precio, color, talla) => {
+export const filtrarProducto = async (categoria, precio, color) => {
   try {
-    const { error, data } = await connection.rpc(filterProduct, {
+    const { error, data } = await supabase.rpc(filterProduct, {
+      nom_categoria: categoria,
       criterion_prec: precio,
       criterion_color: color,
-      criterion_talla: talla,
     });
     if (error) throw error;
     return data;
+
   } catch (error) {
     console.error(error);
   }

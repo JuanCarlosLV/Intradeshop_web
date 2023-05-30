@@ -55,6 +55,7 @@ function EditProducto() {
   const handleEdit = async (evt) => {
     evt.preventDefault();
     if (stateEditImg) {
+      await eliminarImgProducto(id);
       await subirImgEditar(formValues.imagen, id);
       await editarProducto(
         id,

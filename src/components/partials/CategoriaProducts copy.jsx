@@ -5,8 +5,7 @@ import Busqueda from "./BarraBusqueda";
 import CardProducto from "./CardProduct";
 import { NavLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { filtrarProducto } from "../../services/Producto";
-import { ChromePicker } from "react-color";
+import { getProductsCategory } from "../../services/Producto";
 
 const opcionesFiltro = ["talla", "color", "precio", ""];
 
@@ -65,18 +64,15 @@ function CategoriaProducts() {
   const [productos, setProductos] = useState([]);
 
   const { nombreCategoria } = useParams();
-  const [criterioPrecio, setCriterioPrecio] = useState("menorPrecio");
-  const [criterioColor, setCriterioColor] = useState(null);
-  const [statePicker, setStatePicker] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("");
+
   useEffect(() => {
     async function showProducts() {
-      const data = await filtrarProducto(nombreCategoria, criterioPrecio, criterioColor);
+      const data = await getProductsCategory(nombreCategoria);
       setProductos(data);
     }
     showProducts();
     getImageCategory(nombreCategoria);
-  }, [nombreCategoria, criterioPrecio, criterioColor]);
+  }, [nombreCategoria]);
 
   const handleOpcionElejida = (opcion) => {
     setOpcionSeleccionado(opcion);
@@ -85,12 +81,6 @@ function CategoriaProducts() {
   const handleOpenButton = () => {
     setIsOpen((prev) => !prev);
   };
-  const handleShowPicker = () => {
-    setStatePicker(true);
-  };
-  const handleClosePicker = () => {
-    setStatePicker(false);
-  };
   const getImageCategory = (nombreCategoria) => {
     categories.map((categoriaName) => {
       if (nombreCategoria == categoriaName.name) {
@@ -98,10 +88,7 @@ function CategoriaProducts() {
       }
     });
   };
-  const handleColorChange = (color) => {
-    setSelectedColor(color.hex);
-    setCriterioColor(color.hex); // Actualizar el estado criterioColor con el valor seleccionado
-  };
+
   return (
     <>
       <main className="relative">
@@ -193,29 +180,6 @@ function CategoriaProducts() {
           <h1 className="font-ralewayFont font-semibold text-[35px] ml-[100px]">
             Productos
           </h1>
-          <div>
-            <select id="criterioUno" onChange={(evt) => setCriterioPrecio(evt.target.value)} className="ml-[1100px] mt-2 font-ralewayFont">
-              <option value="mayorPrecio">Mayor precio</option>
-              <option value="menorPrecio">Menor precio</option>
-            </select>
-            <span
-              className="rounded-md border text-black outline-none hover:bg-gray-200 ml-[20px] py-3 px-10 font-ralewayFont"
-              onMouseEnter={handleShowPicker}
-              onClick={handleClosePicker}
-            >
-              Selecciona el color
-            </span>
-            {statePicker && (
-              <ChromePicker
-                id="color"
-                name="color"
-                color={selectedColor}
-                onChange={handleColorChange}
-                className="ml-[1200px] font-ralewayFont"
-              />
-            )}
-
-          </div>
 
           <div className=" ml-[100px] mr-8 grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-5">
             {productos.map((product) => (

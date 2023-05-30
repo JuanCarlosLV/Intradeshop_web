@@ -43,6 +43,13 @@ function AddProducto() {
   };
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && formValues[key] === "") {
+        alert("Por favor, completa todos los campos del formulario.");
+        return;
+      }
+    }
     await agregarProducto(
       formValues.nombre,
       formValues.precio,

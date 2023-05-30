@@ -73,7 +73,6 @@ function UnsubscribeNegocio() {
                 Email
               </label>
               <input
-                type="email"
                 name="email"
                 value={negocioData.email}
                 className="w-full rounded-md border-none bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:shadow-md focus:ring-2 focus:ring-[#004643] m-1 appearance-none"
