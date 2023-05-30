@@ -2,6 +2,7 @@ import { supabase } from "../supabase/connection";
 
 const getdatos = "obtenerdatoscliente";
 const updatedatos = "actualizardatoscliente";
+const getCompras = "obtenercompras";
 
 export const mostrarDatos = async (id) => {
   try {
@@ -25,12 +26,25 @@ export const modificarDatos = async (id, usuario, contraseña) => {
       nuevacontraseña: contraseña,
     });
 
-    const {data: dataUpdate, error: errorUpdate} = await supabase.auth.updateUser({password: contraseña})
-    
-    console.log(dataUpdate)
+    const { data: dataUpdate, error: errorUpdate } =
+      await supabase.auth.updateUser({ password: contraseña });
 
-    if(error || errorUpdate ) throw error || errorUpdate ;
-    return data && dataUpdate 
+    console.log(dataUpdate);
+
+    if (error || errorUpdate) throw error || errorUpdate;
+    return data && dataUpdate;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const obtenerCompras = async (id) => {
+  try {
+    const { data, error } = await supabase.rpc(getCompras, {
+      idcliente: id,
+    });
+    if(error) throw error;
+    return data;
   } catch (err) {
     console.log(err);
   }
