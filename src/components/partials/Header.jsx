@@ -30,7 +30,7 @@ function Header() {
       <div className="bg-[#004643] h-28  flex flex-row items-center justify-between ">
         <NavLink to="/" className="flex ">
           <img
-            src="/src/images/logoIntradeshop.png"
+            src="/Intradeshop_web/src/images/logoIntradeshop.png"
             className="ml-10 h-20 w-30"
             alt="logo de intradeshop"
           />
