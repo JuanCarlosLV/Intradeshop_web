@@ -1,4 +1,5 @@
 import Header from "../partials/Header";
+import Modal from "../Modales/ConfirmacionAction";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
@@ -6,6 +7,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { modificarDatos, mostrarDatos } from "../../services/Cliente";
 
 function EditarPerfil() {
+  const [stateModal, setStateModal] = useState(false);
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
   const [mostrarContraseñaConfirmada, setMostrarContraseñaConfirmada] =
     useState(false);
@@ -20,6 +22,13 @@ function EditarPerfil() {
 
   const regresar = () => {
     navigate(-1);
+  };
+  const handleShowModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(true);
+  };
+  const handleCloseModal = () => {
+    setStateModal(false);
   };
 
   const botonMostrarContraseña = () => {
@@ -63,7 +72,8 @@ function EditarPerfil() {
       );
 
       if (data) {
-        console.log("se modifico");
+        setStateModal(false);
+        regresar();
       } else {
         console.log("no se pudo modificar");
       }
@@ -174,12 +184,22 @@ function EditarPerfil() {
                 </button>
               </article>
               <article className="justify-end flex">
-                <button className="hover:bg-black rounded-md bg-[#004643] font-semibold text-white text-[25px] font-ralewayFont mt-10 mb-4 h-[50px] w-[200px] ">
+                <button
+                  className="hover:bg-black rounded-md bg-[#004643] font-semibold text-white text-[25px] font-ralewayFont mt-10 mb-4 h-[50px] w-[200px] "
+                  onClick={handleShowModal}
+                >
                   Modificar
                 </button>
               </article>
             </div>
           </form>
+          <Modal
+            mostrarModal={stateModal}
+            titulo={"Modificar datos cuenta"}
+            cuerpo={"¿Estas seguro de modificar los datos"}
+            cancelar={handleCloseModal}
+            confirmar={handleModificarDatos}
+          />
         </section>
       </main>
     </>

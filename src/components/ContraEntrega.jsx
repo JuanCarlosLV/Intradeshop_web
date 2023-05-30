@@ -1,6 +1,6 @@
 import Header from "../components/partials/Header";
-import Modal from '../components/Modales/ConfirmacionAction'
-import ModalAviso from '../components/Modales/ModalAviso'
+import Modal from "../components/Modales/ConfirmacionAction";
+import ModalAviso from "../components/Modales/ModalAviso";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
@@ -9,10 +9,11 @@ import { supabase } from "../supabase/connection";
 import {
   mostrarArticulos,
   mostrarDireccionesProducto,
+  eliminarProducto,
 } from "../services/Carrito";
 
 import { procesoCompra, addDetalle } from "../services/Compra";
-
+let agregado;
 function ContraEntrega() {
   const [session, setSession] = useState(null);
   const [user, setuser] = useState("");
@@ -22,6 +23,7 @@ function ContraEntrega() {
   const [cantidadProductos, setcantidadProductos] = useState(0);
 
   const [stateModal, setStateModal] = useState(false);
+  const [mostrarModal, setmostrarModal] = useState(false);
 
   const navigate = useNavigate();
   const regresar = () => {
@@ -40,7 +42,7 @@ function ContraEntrega() {
     if (user) {
       async function getItemsCarrito() {
         const data = await mostrarArticulos(user);
-        
+
         setproductosCarrito(data);
       }
       getItemsCarrito();
@@ -86,8 +88,10 @@ function ContraEntrega() {
 
     if (productosCarrito.length > 0) {
       const data = await procesoCompra(user, total, "proceso");
+
       console.log(data);
       if (data) {
+        setmostrarModal(true);
         productosCarrito.map((producto) => {
           addDetalle(
             data,
@@ -98,10 +102,15 @@ function ContraEntrega() {
             producto.subtotal,
             producto.imagenProducto
           );
+
+          eliminarProducto(producto.idProducto, user, producto.tallaProducto);
         });
-        console.log("agregado");
+       
+        setStateModal(false);
+
+        agregado = true;
       } else {
-        console.log("erorr");
+        agregado = false;
       }
     }
   };
@@ -113,7 +122,9 @@ function ContraEntrega() {
   const handleCloseModal = () => {
     setStateModal(false);
   };
-
+  const cerrarModal = () => {
+    setmostrarModal(false);
+  };
   return (
     <>
       <Header />
@@ -172,25 +183,43 @@ function ContraEntrega() {
               </section>
 
               <section className=" font-ralewayFont mr-[160px]">
-                  <h2 className="text-[20px] font-semibold ">Direcciones</h2>
-                  {direccionesProducto.map((direcion) => (
-                    <>
-                      <h3 className="text-[18px] ">{direcion}</h3>
-                    </>
-                  ))}
-                </section>
+                <h2 className="text-[20px] font-semibold ">Direcciones</h2>
+                {direccionesProducto.map((direcion) => (
+                  <>
+                    <h3 className="text-[18px] ">{direcion}</h3>
+                  </>
+                ))}
+              </section>
             </section>
           </section>
         </section>
 
         <section className="flex items-center justify-end">
-          <button className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]" onClick={handleShowModal}>
+          <button
+            className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]"
+            onClick={handleShowModal}
+          >
             Pagar
           </button>
         </section>
-
-        <Modal  mostrarModal={stateModal} titulo={"Confirmar Compra"} cuerpo={"¿Estas seguro de realizar la compra?"} cancelar={handleCloseModal}
-        confirmar={realizarCompra}/>
+        {mostrarModal && (
+          <Modal
+            mensaje={
+              agregado
+                ? "Se realizo con exito tu compra, no olvides pasar recogerlo"
+                : "No se pudo realizar tu compra, intenta de nuevo"
+            }
+            color={agregado ? "green-600" : "red-600"}
+            cerrarModal={cerrarModal}
+          />
+        )}
+        <Modal
+          mostrarModal={stateModal}
+          titulo={"Confirmar Compra"}
+          cuerpo={"¿Estas seguro de realizar la compra?"}
+          cancelar={handleCloseModal}
+          confirmar={realizarCompra}
+        />
       </main>
     </>
   );
