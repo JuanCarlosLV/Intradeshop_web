@@ -10,47 +10,47 @@ const categories = [
   {
     id: 1,
     name: "Playeras",
-    img: "src/images/categoriasImagenes/categoriaCamisa.png",
+    img: "/src/images/categoriasImagenes/categoriaCamisa.png",
   },
   {
     id: 2,
     name: "Pantalones",
-    img: "src/images/categoriasImagenes/categoriaPantalones.png",
+    img: "/src/images/categoriasImagenes/categoriaPantalones.png",
   },
   {
     id: 3,
     name: "Abrigos",
-    img: "src/images/categoriasImagenes/categoriaAbrigos.png",
+    img: "/src/images/categoriasImagenes/categoriaAbrigos.png",
   },
   {
     id: 4,
     name: "Zapatos",
-    img: "src/images/categoriasImagenes/categoriaZapatos.png",
+    img: "/src/images/categoriasImagenes/categoriaZapatos.png",
   },
   {
     id: 5,
     name: "Vestidos",
-    img: "src/images/categoriasImagenes/categoriaVestidos.png",
+    img: "/src/images/categoriasImagenes/categoriaVestidos.png",
   },
   {
     id: 6,
     name: "Blusas",
-    img: "src/images/categoriasImagenes/categoriaBlusas.png",
+    img: "/src/images/categoriasImagenes/categoriaBlusas.png",
   },
   {
     id: 7,
     name: "Accesorios",
-    img: "src/images/categoriasImagenes/categoriaAccesorios.png",
+    img: "/src/images/categoriasImagenes/categoriaAccesorios.png",
   },
   {
     id: 8,
     name: "Ropa interior",
-    img: "src/images/categoriasImagenes/categoriaRopaInterior.png",
+    img: "/src/images/categoriasImagenes/categoriaRopaInterior.png",
   },
   {
     id: 9,
     name: "Shorts",
-    img: "src/images/categoriasImagenes/categoriaShorts.png",
+    img: "/src/images/categoriasImagenes/categoriaShorts.png",
   },
 ];
 function CarruselCategorias() {
