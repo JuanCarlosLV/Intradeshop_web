@@ -39,7 +39,6 @@ import AccionesTienda from '../views/AccionesTienda'
 import ResultadosTienda from '../views/ResultadoBusquedaTienda'
 
 //prueba de Auth
-import { AuthProvider } from "../components/AuthContainer";
 import MisPedidos from "../views/MisPedidos";
 import DetallePedido from "../views/DetallePedido";
 import MisVentas from "../views/MisVentas";
@@ -121,11 +120,10 @@ function Rutas() {
             element={<DetallePNegociante />}
           ></Route>
           <Route path="editar-negocio" element={<EditarNegocio />}></Route>
-          <Route path="baja-negocio" element={<DarDeBajaNegocio />}></Route>
           <Route path="mis-pedidos" element={<MisPedidos />}></Route>
           <Route path="mis-pedidos/detalle/:id" element={<DetallePedido />}></Route>
           <Route path="mis-ventas" element={<MisVentas />}></Route>
-          <Route path="baja-negocio/:idNegocio" element={<DarDeBajaNegocio />}></Route>
+          <Route path="baja-negocio/:id" element={<DarDeBajaNegocio />}></Route>
 
           <Route
             path="/search/:resultado"

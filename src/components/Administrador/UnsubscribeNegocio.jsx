@@ -1,43 +1,33 @@
 import { useEffect, useState } from "react";
-import Header from '../Administrador/HeaderAdministrador'
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
 import {
   enviarCorreo,
-  getInfoNegocio,
-  getIdDealer,
+  getInfoBussinessAdmin,
   darDeBajaNegocio,
 } from "../../services/Negocio";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-
-//este se obtendra del useParams;
-
+import { NavLink, useParams } from "react-router-dom";
 
 function UnsubscribeNegocio() {
 
-  const navigate = useNavigate()
-
-  const {idNegocio} = useParams()
+  const { id } = useParams();
+  const [stateModal, setStateModal] = useState(false);
   const [negocioData, setNegocioData] = useState({
     bussinessname: "",
     email: "",
     message: "",
   });
-  const [stateModal, setStateModal] = useState(false);
+
   useEffect(() => {
-    async function getInfo() {
-      
-      const idDealer = await getIdDealer(idNegocio);
-      console.log(idDealer)
-      const data = await getInfoNegocio(idDealer);
-      console.log(data)
+    async function getInfoNegocio() {
+      const data = await getInfoBussinessAdmin(id);
       setNegocioData({
-        bussinessname: data.nomNegocio,
-        email: data.correoElectronico,
+        bussinessname: data[0].nomNegocio,
+        email: data[0].correoElectronico,
       });
     }
-    getInfo();
-  }, []);
+    getInfoNegocio();
+  }, [])
   const handleShowModal = (evt) => {
     evt.preventDefault();
     setStateModal(true);
@@ -50,26 +40,22 @@ function UnsubscribeNegocio() {
     evt.preventDefault();
     const form = evt.target;
     enviarCorreo(form);
-    darDeBajaNegocio(idNegocio);
+    //darDeBajaNegocio(id);
   };
-
-  const regresar=()=>{
-    navigate(-1)
-  }
 
   return (
     <>
       <div>
-        <form onSubmit={handleShowModal}>
+        <form form="miFormulario" onSubmit={handleShowModal}>
           <div className="flex justify-between my-4">
-            <NavLink to="/home-negociante">
+            <NavLink to="/home-administrador">
               <BsFillArrowLeftCircleFill
                 className="text-4xl mt-2 ml-10"
                 color={"D1AC00"}
               />
             </NavLink>
             <h1 className="font-ralewayFont font-bold text-3xl text-white ml-20 mr-auto bg-[#004643]  border-[#004643] focus:border-[#004643] py-2 px-60 rounded-md">
-              Dar baja tienda
+              Dar baja tienda {id}
             </h1>
           </div>
 
@@ -89,7 +75,6 @@ function UnsubscribeNegocio() {
               <input
                 type="email"
                 name="email"
-                disabled
                 value={negocioData.email}
                 className="w-full rounded-md border-none bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:shadow-md focus:ring-2 focus:ring-[#004643] m-1 appearance-none"
               />
@@ -102,20 +87,20 @@ function UnsubscribeNegocio() {
                 className="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-black outline-none  focus:shadow-md  border-[#004643] focus:border-[#004643] focus:ring-2 focus:ring-[#004643]"
               ></textarea>
               <div className="px-96 ml-40 py-2">
-              <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
-                Eliminar
-              </button>
+                <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
+                  Eliminar
+                </button>
+              </div>
             </div>
           </div>
-      </div>
-    </form >
-      <ConfirmacionAction
-        mostrarModal={stateModal}
-        titulo="Baja a tienda"
-        cuerpo="¿Estás seguro de dar de baja al negocio?"
-        cancelar={handleCloseModal}
-        confirmar={handleSubmit}
-      />
+        </form >
+        <ConfirmacionAction
+          mostrarModal={stateModal}
+          titulo="Baja a tienda"
+          cuerpo="¿Estás seguro de dar de baja al negocio?"
+          cancelar={handleCloseModal}
+          confirmar={handleSubmit}
+        />
       </div >
 
     </>

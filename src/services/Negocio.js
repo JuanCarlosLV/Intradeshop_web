@@ -14,6 +14,7 @@ const getDetailPedido = "get_detail_pedido";
 const getPedidosRecientes = "get_pedidos_recientes";
 const changeEstadoPedido = "change_status_pedido";
 const getVentas = "get_list_ventas";
+const getBussinessAdmin = "get_infobussiness_admin";
 //credenciales para envio de correo
 const serviceID = "service_brr8ejb";
 const templateID = "template_08pt47p";
@@ -260,5 +261,16 @@ export const getListVentas = async () => {
     return data;
   } catch (error) {
     console.error(error)
+  }
+}
+export const getInfoBussinessAdmin = async (idBussiness) => {
+  try {
+    const { data, error } = await supabase.rpc('get_infobussiness_admin', {
+      id_bussiness: idBussiness
+    });
+    if (error) throw error
+    return data;
+  } catch (error) {
+    console.error(error);
   }
 }
