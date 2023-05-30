@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 function CardTienda(props) {
   return (
     <>
-      <section class=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-black  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center">
+      <section class=" mr-auto ml-auto mt-6  w-80 transform overflow-hidden rounded-e-lg bg-[#004643]  shadow-md duration-100 hover:scale-105 hover:shadow-lg text-center">
         <article className="flex justify-center items-center mt-5">
           <img
             className="w-[250px] h-[250px] object-center object-contain rounded-[5px] bg-black"

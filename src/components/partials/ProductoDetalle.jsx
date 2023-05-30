@@ -25,6 +25,7 @@ function ProductoDetalle() {
   const [talla, settalla] = useState("");
   const [subtotal, setsubtotal] = useState(0.0);
   const [limiteCantidad, setLimiteCantidad] = useState(0);
+  const [habilitarAgregar, setHabilitarAgregar] = useState(true);
   const [session, setSession] = useState(null);
   const [user, setuser] = useState("");
 
@@ -76,20 +77,28 @@ function ProductoDetalle() {
     settalla(selectedTalla);
     setcantidad(0);
     setLimiteCantidad(selectedDetalle.cantidad);
+    setHabilitarAgregar(false)
   };
 
   const aumentarCantidad = () => {
     if (cantidad < limiteCantidad) {
       setcantidad(cantidad + 1);
+      setHabilitarAgregar(false)
     }
   };
 
   const disminuirCantidad = () => {
     setcantidad(cantidad - 1);
+    setHabilitarAgregar(false)
   };
 
   const agregarCarrito = async (evt) => {
     if (session != null) {
+      if (!talla || cantidad <= 0) {
+        setHabilitarAgregar(false);
+        return;
+      }
+     
       const data = await insertarACarrito(
         user,
         producto.idProducto,
@@ -100,8 +109,9 @@ function ProductoDetalle() {
         cantidad * producto.precio
       );
       if (data) {
-        console.log(data);
       }
+
+      
     } else {
       navigate("/login");
     }
@@ -199,11 +209,14 @@ function ProductoDetalle() {
                   value={talla}
                   onChange={handleTallaChange}
                 >
+                  <option value="">Seleccionar</option>
                   {detalleProducto.map((detalle) => (
                     <>
                       <option
+                 
                         key={detalle.idDetalle}
                         className="text-white text-[22px] text-center font-ralewayFont bg-black hover:bg-[#004643]  h-auto w-[50px]"
+                        value={detalle.talla}
                       >
                         {detalle.talla}
                       </option>
@@ -241,7 +254,8 @@ function ProductoDetalle() {
               </div>
 
               <button
-                className="bg-[#004643] text-[30px] font-ralewayFont text-white rounded-[5px] mt-10 w-[300px]"
+                className="bg-[#004643] text-[30px] font-ralewayFont text-white rounded-[5px] mt-10 w-[300px] disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed"
+                disabled={!talla || cantidad <= 0}
                 onClick={agregarCarrito}
               >
                 Agregar al carrito

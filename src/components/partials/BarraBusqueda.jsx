@@ -4,7 +4,7 @@ import {
   buscarProductos,
   buscarProductosCategoria,
 } from "../../services/Producto";
-import { buscarTiendas, getTiendas } from "../../services/Tiendas";
+import { buscarTiendas } from "../../services/Tiendas";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function BarraBusqueda(props) {
@@ -30,6 +30,7 @@ function BarraBusqueda(props) {
           const data = await buscarTiendas(datoBuscar);
           setSugerenciasBusqueda(data);
         }
+      
       }
       mostrarResultados();
     } else {
@@ -77,13 +78,14 @@ function BarraBusqueda(props) {
         {datoBuscar && (
           <div className="bg-[#004643] text-xl h-full text-white w-[1200px] rounded-[2px] font-ralewayFont border-[#004643]  space-y-2 ">
             {sugerenciasBusqueda.map((resultado) => (
+            
               <div>
-                <NavLink to={"/producto/" + resultado.idProducto}>
+                <NavLink to={props.tipoBusqueda === "producto" ? ("/producto/" + resultado.idProducto) : ("/tiendas-asociadas/"+ resultado.nomNegocio)}>
                   <div
-                    key={resultado.idProducto}
+                    key={resultado.idProducto || resultado.idNegocio}
                     className="hover:bg-white hover:text-[#004643] text-left "
                   >
-                    {resultado.nomProducto}
+                    {resultado.nomProducto || resultado.nomNegocio}
                   </div>
                 </NavLink>
               </div>

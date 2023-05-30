@@ -13,7 +13,7 @@ function Tiendas() {
     async function mostrarTiendas() {
       const data = await getTiendas();
       setTiendas(data);
-      console.log(data);
+     
     }
     mostrarTiendas();
   }, []);
@@ -24,20 +24,20 @@ function Tiendas() {
         <Header />
 
         <section className=" flex flex-row mt-12 ">
-          <div>
+          <article className=" ml-5 flex justify-center items-center">
             <NavLink to="/">
               <AiFillHome
-                className="text-[40px] mb-5 ml-[50px]"
+                className="text-[40px] mb-5 "
                 color="004643"
               />
             </NavLink>
-          </div>
+          </article>
           <div className="absolute z-50 items-center flex ml-12 -mt-8 ">
-            <Busqueda placeholder="Buscar por nombre" tipoBusqueda="producto" />
+            <Busqueda placeholder="Buscar por nombre" tipoBusqueda="tienda" />
           </div>
         </section>
 
-        <div className="static mt-[80px]">
+        <section className="static mt-[80px]">
           <h1 className="text-3xl font-ralewayFont font-semibold ml-[35px] ">
             Tiendas Asociadas
           </h1>
@@ -53,7 +53,7 @@ function Tiendas() {
               </>
             ))}
           </div>
-        </div>
+        </section>
       </main>
     </>
   );

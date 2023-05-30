@@ -1,9 +1,8 @@
 import { supabase } from "../supabase/connection";
 const añadirCarrito = "insertar_carrito";
 const getItems = "getcarrito";
-const añadirCompra = "agregarcompra";
-const añadirDetalleCompra = "agregardetallecompra";
 const eliminaproductocarrito = "eliminaritemcarrito";
+const obtenerdirecciones = "obtenerdireccionesproducto";
 
 export const insertarACarrito = async (
   idcliente,
@@ -50,7 +49,8 @@ export const eliminarProducto = async (idproducto, idcliente, talla_p) => {
       idcliente: idcliente,
       talla: talla_p,
     });
-    if(error) throw error;
+    if (error) throw error;
+    console.log(data)
     return data;
   } catch (err) {
     console.log(err);
@@ -58,3 +58,16 @@ export const eliminarProducto = async (idproducto, idcliente, talla_p) => {
 };
 
 export const vaciarCarrito = async () => {};
+
+export const mostrarDireccionesProducto = async (id_producto) => {
+  try {
+    const { data, error } = await supabase.rpc(obtenerdirecciones, {
+      id_producto: id_producto,
+    }).single();
+    if (error) throw error;
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};

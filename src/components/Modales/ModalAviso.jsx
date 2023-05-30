@@ -12,7 +12,8 @@ function ModalAviso(props) {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center ">
-        <section>
+        <section className='flex flex-row'>
+          
           <div
             className={`bg-${props.color} font-mono font-medium rounded-[5px] flex items-center justify-center h-auto w-1/2 ml-10 p-2`}
           >

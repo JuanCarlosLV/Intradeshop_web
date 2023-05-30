@@ -17,7 +17,7 @@ function ResumenCompra() {
   };
 
   const [session, setSession] = useState(null);
-  const [username, setusername] = useState(null);
+  const [idusuario, setIdUsuario] = useState(null);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
@@ -25,21 +25,20 @@ function ResumenCompra() {
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       if (session?.user?.id) {
-        setusername(session.user.id);
+        setIdUsuario(session.user.id);
       }
     });
   }, []);
 
   useEffect(() => {
-    if (username !== "") {
+    if (idusuario) {
       async function getItemsCarrito() {
-        const data = await mostrarArticulos(username);
-        console.log(data);
+        const data = await mostrarArticulos(idusuario);
         setproductosCarrito(data);
       }
       getItemsCarrito();
     }
-  }, [username]);
+  }, [idusuario]);
 
   useEffect(() => {
     if (productosCarrito.length > 0) {
@@ -84,7 +83,7 @@ function ResumenCompra() {
         </section>
 
         <section className="flex flex-col mt-12 items-center">
-          <section className="bg-[#D1AC00] mr-auto ml-[200px] w-[1000px] rounded-[5px] ">
+          <section className="bg-[#D1AC00] mr-auto ml-[150px] w-[1200px] rounded-[5px] ">
             <p className="font-ralewayFont font-bold mt-6 ml-10">
               Resúmen de compra
             </p>
@@ -93,7 +92,7 @@ function ResumenCompra() {
               <p>Total de compra: $ {total} mx</p>
             </div>
           </section>
-          <section className="bg-[#D1AC00] ml-[200px] mr-auto mt-10 w-[1000px] rounded-[5px] justify-center items-center">
+          <section className="bg-[#D1AC00] ml-[150px] mr-auto mt-10 w-[1200px] rounded-[5px] justify-center items-center">
             <p className="font-ralewayFont font-bold mt-6 ml-10">
               Selecciona método de pago
             </p>

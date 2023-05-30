@@ -1,17 +1,30 @@
 import Header from "../components/partials/Header";
+import Modal from "../components/Modales/ConfirmacionAction";
+import ModalAviso from "../components/Modales/ModalAviso";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";
-import { mostrarArticulos } from "../services/Carrito";
+import {
+  mostrarArticulos,
+  mostrarDireccionesProducto,
+  eliminarProducto,
+} from "../services/Carrito";
 
+import { procesoCompra, addDetalle } from "../services/Compra";
+let agregado;
 function ContraEntrega() {
   const [session, setSession] = useState(null);
   const [user, setuser] = useState("");
   const [productosCarrito, setproductosCarrito] = useState([]);
+  const [direccionesProducto, setDireccionesProducto] = useState([]);
   const [total, settotal] = useState(0);
   const [cantidadProductos, setcantidadProductos] = useState(0);
+
+  const [stateModal, setStateModal] = useState(false);
+  const [mostrarModal, setmostrarModal] = useState(false);
+
   const navigate = useNavigate();
   const regresar = () => {
     navigate(-1);
@@ -26,9 +39,10 @@ function ContraEntrega() {
   }, []);
 
   useEffect(() => {
-    if (user !== "") {
+    if (user) {
       async function getItemsCarrito() {
         const data = await mostrarArticulos(user);
+
         setproductosCarrito(data);
       }
       getItemsCarrito();
@@ -51,6 +65,66 @@ function ContraEntrega() {
       settotal(0);
     }
   }, [productosCarrito]);
+
+  useEffect(() => {
+    if (productosCarrito.length > 0) {
+      async function obtenerDirecciones() {
+        const direcciones = await Promise.all(
+          productosCarrito.map(async (producto) => {
+            const direccion = await mostrarDireccionesProducto(
+              producto.idProducto
+            );
+            return direccion;
+          })
+        );
+        setDireccionesProducto(direcciones);
+      }
+      obtenerDirecciones();
+    }
+  }, [productosCarrito]);
+
+  const realizarCompra = async (evt) => {
+    evt.preventDefault();
+
+    if (productosCarrito.length > 0) {
+      const data = await procesoCompra(user, total, "proceso");
+
+      console.log(data);
+      if (data) {
+        setmostrarModal(true);
+        productosCarrito.map((producto) => {
+          addDetalle(
+            data,
+            producto.idProducto,
+            producto.nombreProducto,
+            producto.cantidad,
+            producto.tallaProducto,
+            producto.subtotal,
+            producto.imagenProducto
+          );
+
+          eliminarProducto(producto.idProducto, user, producto.tallaProducto);
+        });
+       
+        setStateModal(false);
+
+        agregado = true;
+      } else {
+        agregado = false;
+      }
+    }
+  };
+
+  const handleShowModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(true);
+  };
+  const handleCloseModal = () => {
+    setStateModal(false);
+  };
+  const cerrarModal = () => {
+    setmostrarModal(false);
+  };
   return (
     <>
       <Header />
@@ -81,23 +155,71 @@ function ContraEntrega() {
           </div>
         </section>
 
-        <section className="bg-[#D1AC00] rounded-[5px] flex flex-row items-center justify-center ml-[200px] mr-[200px] space-x-[150px] h-auto w-[1400px] mt-10">
-          <section className="bg-white mt-5 rounded-[5px] items-center justify-center flex flex-col w-[300px] h-[300px] mb-6 font-ralewayFont ">
-            <p className="font-bold text-[20px] mb-10">Resumen de compra</p>
-            <p className="font-semibold text-[16px]" >Cantidad de productos: {cantidadProductos} </p>
-            <p className="font-semibold text-[16px]">Total de compra: $ {total} mx</p>
+        <section className="bg-[#D1AC00] rounded-[5px] flex flex-row items-center justify-start ml-[150px]  space-x-[100px] h-auto w-[1300px] mt-10">
+          <section className="bg-white mt-5 rounded-[5px] items-center ml-[20px]  flex flex-col w-[300px] h-[300px] mb-6 font-ralewayFont ">
+            <p className="font-bold text-[20px] mt-5 mb-10">
+              Resumen de compra
+            </p>
+            <p className="font-semibold text-[16px]">
+              Cantidad de productos: {cantidadProductos}{" "}
+            </p>
+            <p className="font-semibold text-[16px]">
+              Total de compra: $ {total} mx
+            </p>
           </section>
-          <section className="bg-white mt-5 rounded-[5px] items-center  flex flex-col w-[700px] h-[300px] mb-6 font-ralewayFont ">
-            <p className="font-bold text-[20px] mt-5">Lugares de entrega</p>
-            
+          <section className="bg-white mt-5 rounded-[5px] flex flex-col w-[800px] h-auto py-2 mb-6 font-ralewayFont ">
+            <p className="font-bold text-[20px] mt-5 justify-start ml-8">
+              Lugares de entrega
+            </p>
+
+            <section className="flex flex-row justify-between items-center mt-5 ml-8">
+              <section className="font-ralewayFont">
+                <h2 className="text-[20px] font-semibold">Productos</h2>
+                {productosCarrito.map((producto) => (
+                  <>
+                    <h3 className="text-[18px] ">{producto.nombreProducto}</h3>
+                  </>
+                ))}
+              </section>
+
+              <section className=" font-ralewayFont mr-[160px]">
+                <h2 className="text-[20px] font-semibold ">Direcciones</h2>
+                {direccionesProducto.map((direcion) => (
+                  <>
+                    <h3 className="text-[18px] ">{direcion}</h3>
+                  </>
+                ))}
+              </section>
+            </section>
           </section>
         </section>
 
         <section className="flex items-center justify-end">
-          <button className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]">
+          <button
+            className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]"
+            onClick={handleShowModal}
+          >
             Pagar
           </button>
         </section>
+        {mostrarModal && (
+          <Modal
+            mensaje={
+              agregado
+                ? "Se realizo con exito tu compra, no olvides pasar recogerlo"
+                : "No se pudo realizar tu compra, intenta de nuevo"
+            }
+            color={agregado ? "green-600" : "red-600"}
+            cerrarModal={cerrarModal}
+          />
+        )}
+        <Modal
+          mostrarModal={stateModal}
+          titulo={"Confirmar Compra"}
+          cuerpo={"¿Estas seguro de realizar la compra?"}
+          cancelar={handleCloseModal}
+          confirmar={realizarCompra}
+        />
       </main>
     </>
   );

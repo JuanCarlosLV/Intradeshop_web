@@ -22,6 +22,7 @@ export const buscarTiendas = async (nombrenegocio) => {
       nombre_negocio: nombrenegocio,
     });
     if (error) console.log(error);
+    console.log(data)
     return data;
   } catch (err) {
     console.log(err);
