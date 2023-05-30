@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../Modales/ModalAviso";
 import { eliminarProducto } from "../../services/Carrito";
+let eliminado;
 function ItemCarrito(props) {
-  let eliminado;
   const [mostrarModal, setmostrarModal] = useState(false);
   const eliminarItem = async () => {
-    const { data, error } = await eliminarProducto(
+    const data = await eliminarProducto(
       props.idproducto,
       props.idcliente,
       props.talla
     );
-    console.log(data)
     setmostrarModal(true);
-
     if (data) {
       eliminado = true;
     } else {
@@ -70,21 +68,18 @@ function ItemCarrito(props) {
           >
             Eliminar
           </button>
-          {mostrarModal &&
-            (eliminado ? (
-              <Modal
-                mensaje="Se elimanado producto del carrito"
-                color="green-600"
-                cerrarModal={cerrarModal}
-              />
-            ) : (
-              <Modal
-                mensaje="No se pudo eliminar el producto"
-                color="green-600"
-                cerrarModal={cerrarModal}
-              />
-            ))}
         </article>
+        {mostrarModal && (
+          <Modal
+            mensaje={
+              eliminado
+                ? "Se eliminó el producto del carrito"
+                : "No se pudo eliminar el producto"
+            }
+            color={eliminado ? "green-600" : "red-600"}
+            cerrarModal={cerrarModal}
+          />
+        )}
       </section>
     </>
   );

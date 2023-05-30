@@ -3,8 +3,6 @@ import Item from "./partials/ItemCarrito";
 
 import { mostrarArticulos} from "../services/Carrito";
 
-//prueba de compra
-import { procesoCompra, addDetalle } from "../services/Compra";
 
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";

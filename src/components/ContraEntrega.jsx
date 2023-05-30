@@ -1,4 +1,6 @@
 import Header from "../components/partials/Header";
+import Modal from '../components/Modales/ConfirmacionAction'
+import ModalAviso from '../components/Modales/ModalAviso'
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
@@ -18,6 +20,9 @@ function ContraEntrega() {
   const [direccionesProducto, setDireccionesProducto] = useState([]);
   const [total, settotal] = useState(0);
   const [cantidadProductos, setcantidadProductos] = useState(0);
+
+  const [stateModal, setStateModal] = useState(false);
+
   const navigate = useNavigate();
   const regresar = () => {
     navigate(-1);
@@ -32,7 +37,7 @@ function ContraEntrega() {
   }, []);
 
   useEffect(() => {
-    if (user !== "") {
+    if (user) {
       async function getItemsCarrito() {
         const data = await mostrarArticulos(user);
         
@@ -76,7 +81,7 @@ function ContraEntrega() {
     }
   }, [productosCarrito]);
 
-  const añadirCompra = async (evt) => {
+  const realizarCompra = async (evt) => {
     evt.preventDefault();
 
     if (productosCarrito.length > 0) {
@@ -99,6 +104,14 @@ function ContraEntrega() {
         console.log("erorr");
       }
     }
+  };
+
+  const handleShowModal = (evt) => {
+    evt.preventDefault();
+    setStateModal(true);
+  };
+  const handleCloseModal = () => {
+    setStateModal(false);
   };
 
   return (
@@ -171,10 +184,13 @@ function ContraEntrega() {
         </section>
 
         <section className="flex items-center justify-end">
-          <button className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]">
+          <button className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] mt-5 mr-[100px]" onClick={handleShowModal}>
             Pagar
           </button>
         </section>
+
+        <Modal  mostrarModal={stateModal} titulo={"Confirmar Compra"} cuerpo={"¿Estas seguro de realizar la compra?"} cancelar={handleCloseModal}
+        confirmar={realizarCompra}/>
       </main>
     </>
   );

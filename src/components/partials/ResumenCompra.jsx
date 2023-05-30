@@ -17,7 +17,7 @@ function ResumenCompra() {
   };
 
   const [session, setSession] = useState(null);
-  const [username, setusername] = useState(null);
+  const [idusuario, setIdUsuario] = useState(null);
 
   useEffect(() => {
     setSession(supabase.auth.getSession());
@@ -25,20 +25,20 @@ function ResumenCompra() {
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       if (session?.user?.id) {
-        setusername(session.user.id);
+        setIdUsuario(session.user.id);
       }
     });
   }, []);
 
   useEffect(() => {
-    if (username !== "") {
+    if (idusuario) {
       async function getItemsCarrito() {
-        const data = await mostrarArticulos(username);
+        const data = await mostrarArticulos(idusuario);
         setproductosCarrito(data);
       }
       getItemsCarrito();
     }
-  }, [username]);
+  }, [idusuario]);
 
   useEffect(() => {
     if (productosCarrito.length > 0) {

@@ -50,6 +50,7 @@ export const eliminarProducto = async (idproducto, idcliente, talla_p) => {
       talla: talla_p,
     });
     if (error) throw error;
+    console.log(data)
     return data;
   } catch (err) {
     console.log(err);
