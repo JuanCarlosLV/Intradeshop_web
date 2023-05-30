@@ -135,56 +135,6 @@ function CategoriaProducts() {
             />
           </div>
 
-          <button
-            type="button"
-            id="opciones-menu"
-            aria-haspopup="true"
-            aria-expanded="true"
-            onClick={handleOpenButton}
-            className="mr-[100px] h-1 mt-12 bg-black"
-          >
-            {isOpen ? (
-              <>
-                <section className="flex flex-col fixed -mt-[15px] -ml-[36px] mb-[10px]  ">
-                  <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
-                    <IoMdOptions
-                      className="text-4xl mt-2 mb-3 ml-[10px]"
-                      color="white"
-                    />
-                    <p className="ml-2 text-white font-ralewayFont font-semibold text-xl ">
-                      Filtros
-                    </p>
-                  </div>
-
-                  <div className="bg-[#004643] font-ralewayFont font-light text-[20px] text-white  w-[130px] -ml-[18px] rounded-[5px] rounded-t-none ">
-                    <lu className="list-none">
-                      <li className="hover:bg-white hover:text-[#004643]">
-                        Talla
-                      </li>
-                      <li className="hover:bg-white hover:text-[#004643]">
-                        Precio
-                      </li>
-                      <li className="hover:bg-white hover:text-[#004643]">
-                        Valoracion
-                      </li>
-                    </lu>
-                  </div>
-                </section>
-              </>
-            ) : (
-              <>
-                <div className="rounded-[5px] bg-[#004643] -ml-5 -mt-3 w-[130px] h-[45px] flex  flex-row items-center ">
-                  <IoMdOptions
-                    className="text-4xl mt-2 mb-3 ml-[10px]"
-                    color="white"
-                  />
-                  <p className="ml-2 text-white font-ralewayFont font-semibold text-xl ">
-                    Filtros
-                  </p>
-                </div>
-              </>
-            )}
-          </button>
         </div>
 
         {/* Despliegue de los productos */}
