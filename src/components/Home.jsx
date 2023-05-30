@@ -1,5 +1,4 @@
 import HeaderBase from "./partials/Header";
-import Footer from './partials/Footer'
 import BarraBusqueda from "./partials/BarraBusqueda";
 import Carousel from "./partials/CarruselCategorias";
 import { supabase } from "../supabase/connection";
@@ -87,9 +86,7 @@ function Home() {
             ))}
           </section>
 
-          <footer className="mt-[40px]">
-            <Footer/>
-          </footer>
+         
         </section>
       </main>
     </>

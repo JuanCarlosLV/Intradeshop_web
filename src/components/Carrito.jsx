@@ -1,7 +1,7 @@
 import Header from "../components/partials/Header";
 import Item from "./partials/ItemCarrito";
 
-import { mostrarArticulos, eliminarProducto } from "../services/Carrito";
+import { mostrarArticulos} from "../services/Carrito";
 
 //prueba de compra
 import { procesoCompra, addDetalle } from "../services/Compra";
@@ -9,7 +9,7 @@ import { procesoCompra, addDetalle } from "../services/Compra";
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/connection";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { BsArrowLeftCircleFill, BsFillCartFill } from "react-icons/bs";
+import { BsArrowLeftCircleFill, BsFillCartFill, BsCartXFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { RiErrorWarningFill } from "react-icons/ri";
 
@@ -18,6 +18,7 @@ function Carrito() {
   const [session, setSession] = useState(null);
   const [user, setuser] = useState("");
   const [productosCarrito, setproductosCarrito] = useState([]);
+  const [habilitarProceso, setHabilitarProceso] = useState(false);
   const [total, settotal] = useState(0);
 
   useEffect(() => {
@@ -44,8 +45,10 @@ function Carrito() {
         (total, producto) => total + producto.subtotal,
         0
       );
+      setHabilitarProceso(true);
       settotal(costototal);
     } else {
+      setHabilitarProceso(false);
       settotal(0);
     }
   }, [productosCarrito]);
@@ -54,30 +57,7 @@ function Carrito() {
     navigate(-1);
   };
 
-  const añadirCompra = async (evt) => {
-    evt.preventDefault();
 
-    if (productosCarrito.length > 0) {
-      const data = await procesoCompra(user, total, "proceso");
-      console.log(data);
-      if (data) {
-        productosCarrito.map((producto) => {
-          addDetalle(
-            data,
-            producto.idProducto,
-            producto.nombreProducto,
-            producto.cantidad,
-            producto.tallaProducto,
-            producto.subtotal,
-            producto.imagenProducto
-          );
-        });
-        console.log("agregado");
-      } else {
-        console.log("erorr");
-      }
-    }
-  };
 
   return (
     <>
@@ -105,42 +85,59 @@ function Carrito() {
 
       {session != null ? (
         <>
-          <section className="flex flex-col mt-5">
-            <article className="ml-7 mb-5">
-              <h1 className="font-ralewayFont font-semibold text-3xl">
-                Productos
-              </h1>
-            </article>
-            {productosCarrito.map((item) => (
-              <>
-                <section className="flex flex-col">
-                  <Item
-                    idproducto={item.idProducto}
-                    imagen={item.imagenProducto}
-                    nombreProducto={item.nombreProducto}
-                    cantidad={item.cantidad}
-                    talla={item.tallaProducto}
-                    subtotal={item.subtotal}
-                    idcliente={user}
-                  />
-                </section>
-              </>
-            ))}
+          {productosCarrito.length > 0 ? (
+            <>
+              <section className="flex flex-col mt-5">
+                <article className="ml-7 mb-5">
+                  <h1 className="font-ralewayFont font-semibold text-3xl">
+                    Productos
+                  </h1>
+                </article>
+                {productosCarrito.map((item) => (
+                  <>
+                    <section className="flex flex-col">
+                      <Item
+                        idproducto={item.idProducto}
+                        imagen={item.imagenProducto}
+                        nombreProducto={item.nombreProducto}
+                        cantidad={item.cantidad}
+                        talla={item.tallaProducto}
+                        subtotal={item.subtotal}
+                        idcliente={user}
+                      />
+                    </section>
+                  </>
+                ))}
 
-            <section className="bg-[#FAF4D3] flex flex-row mb-4 justify-end mr-7 ml-[28px] items-center h-[60px]">
-              <p className="font-ralewayFont font-semibold text-[23px] mr-5">
-                Total de compra: <strong>$ {total} mx</strong>
-              </p>
+                <section className="bg-[#FAF4D3] flex flex-row mb-4 justify-end mr-7 ml-[28px] items-center h-[60px]">
+                  <p className="font-ralewayFont font-semibold text-[23px] mr-5">
+                    Total de compra: <strong>$ {total} mx</strong>
+                  </p>
+                </section>
+              </section>
+              <section className="flex flex-row mb-5 justify-end mr-7">
+                <NavLink
+                  to="/proceso-pago"
+                  className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48] "
+                >
+                  Procesar compra
+                </NavLink>
+              </section>
+            </>
+          ) : (
+            <>
+            <section className="flex flex-row mt-[100px] ml-[500px] justify-center items-center bg-gray-400 rounded-[6px]
+            w-[700px] h-[200px]  ">
+              <article>
+                <BsCartXFill color="black" className="text-[70px]"/>
+              </article>
+              <article className="ml-4 font-ralewayFont font-bold">
+                <h2 className="text-[20px] ">No tienes ningun producto agregado en el carrito</h2>
+              </article>
+
             </section>
-          </section>
-          <section className="flex flex-row mb-5 justify-end mr-7">
-            <NavLink
-              to="/proceso-pago"
-              className="rounded-[3px] bg-[#004643] flex justify-center items-center font-ralewayFont text-[23px] w-[230px] h-[46px] text-white hover:bg-[#014c48]"
-            >
-              Procesar compra
-            </NavLink>
-          </section>
+            </>
+          )}
         </>
       ) : (
         <>

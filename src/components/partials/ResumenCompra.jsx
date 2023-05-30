@@ -34,7 +34,6 @@ function ResumenCompra() {
     if (username !== "") {
       async function getItemsCarrito() {
         const data = await mostrarArticulos(username);
-        console.log(data);
         setproductosCarrito(data);
       }
       getItemsCarrito();
@@ -84,7 +83,7 @@ function ResumenCompra() {
         </section>
 
         <section className="flex flex-col mt-12 items-center">
-          <section className="bg-[#D1AC00] mr-auto ml-[200px] w-[1000px] rounded-[5px] ">
+          <section className="bg-[#D1AC00] mr-auto ml-[150px] w-[1200px] rounded-[5px] ">
             <p className="font-ralewayFont font-bold mt-6 ml-10">
               Resúmen de compra
             </p>
@@ -93,7 +92,7 @@ function ResumenCompra() {
               <p>Total de compra: $ {total} mx</p>
             </div>
           </section>
-          <section className="bg-[#D1AC00] ml-[200px] mr-auto mt-10 w-[1000px] rounded-[5px] justify-center items-center">
+          <section className="bg-[#D1AC00] ml-[150px] mr-auto mt-10 w-[1200px] rounded-[5px] justify-center items-center">
             <p className="font-ralewayFont font-bold mt-6 ml-10">
               Selecciona método de pago
             </p>
