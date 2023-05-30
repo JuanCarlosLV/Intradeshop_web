@@ -165,7 +165,7 @@ export const darDeBajaNegocio = async (idBussiness) => {
 //enviar el correo despues de dar de baja
 export const enviarCorreo = async (form) => {
   try {
-    const result = await emailjs.sendForm(serviceID, templateID, form, apiKey);
+    const result = await emailjs.sendForm(serviceID, templateID,form, apiKey);
     console.log(result);
   } catch (error) {
     console.log(error);

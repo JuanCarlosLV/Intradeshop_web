@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ConfirmacionAction from "../Modales/ConfirmacionAction";
 import {
   enviarCorreo,
@@ -11,6 +11,7 @@ import { NavLink, useParams } from "react-router-dom";
 function UnsubscribeNegocio() {
 
   const { id } = useParams();
+  const form = useRef();
   const [stateModal, setStateModal] = useState(false);
   const [negocioData, setNegocioData] = useState({
     bussinessname: "",
@@ -38,15 +39,14 @@ function UnsubscribeNegocio() {
   };
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const form = evt.target;
-    enviarCorreo(form);
-    //darDeBajaNegocio(id);
+    enviarCorreo(form.current);
+    darDeBajaNegocio(id);
   };
 
   return (
     <>
       <div>
-        <form form="miFormulario" onSubmit={handleShowModal}>
+        <form ref={form} onSubmit={handleShowModal}>
           <div className="flex justify-between my-4">
             <NavLink to="/home-administrador">
               <BsFillArrowLeftCircleFill
@@ -55,7 +55,7 @@ function UnsubscribeNegocio() {
               />
             </NavLink>
             <h1 className="font-ralewayFont font-bold text-3xl text-white ml-20 mr-auto bg-[#004643]  border-[#004643] focus:border-[#004643] py-2 px-60 rounded-md">
-              Dar baja tienda {id}
+              Dar baja tienda
             </h1>
           </div>
 
