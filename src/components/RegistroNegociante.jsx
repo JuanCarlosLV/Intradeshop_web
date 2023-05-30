@@ -10,6 +10,7 @@ function RegistroNegociante() {
   const [mostrarContraseñaConfirmada, setMostrarContraseñaConfirmada] =
     useState(false);
   const navigate = useNavigate();
+  const [checkboxSelected, setCheckboxSelected] = useState(true);
   const [formValues, setFormValues] = useState({
     nombreNegocio: "",
     numeroTelefono: "",
@@ -44,6 +45,10 @@ function RegistroNegociante() {
 
   const botonMostrarContraseñaConfirmada = () => {
     setMostrarContraseñaConfirmada(!mostrarContraseñaConfirmada);
+  };
+
+  const handleSelectCheckbox = () => {
+    setCheckboxSelected(!checkboxSelected);
   };
 
   const handleSubmit = async (evt) => {
@@ -252,9 +257,22 @@ function RegistroNegociante() {
                   )}
                 </button>
               </div>
+              <article className="font-ralewayFont flex flex-row justify-start items-center space-x-2">
+                <input
+                  type="checkbox"
+                  className="border-[#004643] border-[2px] focus:outline-[#004643] focus:border-[#004643] transition-colors duration-300 ease-in-out checked:bg-[#004643]"
+                  onClick={handleSelectCheckbox}
+                />
+                <NavLink
+                  to="/terminos-condiciones"
+                  className="text-[18px] text-[#004643] font-semibold"
+                >
+                  Acepto terminos y condiciones
+                </NavLink>
+              </article>
 
               <div className="px-96 ml-48 py-2 ">
-                <button className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8">
+                <button  disabled={checkboxSelected} className="hover:bg-black rounded-md bg-[#004643] py-3 px-10  font-semibold text-white  font-ralewayFont m-8 disabled:bg-slate-500 disabled:hover:bg-slate-500 disabled:cursor-not-allowed">
                   Registrar
                 </button>
               </div>
