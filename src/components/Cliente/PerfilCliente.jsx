@@ -87,15 +87,7 @@ function PerfilCliente(props) {
                 </summary>
                 <section className="flex flex-col bg-[#004643] rounder-[5px]">
                   <article className=" font-ralewayFont  text-white text-[18px]">
-                    {compras.map((compra) => (
-                      <>
-                        <article className="">
-                          <p>{compra.idCompra}</p>
-                          <p>{compra.totalCompra}</p>
-                          <p>{compra.Status}</p>
-                        </article>
-                      </>
-                    ))}
+                    
                   </article>
                 </section>
               </details>
